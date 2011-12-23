@@ -11,10 +11,10 @@ The Command-T plugin requires Vim with Ruby support enabled. Install the `vim-gn
 
 1. Clone the repository.
 
-`git clone git://github.com/wting/dotvim.git ~/.vim`
+	git clone git://github.com/wting/dotvim.git ~/.vim
 
 2. Create the new .vimrc file.
 
-`ln -s ~/.vim/vimrc ~/.vimrc`
+	ln -s ~/.vim/vimrc ~/.vimrc
 
 Enjoy!
