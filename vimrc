@@ -205,6 +205,9 @@ let g:indent_guides_guide_size = 1
 " set list
 " set listchars=tab:→\
 
+"for localvimrc
+let g:localvimrc_ask=0
+
 "for Gundo
 nnoremap <F5> :GundoToggle<CR>
 
