@@ -1,4 +1,4 @@
-" Customized by: i.am @ WilliamTing.com
+" Customized by: william.h.ting at gmail.com
 "
 " Sections:
 "    -> General
