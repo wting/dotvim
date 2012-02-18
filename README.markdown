@@ -5,9 +5,19 @@ My personal .vimrc and collection of plugins and themes.
 
 ### Requirements
 
-The Command-T plugin requires Vim with Ruby support enabled. Install the `vim-gnome` package using your package manager of choice. For more info, refer to the [plugin page](http://www.vim.org/scripts/script.php?script_id=3025).
+The Command-T plugin requires Vim with Ruby support. Installing `gvim` or `vim-gnome` package will usually solve this problem. For more info, refer to the [plugin page](http://www.vim.org/scripts/script.php?script_id=3025).
 
-### Manual Setup
+### Automatic Method
+
+via `curl`
+
+`curl -L https://github.com/wting/dotvim/raw/master/install.sh | sh`
+
+via `wget`
+
+`wget --no-check-certificate https://github.com/wting/dotvim/raw/master/tools/install.sh -O - | sh`
+
+### Manual Method
 
 1. Clone the repository.
 
