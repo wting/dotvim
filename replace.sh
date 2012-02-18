@@ -23,13 +23,13 @@ while true; do
 done
 
 echo -e "\nRemoving existing vim related files ...\n"
-if [ -d ~/.vim ]; then
-	rm -rf ~/.vim/ 2>/dev/null
-elif [ -h ~/.vim ]; then
-	rm ~/.vim/ 2>/dev/null
+if [ -h ~/.vim ]; then
+	rm ~/.vim
+elif [ -d ~/.vim ]; then
+	rm -rf ~/.vim
 fi
 if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
-	rm ~/.vimrc 2>/dev/null
+	rm ~/.vimrc
 fi
 
 echo -e "\nCloning dotvim repository into ~/.vim/ ...\n"
