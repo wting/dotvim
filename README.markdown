@@ -13,9 +13,9 @@ via `curl`, backing up existing customizations:
 
 `curl -L https://github.com/wting/dotvim/raw/master/install.sh | sh`
 
-via `wget`, removing existing customizations:
+via `curl`, replacing existing customizations:
 
-`wget --no-check-certificate https://github.com/wting/dotvim/raw/master/install.sh -O ./install.sh && ./install.sh -r && rm ./install.sh`
+`curl -L https://github.com/wting/dotvim/raw/master/replace.sh | sh`
 
 ### Manual Method
 
