@@ -22,20 +22,12 @@ while true; do
 	esac
 done
 
-if [ ${replace} ]; then
+if [ -d ~/.vim ]; then
+	echo -e "\nRemoving existing vim related files ...\n"
 	rm -rf ~/.vim/ 2>/dev/null
+fi
+if [ -f ~/.vimrc ]; then
 	rm ~/.vimrc 2>/dev/null
-else
-	timestamp=`/usr/bin/env date +%s`
-	if [ -d ~/.vim ] || [ -h ~/.vim ]; then
-		echo -e "\nExisting ~/.vim/, moving to backup location ...\n"
-		mv -v ~/.vim ~/.vim-backup-${timestamp}
-	fi
-
-	if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
-		echo -e "\nExisting ~/.vimrc, moving to backup location ...\n"
-		mv -v ~/.vimrc ~/.vimrc-backup-${timestamp}
-	fi
 fi
 
 echo -e "\nCloning dotvim repository into ~/.vim/ ...\n"
