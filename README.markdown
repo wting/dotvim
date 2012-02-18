@@ -5,11 +5,11 @@ My personal .vimrc and collection of plugins and themes.
 
 ### Automatic Method
 
-via `curl`, backing up existing customizations:
+Backing up existing customizations:
 
 `curl -L https://github.com/wting/dotvim/raw/master/install.sh | sh`
 
-via `curl`, replacing existing customizations:
+Replacing existing customizations:
 
 `curl -L https://github.com/wting/dotvim/raw/master/replace.sh | sh`
 
