@@ -23,8 +23,8 @@ while true; do
 done
 
 if [ ${replace} ]; then
-	rm -rfv ~/.vim/ 2>/dev/null
-	rm -v ~/.vimrc 2>/dev/null
+	rm -rf ~/.vim/ 2>/dev/null
+	rm ~/.vimrc 2>/dev/null
 else
 	timestamp=`/usr/bin/env date +%s`
 	if [ -d ~/.vim ] || [ -h ~/.vim ]; then
@@ -39,7 +39,7 @@ else
 fi
 
 echo -e "\nCloning dotvim repository into ~/.vim/ ...\n"
-if [ `whoami` == "ting" ]; then
+if [ `whoami` = "ting" ]; then
 	# private read/write repo
 	/usr/bin/env git clone git@github.com:wting/dotvim.git ~/.vim/
 else
