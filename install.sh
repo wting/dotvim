@@ -1,14 +1,41 @@
 #!/usr/bin/env sh
 
-timestamp=`/usr/bin/env date +%s`
-if [ -d ~/.vim ] || [ -h ~/.vim ]; then
-	echo -e "\nExisting ~/.vim/, moving to backup location ...\n"
-	mv -v ~/.vim ~/.vim-backup-${timestamp}
-fi
+replace=
 
-if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
-	echo -e "\nExisting ~/.vimrc, moving to backup location ...\n"
-	mv -v ~/.vimrc ~/.vimrc-backup-${timestamp}
+# Command line parsing
+while true; do
+	case "${1}" in
+		-r|--replace)
+			replace=true
+			;;
+		--)
+			shift
+			break
+			;;
+		-*)
+			echo "Invalid option: ${1}" 1>&2;
+			exit 1
+			;;
+		*)
+			break
+			;;
+	esac
+done
+
+if [ ${replace} ]; then
+	rm -rfv ~/.vim/ 2>/dev/null
+	rm -v ~/.vimrc 2>/dev/null
+else
+	timestamp=`/usr/bin/env date +%s`
+	if [ -d ~/.vim ] || [ -h ~/.vim ]; then
+		echo -e "\nExisting ~/.vim/, moving to backup location ...\n"
+		mv -v ~/.vim ~/.vim-backup-${timestamp}
+	fi
+
+	if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
+		echo -e "\nExisting ~/.vimrc, moving to backup location ...\n"
+		mv -v ~/.vimrc ~/.vimrc-backup-${timestamp}
+	fi
 fi
 
 echo -e "\nCloning dotvim repository into ~/.vim/ ...\n"
