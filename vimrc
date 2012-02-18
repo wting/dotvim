@@ -147,6 +147,9 @@ nnoremap <C-P><C-P> :set invpaste paste?<CR>
 "toggle line numbers
 nnoremap <C-N><C-N> :set invnumber<CR>
 
+" return cursur after using . command
+nmap . .`[
+
 "gvim specific options
 set vb t_vb=
 set guioptions-=T
