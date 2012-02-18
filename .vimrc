@@ -211,6 +211,9 @@ let g:indent_guides_guide_size = 1
 "for localvimrc
 let g:localvimrc_ask=0
 
+" CS Approx
+let g:CSApprox_verbose_level = 0
+
 "for Gundo
 nnoremap <F5> :GundoToggle<CR>
 
