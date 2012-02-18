@@ -63,7 +63,8 @@ endfunction
 
 function! vimwiki#base#subdir(path, filename)"{{{
   let path = expand(a:path)
-  let filename = expand(a:filename)
+  " ensure that we are not fooled by a symbolic link
+  let filename = resolve(expand(a:filename))
   let idx = 0
   while path[idx] ==? filename[idx]
     let idx = idx + 1
@@ -99,7 +100,7 @@ function! vimwiki#base#open_link(cmd, link, ...) "{{{
       if g:vimwiki_dir_link == ''
         call vimwiki#base#edit_file(a:cmd, VimwikiGet('path').a:link)
       else
-        call vimwiki#base#edit_file(a:cmd,
+        call vimwiki#base#edit_file(a:cmd, 
               \ VimwikiGet('path').a:link.
               \ g:vimwiki_dir_link.
               \ VimwikiGet('ext'))
@@ -107,7 +108,7 @@ function! vimwiki#base#open_link(cmd, link, ...) "{{{
     else
       call vimwiki#base#edit_file(a:cmd, VimwikiGet('path').a:link.VimwikiGet('ext'))
     endif
-
+    
     if exists('vimwiki_prev_link')
       let b:vimwiki_prev_link = vimwiki_prev_link
     endif
@@ -155,6 +156,13 @@ function! vimwiki#base#goto(key) "{{{
           \ VimwikiGet('ext'))
 endfunction "}}}
 
+function! vimwiki#base#backlinks() "{{{
+    execute 'lvimgrep "\%(^\|[[:blank:][:punct:]]\)'.
+          \ expand("%:t:r").
+          \ '\([[:blank:][:punct:]]\|$\)" '. 
+          \ escape(VimwikiGet('path').'**/*'.VimwikiGet('ext'), ' ')
+endfunction "}}}
+
 function! s:is_windows() "{{{
   return has("win32") || has("win64") || has("win95") || has("win16")
 endfunction "}}}
@@ -170,7 +178,7 @@ function! s:get_links(pat) "{{{
   " if current wiki is temporary -- was added by an arbitrary wiki file then do
   " not search wiki files in subdirectories. Or it would hang the system if
   " wiki file was created in $HOME or C:/ dirs.
-  if VimwikiGet('temp')
+  if VimwikiGet('temp') 
     let search_dirs = ''
   else
     let search_dirs = '**/'
@@ -390,7 +398,7 @@ function! s:update_wiki_links(old_fname, new_fname) " {{{
   while idx < len(dirs_keys)
     let dir = dirs_keys[idx]
     let new_dir = dirs_vals[idx]
-    call s:update_wiki_links_dir(dir,
+    call s:update_wiki_links_dir(dir, 
           \ new_dir.old_fname, new_dir.new_fname)
     let idx = idx + 1
   endwhile
@@ -431,34 +439,48 @@ function! vimwiki#base#highlight_links() "{{{
   catch
   endtry
 
-  "" use max highlighting - could be quite slow if there are too many wikifiles
+  "
+  " use max highlighting - could be quite slow if there are too many wikifiles
   if VimwikiGet('maxhi')
-    " Every WikiWord is nonexistent
+    " Initially, all links are highlighted as nonexistent
     if g:vimwiki_camel_case
+      " WikiWordURL
       execute 'syntax match VimwikiNoExistsLink /'.g:vimwiki_rxWikiWord.'/ display'
       execute 'syntax match VimwikiNoExistsLinkT /'.g:vimwiki_rxWikiWord.'/ display contained'
     endif
+    " [[PathURL]] or [[PathURL|DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiNoExistsLink /'.g:vimwiki_rxWikiLink1.'/ display contains=VimwikiNoLinkChar'
+    " [[PathURL][DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiNoExistsLink /'.g:vimwiki_rxWikiLink2.'/ display contains=VimwikiNoLinkChar'
 
+    " [[PathURL]] or [[PathURL|DESCRIPTION]] contained
     execute 'syntax match VimwikiNoExistsLinkT /'.g:vimwiki_rxWikiLink1.'/ display contained'
+    " [[PathURL][DESCRIPTION]] contained
     execute 'syntax match VimwikiNoExistsLinkT /'.g:vimwiki_rxWikiLink2.'/ display contained'
 
-    " till we find them in vimwiki's path
+    " Subsequently, links verified on vimwiki's path are highlighted as existing
     call s:highlight_existed_links()
   else
-    " A WikiWord (unqualifiedWikiName)
-    execute 'syntax match VimwikiLink /\<'.g:vimwiki_rxWikiWord.'\>/'
-    " A [[bracketed wiki word]]
+    " All links are highlighted as existing
+    if g:vimwiki_camel_case
+      " WikiWordURL
+      execute 'syntax match VimwikiLink /'.g:vimwiki_rxWikiWord.'/'
+      execute 'syntax match VimwikiLinkT /'.g:vimwiki_rxWikiWord.'/ display contained'
+    endif
+    " [[PathURL]] or [[PathURL|DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiLink /'.g:vimwiki_rxWikiLink1.'/ display contains=VimwikiLinkChar'
+    " [[PathURL][DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiLink /'.g:vimwiki_rxWikiLink2.'/ display contains=VimwikiLinkChar'
 
-    execute 'syntax match VimwikiLinkT /\<'.g:vimwiki_rxWikiWord.'\>/ display contained'
+    " [[PathURL]] or [[PathURL|DESCRIPTION]] contained
     execute 'syntax match VimwikiLinkT /'.g:vimwiki_rxWikiLink1.'/ display contained'
+    " [[PathURL][DESCRIPTION]] contained
     execute 'syntax match VimwikiLinkT /'.g:vimwiki_rxWikiLink2.'/ display contained'
   endif
 
-  execute 'syntax match VimwikiLink `'.g:vimwiki_rxWeblink.'` display contains=@NoSpell'
+  " a) WebURL, b)"DESCRIPTION":WebURL, or c)"DESCRIPTION(MORE)":WebURL
+  execute 'syntax match VimwikiLink `'.g:vimwiki_rxWeblink.'` display contains=@NoSpell,VimwikiLinkRest'
+
 endfunction "}}}
 
 function! s:highlight_existed_links() "{{{
@@ -473,57 +495,73 @@ function! s:highlight_existed_links() "{{{
   for link in links
     if g:vimwiki_camel_case &&
           \ link =~ g:vimwiki_rxWikiWord && !vimwiki#base#is_non_wiki_link(link)
+      " WikiWordURL
       execute 'syntax match VimwikiLink /!\@<!\<'.link.'\>/ display'
     endif
+    " [[PathURL]] or [[PathURL|DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiLink /\[\['.
           \ escape(vimwiki#base#unsafe_link(link), '~&$.*').
           \ '\%(|\+.\{-}\)\{-}\]\]/ display contains=VimwikiLinkChar'
+    " [[PathURL][DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiLink /\[\['.
           \ escape(vimwiki#base#unsafe_link(link), '~&$.*').
           \ '\]\[.\{-1,}\]\]/ display contains=VimwikiLinkChar'
-
+    " [[PathURL]] or [[PathURL|DESCRIPTION]] contained
     execute 'syntax match VimwikiLinkT /\[\['.
           \ escape(vimwiki#base#unsafe_link(link), '~&$.*').
           \ '\%(|\+.\{-}\)\{-}\]\]/ display contained'
+    " [[PathURL][DESCRIPTION]] contained
     execute 'syntax match VimwikiLinkT /\[\['.
           \ escape(vimwiki#base#unsafe_link(link), '~&$.*').
           \ '\]\[.\{-1,}\]\]/ display contained'
   endfor
-  execute 'syntax match VimwikiLink /\[\[.\+\.\%(jpg\|png\|gif\)\%(|\+.*\)*\]\]/ display contains=VimwikiLinkChar'
-  execute 'syntax match VimwikiLink /\[\[.\+\.\%(jpg\|png\|gif\)\]\[.\+\]\]/ display contains=VimwikiLinkChar'
 
+  " [[IMG.(jpg|png|gif)]] or [[IMG.(jpg|png|gif)|DESCRIPTION]] contains VimwikiLinkChar
+  execute 'syntax match VimwikiLink /\[\[.\+\.\%(jpg\|png\|gif\)\%(|\+.*\)*\]\]/ display contains=VimwikiLinkChar'
+  " [[IMG.(jpg|png|gif)][DESCRIPTION]] contains VimwikiLinkChar
+  execute 'syntax match VimwikiLink /\[\[.\+\.\%(jpg\|png\|gif\)\]\[.\+\]\]/ display contains=VimwikiLinkChar'
+  " [[IMG.(jpg|png|gif)]] or [[IMG.(jpg|png|gif)|DESCRIPTION]] contained
   execute 'syntax match VimwikiLinkT /\[\[.\+\.\%(jpg\|png\|gif\)\%(|\+.*\)*\]\]/ display contained'
+  " [[IMG.(jpg|png|gif)][DESCRIPTION]] contained
   execute 'syntax match VimwikiLinkT /\[\[.\+\.\%(jpg\|png\|gif\)\]\[.\+\]\]/ display contained'
 
   " Issue 103: Always highlight links to non-wiki files as existed.
-  execute 'syntax match VimwikiLink /\[\[.\+\.\%('.
-        \join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
-        \'\)\%(|\+.*\)*\]\]/ display contains=VimwikiLinkChar'
-  execute 'syntax match VimwikiLink /\[\[.\+\.\%('.
-        \join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
-        \'\)\]\[.\+\]\]/ display contains=VimwikiLinkChar'
 
+  " [[FILE]] or [[FILE.(ext)|DESCRIPTION]] contains VimwikiLinkChar
+  execute 'syntax match VimwikiLink /\[\[.\+\.\%('.
+        \ join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
+        \ '\)\%(|\+.*\)*\]\]/ display contains=VimwikiLinkChar'
+  " [[FILE.(ext)][DESCRIPTION]] contains VimwikiLinkChar
+  execute 'syntax match VimwikiLink /\[\[.\+\.\%('.
+        \ join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
+        \ '\)\]\[.\+\]\]/ display contains=VimwikiLinkChar'
+  " [[FILE]] or [[FILE.(ext)|DESCRIPTION]] contained
   execute 'syntax match VimwikiLinkT /\[\[.\+\.\%('.
-        \join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
-        \'\)\%(|\+.*\)*\]\]/ display contained'
+        \ join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
+        \ '\)\%(|\+.*\)*\]\]/ display contained'
+  " [[FILE.(ext)][DESCRIPTION]] contained
   execute 'syntax match VimwikiLinkT /\[\[.\+\.\%('.
-        \join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
-        \'\)\]\[.\+\]\]/ display contained'
+        \ join(split(g:vimwiki_file_exts, '\s*,\s*'), '\|').
+        \ '\)\]\[.\+\]\]/ display contained'
 
   " highlight dirs
   let dirs = s:get_links('*/')
   call map(dirs, 'substitute(v:val, os_p, os_p2, "g")')
   for dir in dirs
+    " [[DIR]] or [[DIR|DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiLink /\[\['.
           \ escape(vimwiki#base#unsafe_link(dir), '~&$.*').
           \ '[/\\]*\%(|\+.*\)*\]\]/ display contains=VimwikiLinkChar'
+    " [[DIR][DESCRIPTION]] contains VimwikiLinkChar
     execute 'syntax match VimwikiLink /\[\['.
           \ escape(vimwiki#base#unsafe_link(dir), '~&$.*').
           \ '[/\\]*\%(\]\[\+.*\)*\]\]/ display contains=VimwikiLinkChar'
 
+    " [[DIR]] or [[DIR|DESCRIPTION]] contained
     execute 'syntax match VimwikiLinkT /\[\['.
           \ escape(vimwiki#base#unsafe_link(dir), '~&$.*').
           \ '[/\\]*\%(|\+.*\)*\]\]/ display contained'
+    " [[DIR][DESCRIPTION]] contained
     execute 'syntax match VimwikiLinkT /\[\['.
           \ escape(vimwiki#base#unsafe_link(dir), '~&$.*').
           \ '[/\\]*\%(\]\[\+.*\)*\]\]/ display contained'
@@ -579,12 +617,12 @@ function! vimwiki#base#nested_syntax(filetype, start, end, textSnipHl) abort "{{
   " regular one.
   " Perl syntax file has perlFunctionName which is usually has no effect due to
   " 'contained' flag. Now we have 'syntax include' that makes all the groups
-  " included as 'contained' into specific group.
+  " included as 'contained' into specific group. 
   " Here perlFunctionName (with quite an angry regexp "\h\w*[^:]") clashes with
   " the rest syntax rules as now it has effect being really 'contained'.
   " Clear it!
   if ft =~ 'perl'
-    syntax clear perlFunctionName
+    syntax clear perlFunctionName 
   endif
 endfunction "}}}
 
@@ -601,7 +639,7 @@ function! vimwiki#base#find_prev_link() "{{{
 endfunction
 " }}}
 
-function! vimwiki#base#follow_link(split) "{{{
+function! vimwiki#base#follow_link(split, ...) "{{{
   if a:split == "split"
     let cmd = ":split "
   elseif a:split == "vsplit"
@@ -618,7 +656,11 @@ function! vimwiki#base#follow_link(split) "{{{
     if weblink != ""
       call VimwikiWeblinkHandler(escape(weblink, '#'))
     else
-      execute "normal! \n"
+      if a:0 > 0
+        execute "normal! ".a:1
+      else
+        execute "normal! \n"
+      endif
     endif
     return
   endif
@@ -783,7 +825,7 @@ function! vimwiki#base#TO_header(inner, visual) "{{{
   if !search('^\(=\+\).\+\1\s*$', 'bcW')
     return
   endif
-
+  
   let sel_start = line("'<")
   let sel_end = line("'>")
   let block_start = line(".")
@@ -791,7 +833,7 @@ function! vimwiki#base#TO_header(inner, visual) "{{{
 
   let level = vimwiki#base#count_first_sym(getline('.'))
 
-  let is_header_selected = sel_start == block_start
+  let is_header_selected = sel_start == block_start 
         \ && sel_start != sel_end
 
   if a:visual && is_header_selected
@@ -887,7 +929,7 @@ function! vimwiki#base#TO_table_cell(inner, visual) "{{{
 endfunction "}}}
 
 function! vimwiki#base#TO_table_col(inner, visual) "{{{
-  let t_rows = vimwiki_tbl#get_rows(line('.'))
+  let t_rows = vimwiki#tbl#get_rows(line('.'))
   if empty(t_rows)
     return
   endif
@@ -1008,21 +1050,27 @@ endfunction "}}}
 function! vimwiki#base#AddHeaderLevel() "{{{
   let lnum = line('.')
   let line = getline(lnum)
-
+  let rxHdr = g:vimwiki_rxH
   if line =~ '^\s*$'
     return
   endif
 
-  if line =~ '^\s*\(=\+\).\+\1\s*$'
+  if line =~ g:vimwiki_rxHeader
     let level = vimwiki#base#count_first_sym(line)
     if level < 6
-      let line = substitute(line, '\(=\+\).\+\1', '=&=', '')
+      if g:vimwiki_symH
+        let line = substitute(line, '\('.rxHdr.'\+\).\+\1', rxHdr.'&'.rxHdr, '')
+      else
+        let line = substitute(line, '\('.rxHdr.'\+\).\+', rxHdr.'&', '')
+      endif
       call setline(lnum, line)
     endif
   else
-      let line = substitute(line, '^\s*', '&= ', '')
-      let line = substitute(line, '\s*$', ' =&', '')
-      call setline(lnum, line)
+    let line = substitute(line, '^\s*', '&'.rxHdr.' ', '') 
+    if g:vimwiki_symH
+      let line = substitute(line, '\s*$', ' '.rxHdr.'&', '')
+    endif
+    call setline(lnum, line)
   endif
 endfunction
 "}}}
@@ -1030,24 +1078,31 @@ endfunction
 function! vimwiki#base#RemoveHeaderLevel() "{{{
   let lnum = line('.')
   let line = getline(lnum)
-
+  let rxHdr = g:vimwiki_rxH
   if line =~ '^\s*$'
     return
   endif
 
-  if line =~ '^\s*\(=\+\).\+\1\s*$'
+  if line =~ g:vimwiki_rxHeader
     let level = vimwiki#base#count_first_sym(line)
-    let old = repeat('=', level)
-    let new = repeat('=', level - 1)
+    let old = repeat(rxHdr, level)
+    let new = repeat(rxHdr, level - 1)
 
-    let chomp = line =~ '=\s'
+    let chomp = line =~ rxHdr.'\s'
 
-    let line = substitute(line, old, new, 'g')
+    if g:vimwiki_symH
+      let line = substitute(line, old, new, 'g')
+    else
+      let line = substitute(line, old, new, '')
+    endif
 
     if level == 1 && chomp
       let line = substitute(line, '^\s', '', 'g')
       let line = substitute(line, '\s$', '', 'g')
     endif
+
+    let line = substitute(line, '\s*$', '', '')
+
     call setline(lnum, line)
   endif
 endfunction

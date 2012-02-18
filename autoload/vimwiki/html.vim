@@ -36,7 +36,7 @@ function! s:is_web_link(lnk) "{{{
 endfunction "}}}
 
 function! s:is_img_link(lnk) "{{{
-  if a:lnk =~ '\.\%(png\|jpg\|gif\|jpeg\)$'
+  if tolower(a:lnk) =~ '\.\%(png\|jpg\|gif\|jpeg\)$'
     return 1
   endif
   return 0
@@ -59,9 +59,14 @@ function! s:find_autoload_file(name) " {{{
   return ''
 endfunction " }}}
 
-function! s:create_default_CSS(path) " {{{
+function! s:default_CSS_full_name(path) " {{{
   let path = expand(a:path)
   let css_full_name = path.VimwikiGet('css_name')
+  return css_full_name
+endfunction "}}}
+
+function! s:create_default_CSS(path) " {{{
+  let css_full_name = s:default_CSS_full_name(a:path)
   if glob(css_full_name) == ""
     call vimwiki#base#mkdir(fnamemodify(css_full_name, ':p:h'))
     let default_css = s:find_autoload_file('style.css')
@@ -122,7 +127,7 @@ function! s:safe_html(line) "{{{
 
   let tags = join(split(g:vimwiki_valid_html_tags, '\s*,\s*'), '\|')
   let line = substitute(line,'<\%(/\?\%('
-        \.tags.'\)\%(\s\{-1}\S\{-}\)\{-}/\?>\)\@!',
+        \.tags.'\)\%(\s\{-1}\S\{-}\)\{-}/\?>\)\@!', 
         \'\&lt;', 'g')
   let line = substitute(line,'\%(</\?\%('
         \.tags.'\)\%(\s\{-1}\S\{-}\)\{-}/\?\)\@<!>',
@@ -299,6 +304,11 @@ endfunction "}}}
 "}}}
 
 " INLINE TAGS "{{{
+function! s:tag_eqin(value) "{{{
+  " mathJAX wants \( \) for inline maths
+  return '\('.s:mid(a:value, 1).'\)'
+endfunction "}}}
+
 function! s:tag_em(value) "{{{
   return '<em>'.s:mid(a:value, 1).'</em>'
 endfunction "}}}
@@ -329,6 +339,10 @@ endfunction "}}}
 
 function! s:tag_pre(value) "{{{
   return '<code>'.s:mid(a:value, 3).'</code>'
+endfunction "}}}
+
+function! s:tag_math(value) "{{{
+  return '\['.s:mid(a:value, 3).'\]'
 endfunction "}}}
 
 function! s:tag_internal_link(value) "{{{
@@ -509,9 +523,13 @@ function! s:make_tag(line, regexp, func) "{{{
   " Make tags for a given matched regexp.
   " Exclude preformatted text and href links.
 
-  let patt_splitter = '\(`[^`]\+`\)\|\({{{.\+}}}\)\|'.
-        \ '\(<a href.\{-}</a>\)\|\(<img src.\{-}/>\)'
-  if '`[^`]\+`' == a:regexp || '{{{.\+}}}' == a:regexp
+  let patt_splitter = '\(`[^`]\+`\)\|'.
+                    \ '\('.g:vimwiki_rxPreStart.'.\+'.g:vimwiki_rxPreEnd.'\)\|'.
+                    \ '\(<a href.\{-}</a>\)\|'.
+                    \ '\(<img src.\{-}/>\)\|'.
+      	            \ '\('.g:vimwiki_rxEqIn.'\)'
+
+  if '`[^`]\+`' == a:regexp || '{{{.\+}}}' == a:regexp || g:vimwiki_rxEqIn == a:regexp
     let res_line = s:subst_func(a:line, a:regexp, a:func)
   else
     let pos = 0
@@ -549,6 +567,7 @@ function! s:process_tags_typefaces(line) "{{{
   let line = s:make_tag(line, g:vimwiki_rxSuperScript, 's:tag_super')
   let line = s:make_tag(line, g:vimwiki_rxSubScript, 's:tag_sub')
   let line = s:make_tag(line, g:vimwiki_rxCode, 's:tag_code')
+  let line = s:make_tag(line, g:vimwiki_rxEqIn, 's:tag_eqin')
   return line
 endfunction " }}}
 
@@ -577,6 +596,14 @@ function! s:close_tag_pre(pre, ldest) "{{{
   return a:pre
 endfunction "}}}
 
+function! s:close_tag_math(math, ldest) "{{{
+  if a:math[0]
+    call insert(a:ldest, "\\\]")
+    return 0
+  endif
+  return a:math
+endfunction "}}}
+
 function! s:close_tag_quote(quote, ldest) "{{{
   if a:quote
     call insert(a:ldest, "</blockquote>")
@@ -596,7 +623,7 @@ endfunction "}}}
 function! s:close_tag_table(table, ldest) "{{{
   " The first element of table list is a string which tells us if table should be centered.
   " The rest elements are rows which are lists of columns:
-  " ['center',
+  " ['center', 
   "   [ CELL1, CELL2, CELL3 ],
   "   [ CELL1, CELL2, CELL3 ],
   "   [ CELL1, CELL2, CELL3 ],
@@ -607,7 +634,7 @@ function! s:close_tag_table(table, ldest) "{{{
     let table = a:table
 
     " Get max cells
-    let max_cells = 0
+    let max_cells = 0 
     for row in table[1:]
       let n_cells = len(row)
       if n_cells > max_cells
@@ -653,14 +680,14 @@ function! s:close_tag_table(table, ldest) "{{{
   function! s:close_tag_row(row, header, ldest) "{{{
     call add(a:ldest, '<tr>')
 
-    " Set tag element of columns
+    " Set tag element of columns 
     if a:header
       let tag_name = 'th'
     else
       let tag_name = 'td'
     end
 
-    " Close tag of columns
+    " Close tag of columns 
     for cell in a:row
       if cell.rowspan == 0 || cell.colspan == 0
         continue
@@ -769,6 +796,40 @@ function! s:process_tag_pre(line, pre) "{{{
   return [processed, lines, pre]
 endfunction "}}}
 
+function! s:process_tag_math(line, math) "{{{
+  " math is the list of [is_in_math, indent_of_math]
+  let lines = []
+  let math = a:math
+  let processed = 0
+  if !math[0] && a:line =~ '^\s*{{\$[^\(}}$\)]*\s*$'
+    let class = matchstr(a:line, '{{$\zs.*$')
+    let class = substitute(class, '\s\+$', '', 'g')
+    " Check the math placeholder (default: displaymath)
+    let b:vimwiki_mathEnv = matchstr(class, '^%\zs\S\+\ze%')
+    if b:vimwiki_mathEnv != ""
+        call add(lines, substitute(class, '^%\(\S\+\)%','\\begin{\1}', ''))
+    elseif class != ""
+      call add(lines, "\\\[".class)
+    else
+      call add(lines, "\\\[")
+    endif
+    let math = [1, len(matchstr(a:line, '^\s*\ze{{\$'))]
+    let processed = 1
+  elseif math[0] && a:line =~ '^\s*}}\$\s*$'
+    let math = [0, 0]
+    if b:vimwiki_mathEnv != ""
+      call add(lines, "\\end{".b:vimwiki_mathEnv."}")
+    else
+      call add(lines, "\\\]")
+    endif
+    let processed = 1
+  elseif math[0]
+    let processed = 1
+    call add(lines, substitute(a:line, '^\s\{'.math[1].'}', '', ''))
+  endif
+  return [processed, lines, math]
+endfunction "}}}
+
 function! s:process_tag_quote(line, quote) "{{{
   let lines = []
   let quote = a:quote
@@ -801,7 +862,7 @@ function! s:process_tag_list(line, lists) "{{{
           let chk[1] ='\'.chk[1]
         endif
         let completion = match(g:vimwiki_listsyms, '\C' . chk[1])
-        if completion >= 0 && completion <=4
+        if completion >= 0 && completion <=4 
           let st_tag = '<li class="done'.completion.'">'
         endif
       endif
@@ -935,18 +996,9 @@ function! s:process_tag_h(line, id) "{{{
   let h_level = 0
   let h_text = ''
   let h_id = ''
-  if a:line =~ g:vimwiki_rxH6
-    let h_level = 6
-  elseif a:line =~ g:vimwiki_rxH5
-    let h_level = 5
-  elseif a:line =~ g:vimwiki_rxH4
-    let h_level = 4
-  elseif a:line =~ g:vimwiki_rxH3
-    let h_level = 3
-  elseif a:line =~ g:vimwiki_rxH2
-    let h_level = 2
-  elseif a:line =~ g:vimwiki_rxH1
-    let h_level = 1
+
+  if a:line =~ g:vimwiki_rxHeader
+    let h_level = vimwiki#base#count_first_sym(a:line)
   endif
   if h_level > 0
     let a:id[h_level] += 1
@@ -959,8 +1011,6 @@ function! s:process_tag_h(line, id) "{{{
     if a:line =~ '^\s\+'
       let centered = 1
     endif
-
-    let line = s:trim(line)
 
     let h_number = ''
     for l in range(1, h_level-1)
@@ -978,9 +1028,10 @@ function! s:process_tag_h(line, id) "{{{
       let h_part .= '>'
     endif
 
-    let h_text = s:trim(strpart(line, h_level, len(line) - h_level * 2))
+    let h_text = s:trim(matchstr(line, g:vimwiki_rxHeader))
+
     if g:vimwiki_html_header_numbering
-      let num = matchstr(h_number,
+      let num = matchstr(h_number, 
             \ '^\(\d.\)\{'.(g:vimwiki_html_header_numbering-1).'}\zs.*')
       if !empty(num)
         let num .= g:vimwiki_html_header_numbering_sym
@@ -1046,14 +1097,14 @@ function! s:process_tag_table(line, table) "{{{
   let lines = []
   let processed = 0
 
-  if a:line =~ '^\s*|[-+]\+|\s*$'
+  if vimwiki#tbl#is_separator(a:line)
     call extend(table, s:table_add_row(a:table, a:line))
     let processed = 1
-  elseif a:line =~ '^\s*|.\+|\s*$'
+  elseif vimwiki#tbl#is_table(a:line)
     call extend(table, s:table_add_row(a:table, a:line))
 
     let processed = 1
-    let cells = split(a:line, '\s*|\s*', 1)[1: -2]
+    let cells = split(a:line, vimwiki#tbl#cell_splitter(), 1)[1: -2]
     call map(cells, 's:table_empty_cell(v:val)')
     call extend(table[-1], cells)
   else
@@ -1072,6 +1123,7 @@ function! s:parse_line(line, state) " {{{
   let state.para = a:state.para
   let state.quote = a:state.quote
   let state.pre = a:state.pre[:]
+  let state.math = a:state.math[:]
   let state.table = a:state.table[:]
   let state.lists = a:state.lists[:]
   let state.deflist = a:state.deflist
@@ -1135,6 +1187,9 @@ function! s:parse_line(line, state) " {{{
     " if processed && len(state.lists)
       " call s:close_tag_list(state.lists, lines)
     " endif
+    if !processed
+      let [processed, lines, state.math] = s:process_tag_math(line, state.math)
+    endif
     if processed && len(state.table)
       let state.table = s:close_tag_table(state.table, lines)
     endif
@@ -1160,6 +1215,9 @@ function! s:parse_line(line, state) " {{{
     if processed && state.pre[0]
       let state.pre = s:close_tag_pre(state.pre, lines)
     endif
+    if processed && state.math[0]
+      let state.math = s:close_tag_math(state.math, lines)
+    endif
     if processed && len(state.table)
       let state.table = s:close_tag_table(state.table, lines)
     endif
@@ -1183,6 +1241,7 @@ function! s:parse_line(line, state) " {{{
       call s:close_tag_list(state.lists, res_lines)
       let state.table = s:close_tag_table(state.table, res_lines)
       let state.pre = s:close_tag_pre(state.pre, res_lines)
+      let state.math = s:close_tag_math(state.math, res_lines)
       let state.quote = s:close_tag_quote(state.quote, res_lines)
       let state.para = s:close_tag_para(state.para, res_lines)
 
@@ -1218,6 +1277,9 @@ function! s:parse_line(line, state) " {{{
     if processed && state.pre[0]
       let state.pre = s:close_tag_pre(state.pre, lines)
     endif
+    if processed && state.math[0]
+      let state.math = s:close_tag_math(state.math, lines)
+    endif
     if processed && state.para
       let state.para = s:close_tag_para(state.para, lines)
     endif
@@ -1235,6 +1297,7 @@ function! s:parse_line(line, state) " {{{
       call s:close_tag_list(state.lists, res_lines)
       let state.table = s:close_tag_table(state.table, res_lines)
       let state.pre = s:close_tag_pre(state.pre, res_lines)
+      let state.math = s:close_tag_math(state.math, res_lines)
       call add(res_lines, line)
     endif
   endif
@@ -1262,6 +1325,9 @@ function! s:parse_line(line, state) " {{{
     if processed && state.pre[0]
       let state.pre = s:close_tag_pre(state.pre, res_lines)
     endif
+    if processed && state.math[0]
+      let state.math = s:close_tag_math(state.math, res_lines)
+    endif
     if processed && len(state.table)
       let state.table = s:close_tag_table(state.table, res_lines)
     endif
@@ -1281,14 +1347,27 @@ function! s:parse_line(line, state) " {{{
 
 endfunction " }}}
 
+function! s:use_custom_wiki2html() "{{{
+  let custom_wiki2html = VimwikiGet('custom_wiki2html')
+  return !empty(custom_wiki2html) && s:file_exists(custom_wiki2html)
+endfunction " }}}
+
+function! vimwiki#html#CustomWiki2HTML(path, wikifile, force) "{{{
+  call vimwiki#base#mkdir(a:path)
+  execute '!'.VimwikiGet('custom_wiki2html'). ' '
+      \ a:force. ' '.
+      \ VimwikiGet('syntax')
+      \ strpart(VimwikiGet('ext'), 1). ' '.
+      \ a:path. ' '.
+      \ a:wikifile. ' '.
+      \ s:default_CSS_full_name(a:path)
+endfunction " }}}
+
 function! vimwiki#html#Wiki2HTML(path, wikifile) "{{{
 
   let starttime = reltime()  " start the clock
-  echo 'Generating HTML ... '
-  if !s:syntax_supported()
-    echomsg 'vimwiki: Only vimwiki_default syntax supported!!!'
-    return
-  endif
+
+  let done = 0
 
   let wikifile = fnamemodify(a:wikifile, ":p")
   let subdir = vimwiki#base#subdir(VimwikiGet('path'), wikifile)
@@ -1296,113 +1375,132 @@ function! vimwiki#html#Wiki2HTML(path, wikifile) "{{{
   let path = expand(a:path).subdir
   let htmlfile = fnamemodify(wikifile, ":t:r").'.html'
 
-  let lsource = readfile(wikifile)
-  let ldest = []
+  if s:use_custom_wiki2html()
+    let force = 1
+    call vimwiki#html#CustomWiki2HTML(path, wikifile, force)
+    let done = 1
+  endif
 
-  call vimwiki#base#mkdir(path)
+  if s:syntax_supported() && done == 0
+    let lsource = readfile(wikifile)
+    let ldest = []
 
-  " nohtml placeholder -- to skip html generation.
-  let nohtml = 0
+    call vimwiki#base#mkdir(path)
 
-  " template placeholder
-  let template_name = ''
+    " nohtml placeholder -- to skip html generation.
+    let nohtml = 0
 
-  " for table of contents placeholders.
-  let placeholders = []
+    " template placeholder
+    let template_name = ''
 
-  " current state of converter
-  let state = {}
-  let state.para = 0
-  let state.quote = 0
-  let state.pre = [0, 0] " [in_pre, indent_pre]
-  let state.table = []
-  let state.deflist = 0
-  let state.lists = []
-  let state.placeholder = []
-  let state.toc = []
-  let state.toc_id = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
+    " for table of contents placeholders.
+    let placeholders = []
 
-  for line in lsource
-    let oldquote = state.quote
-    let [lines, state] = s:parse_line(line, state)
+    " current state of converter
+    let state = {}
+    let state.para = 0
+    let state.quote = 0
+    let state.pre = [0, 0] " [in_pre, indent_pre]
+    let state.math = [0, 0] " [in_math, indent_math]
+    let state.table = []
+    let state.deflist = 0
+    let state.lists = []
+    let state.placeholder = []
+    let state.toc = []
+    let state.toc_id = {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0 }
 
-    " Hack: There could be a lot of empty strings before s:process_tag_quote
-    " find out `quote` is over. So we should delete them all. Think of the way
-    " to refactor it out.
-    if oldquote != state.quote
-      call s:remove_blank_lines(ldest)
-    endif
+    for line in lsource
+      let oldquote = state.quote
+      let [lines, state] = s:parse_line(line, state)
 
-    if !empty(state.placeholder)
-      if state.placeholder[0] == 'nohtml'
-        let nohtml = 1
-        break
-      elseif state.placeholder[0] == 'template'
-        let template_name = state.placeholder[1]
-      else
-        call add(placeholders, [state.placeholder, len(ldest), len(placeholders)])
+      " Hack: There could be a lot of empty strings before s:process_tag_quote
+      " find out `quote` is over. So we should delete them all. Think of the way
+      " to refactor it out.
+      if oldquote != state.quote
+        call s:remove_blank_lines(ldest)
       endif
-      let state.placeholder = []
+
+      if !empty(state.placeholder)
+        if state.placeholder[0] == 'nohtml'
+          let nohtml = 1
+          break
+        elseif state.placeholder[0] == 'template'
+          let template_name = state.placeholder[1]
+        else
+          call add(placeholders, [state.placeholder, len(ldest), len(placeholders)])
+        endif
+        let state.placeholder = []
+      endif
+
+      call extend(ldest, lines)
+    endfor
+
+
+    if nohtml
+      echon "\r"."%nohtml placeholder found"
+      return
     endif
 
+    let toc = s:get_html_toc(state.toc)
+    call s:process_toc(ldest, placeholders, toc)
+    call s:remove_blank_lines(ldest)
+
+    "" process end of file
+    "" close opened tags if any
+    let lines = []
+    call s:close_tag_quote(state.quote, lines)
+    call s:close_tag_para(state.para, lines)
+    call s:close_tag_pre(state.pre, lines)
+    call s:close_tag_math(state.math, lines)
+    call s:close_tag_list(state.lists, lines)
+    call s:close_tag_def_list(state.deflist, lines)
+    call s:close_tag_table(state.table, lines)
     call extend(ldest, lines)
-  endfor
 
+    let title = s:process_title(placeholders, fnamemodify(a:wikifile, ":t:r"))
 
-  if nohtml
-    echon "\r"."%nohtml placeholder found"
+    let html_lines = s:get_html_template(a:wikifile, template_name)
+
+    " processing template variables (refactor to a function)
+    call map(html_lines, 'substitute(v:val, "%title%", "'. title .'", "g")')
+    call map(html_lines, 'substitute(v:val, "%root_path%", "'.
+          \ s:root_path(subdir) .'", "g")')
+
+    let css_name = expand(VimwikiGet('css_name'))
+    let css_name = substitute(css_name, '\', '/', 'g')
+    call map(html_lines, 'substitute(v:val, "%css%", "'. css_name .'", "g")')
+
+    let enc = &fileencoding
+    if enc == ''
+      let enc = &encoding
+    endif
+    call map(html_lines, 'substitute(v:val, "%encoding%", "'. enc .'", "g")')
+
+    let html_lines = s:html_insert_contents(html_lines, ldest) " %contents%
+    
+    "" make html file.
+    call writefile(html_lines, path.htmlfile)
+    let done = 1
+
+  endif
+
+  if done == 0
+    echomsg 'vimwiki: conversion to HTML is not supported for this syntax!!!'
     return
   endif
 
-  let toc = s:get_html_toc(state.toc)
-  call s:process_toc(ldest, placeholders, toc)
-  call s:remove_blank_lines(ldest)
-
-  "" process end of file
-  "" close opened tags if any
-  let lines = []
-  call s:close_tag_quote(state.quote, lines)
-  call s:close_tag_para(state.para, lines)
-  call s:close_tag_pre(state.pre, lines)
-  call s:close_tag_list(state.lists, lines)
-  call s:close_tag_def_list(state.deflist, lines)
-  call s:close_tag_table(state.table, lines)
-  call extend(ldest, lines)
-
-  let title = s:process_title(placeholders, fnamemodify(a:wikifile, ":t:r"))
-
-  let html_lines = s:get_html_template(a:wikifile, template_name)
-
-  " processing template variables (refactor to a function)
-  call map(html_lines, 'substitute(v:val, "%title%", "'. title .'", "g")')
-  call map(html_lines, 'substitute(v:val, "%root_path%", "'.
-        \ s:root_path(subdir) .'", "g")')
-
-  let css_name = expand(VimwikiGet('css_name'))
-  let css_name = substitute(css_name, '\', '/', 'g')
-  call map(html_lines, 'substitute(v:val, "%css%", "'. css_name .'", "g")')
-
-  let enc = &fileencoding
-  if enc == ''
-    let enc = &encoding
-  endif
-  call map(html_lines, 'substitute(v:val, "%encoding%", "'. enc .'", "g")')
-
-  let html_lines = s:html_insert_contents(html_lines, ldest) " %contents%
-
-  "" make html file.
-  call writefile(html_lines, path.htmlfile)
-
   " measure the elapsed time and cut away miliseconds and smaller
   let elapsedtimestr = matchstr(reltimestr(reltime(starttime)),'\d\+\(\.\d\d\)\=')
-  echon "\r".htmlfile.' written (time: '.elapsedtimestr.'s)'
+  if g:vimwiki_debug
+    echon "\r".htmlfile.' written (time: '.elapsedtimestr.'s)'
+  endif
   return path.htmlfile
 endfunction "}}}
 
 
 function! vimwiki#html#WikiAll2HTML(path) "{{{
-  if !s:syntax_supported()
-    echomsg 'vimwiki: Only vimwiki_default syntax supported!!!'
+  if !s:syntax_supported() && !s:use_custom_wiki2html()
+    echomsg 'vimwiki: conversion to HTML is not supported for this syntax!!!'
     return
   endif
 
@@ -1438,4 +1536,9 @@ function! vimwiki#html#WikiAll2HTML(path) "{{{
 
   let &more = setting_more
 endfunction "}}}
+
+function! s:file_exists(fname) "{{{
+  return !empty(getftype(a:fname))
+endfunction "}}}
+
 "}}}

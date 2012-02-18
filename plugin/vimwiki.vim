@@ -38,11 +38,13 @@ function! s:path_common_pfx(path1, path2) "{{{
 endfunction "}}}
 
 function! s:find_wiki(path) "{{{
+  " ensure that we are not fooled by a symbolic link
+  let realpath = resolve(vimwiki#base#chomp_slash(a:path))
   let idx = 0
   while idx < len(g:vimwiki_list)
     let path = vimwiki#base#chomp_slash(expand(VimwikiGet('path', idx)))
     let path = vimwiki#base#path_norm(path)
-    if s:path_common_pfx(path, a:path) == path
+    if s:path_common_pfx(path, realpath) == path
       return idx
     endif
     let idx += 1
@@ -158,7 +160,7 @@ function! VimwikiGet(option, ...) "{{{
   if a:option == 'path' || a:option == 'path_html'
     let p = g:vimwiki_list[idx][a:option]
     " resolve doesn't work quite right with symlinks ended with / or \
-    let p = substitute(p, '[/\\]\+$', '', '')
+    let p = vimwiki#base#chomp_slash(p)
     let p = resolve(expand(p))
     let g:vimwiki_list[idx][a:option] = p.'/'
   endif
@@ -226,8 +228,8 @@ let s:vimwiki_defaults.diary_header = 'Diary'
 " Do not change this! Will wait till vim become more datetime awareable.
 let s:vimwiki_defaults.diary_link_fmt = '%Y-%m-%d'
 
-let s:vimwiki_defaults.diary_link_count = 4
-
+" custom_wiki2html
+let s:vimwiki_defaults.custom_wiki2html = ''
 "}}}
 
 " DEFAULT options {{{
@@ -239,7 +241,6 @@ else
   call s:default('upper', 'A-Z')
   call s:default('lower', 'a-z')
 endif
-call s:default('other', '0-9')
 call s:default('stripsym', '_')
 call s:default('badsyms', '')
 call s:default('auto_checkbox', 1)
@@ -266,8 +267,11 @@ else
   call s:default('browsers',
         \ [
         \  'chromium-browser',
+        \  'google-chrome',
         \  'opera',
         \  'firefox',
+        \  'iceweasel',
+        \  'epiphany',
         \  'konqueror',
         \ ])
 endif
@@ -283,29 +287,40 @@ call s:default('user_htmls', '')
 
 call s:default('html_header_numbering', 0)
 call s:default('html_header_numbering_sym', '')
-call s:default('conceallevel', 3)
+call s:default('conceallevel', 2)
+call s:default('url_mingain', 12)
+call s:default('url_maxsave', 12)
+call s:default('debug', 0)
+
+call s:default('diary_months', 
+      \ {
+      \ 1: 'January', 2: 'February', 3: 'March', 
+      \ 4: 'April', 5: 'May', 6: 'June',
+      \ 7: 'July', 8: 'August', 9: 'September',
+      \ 10: 'October', 11: 'November', 12: 'December'
+      \ })
+
 
 call s:default('current_idx', 0)
 
-let upp = g:vimwiki_upper
-let low = g:vimwiki_lower
-let oth = g:vimwiki_other
-let nup = low.oth
-let nlo = upp.oth
-let any = upp.nup
 
-let wword = '\C\<['.upp.']['.nlo.']*['.low.']['.nup.']*['.upp.']['.any.']*\>'
+let wword = '\C\<\%(['.g:vimwiki_upper.']['.g:vimwiki_lower.']\+\)\{2,}\>'
+" 1. match WikiWordURLs
 let g:vimwiki_rxWikiWord = '!\@<!'.wword
 let g:vimwiki_rxNoWikiWord = '!'.wword
 
+" 2. match a) [[PathURL]], or b) [[PathURL|DESCRIPTION]]
 let g:vimwiki_rxWikiLink1 = '\[\[[^\]]\+\]\]'
+" 3. match [[PathURL][DESCRIPTION]]
 let g:vimwiki_rxWikiLink2 = '\[\[[^\]]\+\]\[[^\]]\+\]\]'
+" ANY. match any WikiLink
 if g:vimwiki_camel_case
   let g:vimwiki_rxWikiLink = g:vimwiki_rxWikiWord.'\|'.
         \ g:vimwiki_rxWikiLink1.'\|'.g:vimwiki_rxWikiLink2
 else
   let g:vimwiki_rxWikiLink = g:vimwiki_rxWikiLink1.'\|'.g:vimwiki_rxWikiLink2
 endif
+" match a) WebURL, or b)"DESCRIPTION":WebURL, or c)"DESCRIPTION(MORE)":WebURL
 let g:vimwiki_rxWeblink = '\%("[^"(]\+\((\([^)]\+\))\)\?":\)\?'.
       \'\%('.
         \'\%('.

@@ -9,7 +9,7 @@
               |___|  |___| |_|   |_||__| |__||___| |___| |_||___|            ~
 
 
-                               Version: 1.2
+                               Version: 1.3 dev
 
 ==============================================================================
 CONTENTS                                                    *vimwiki-contents*
@@ -31,9 +31,10 @@ CONTENTS                                                    *vimwiki-contents*
         5.5. Lists                   |vimwiki-syntax-lists|
         5.6. Tables                  |vimwiki-syntax-tables|
         5.7. Preformatted text       |vimwiki-syntax-preformatted|
-        5.8. Blockquotes             |vimwiki-syntax-blockquotes|
-        5.9. Comments                |vimwiki-syntax-comments|
-        5.10. Horizontal line        |vimwiki-syntax-hr|
+        5.8. Mathematical formulae   |vimwiki-syntax-math|
+        5.9. Blockquotes             |vimwiki-syntax-blockquotes|
+        5.10. Comments               |vimwiki-syntax-comments|
+        5.11. Horizontal line        |vimwiki-syntax-hr|
     6. Folding/Outline               |vimwiki-folding|
     7. Placeholders                  |vimwiki-placeholders|
     8. Todo lists                    |vimwiki-todo-lists|
@@ -69,9 +70,9 @@ Feed it with the following example:
     * ScratchPad -- various temporary stuff.
 
 
-Notice that ProjectGutenberg, MyUrgentTasks and ScratchPad are highlighted as
-errors. These are links in CamelCase form that do not exists yet. (CamelCase
-form -- capitalized word connected with other capitalized words)
+Notice that !ProjectGutenberg, !MyUrgentTasks and !ScratchPad curly
+underlined. These are links in CamelCase form that do not exists yet.
+(CamelCase form -- capitalized word connected with other capitalized words)
 
 Place cursor on ProjectGutenberg and press <Enter>. Now you are in
 ProjectGutenberg. Edit and save it, then press Backspace to return to previous
@@ -232,7 +233,7 @@ NORMAL MODE                                           *vimwiki-local-mappings*
                         :map <Leader>wt <Plug>VimwikiTabnewLink
 <
                         *vimwiki_<Backspace>*
-<Backspace>             Go back to previous wiki page.
+<Backspace>             Go back to previous wiki page. 
                         Maps to |:VimwikiGoBackLink|.
                         To remap: >
                         :map <Leader>wb <Plug>VimwikiGoBackLink
@@ -322,13 +323,10 @@ INSERT MODE                                           *vimwiki-table-mappings*
                         *vimwiki_i_<CR>*
 <CR>                    Go to the table cell beneath the current one, create
                         a new row if on the last one.
-
+                        
                         *vimwiki_i_<Tab>*
 <Tab>                   Go to the next table cell, create a new row if on the
                         last cell.
-
-                        *vimwiki_i_<S-CR>*
-<S-CR>                  Insert <br /> and a newline.
 
 
 ------------------------------------------------------------------------------
@@ -427,13 +425,21 @@ ic                      An inner column in a table.
     To display next match use |:lnext| command.
     To display previous match use |:lprevious| command.
 
+*:VimwikiBacklinks*
+*:VWB*
+    Search for wikilinks to the [[current wiki page]] 
+    in all files of current wiki.
+    To display all matches use |:lopen| command.
+    To display next match use |:lnext| command.
+    To display previous match use |:lprevious| command.
+
 
 *:VimwikiTable*
     Create a table with 5 cols and 2 rows.
-
+    
     :VimwikiTable cols rows
     Create a table with the given cols and rows
-
+    
     :VimwikiTable cols
     Create a table with the given cols and 2 rows
 
@@ -443,7 +449,7 @@ ic                      An inner column in a table.
     Example: >
 
     | head1  | head2  | head3  | head4  | head5  |
-    |--------+--------+--------+--------+--------|
+    |--------|--------|--------|--------|--------|
     | value1 | value2 | value3 | value4 | value5 |
 
 
@@ -451,17 +457,17 @@ ic                      An inner column in a table.
     :VimwikiTableMoveColumnRight
 
     | head2  | head1  | head3  | head4  | head5  |
-    |--------+--------+--------+--------+--------|
+    |--------|--------|--------|--------|--------|
     | value2 | value1 | value3 | value4 | value5 |
 
     Cursor is on 'head3'.
     :VimwikiTableMoveColumnLeft
 
     | head2  | head3  | head1  | head4  | head5  |
-    |--------+--------+--------+--------+--------|
+    |--------|--------|--------|--------|--------|
     | value2 | value3 | value1 | value4 | value5 |
 <
-
+    
     Commands are mapped to <A-Left> and <A-Right> respectively.
 
 
@@ -533,7 +539,8 @@ Link with description: >
  [mailto:habamax@gmail.com Drop a line to Maxim Kim]
 
 Images and image links~
-An image link is a link to a file with a jpg, png or gif extension.
+An image link is a link to a file with a jpg, jpeg, png or gif extension.
+Uppercase extensions are also recognized.
 Plain image link: >
  http://someaddr.com/picture.jpg
 in HTML: >
@@ -702,7 +709,7 @@ typeface formatting and links.
 For example: >
 
  | Year | Temperature (low) | Temperature (high) |
- |------+-------------------+--------------------|
+ |------|-------------------|--------------------|
  | 1900 | -10               | 25                 |
  | 1910 | -15               | 30                 |
  | 1920 | -10               | 32                 |
@@ -712,7 +719,7 @@ For example: >
 
 In HTML the following part >
  | Year | Temperature (low) | Temperature (high) |
- |------+-------------------+--------------------|
+ |------|-------------------|--------------------|
 >
 is higlighted as a table header.
 
@@ -772,7 +779,72 @@ See |vimwiki-option-nested_syntaxes|
 
 
 ------------------------------------------------------------------------------
-5.8. Blockquotes                                  *vimwiki-syntax-blockquotes*
+5.8. Mathematical formulae                              *vimwiki-syntax-math*
+
+Mathematical formulae are highlighted, and can be rendered in HTML using the
+powerful open source display engine MathJax (http://www.mathjax.org/).
+
+There are three supported syntaxes, which are inline, block display and
+block environment.
+
+Inline math is for short formulae within text. It is enclosed by single
+dollar signs, e.g.:
+ $ \sum_i a_i^2 = 1 $
+
+Block display creates a centered formula with some spacing before and after
+it. It must start with a line including only {{$, then an arbitrary number
+of mathematical text are allowed, and it must end with a line including only
+}}$.
+E.g.:
+ {{$
+ \sum_i a_i^2
+ =
+ 1
+ }}$
+
+Note: no matter how many lines are used in the text file, the HTML will
+compress it to *one* line only.
+
+Block environment is similar to block display, but is able to use specific
+LaTeX environments, such as 'align'. The syntax is the same as for block
+display, except for the first line which is {{$%environment%.
+E.g.:
+ {{$%align%
+ \sum_i a_i^2 &= 1 + 1 \\
+ &= 2.
+ }}$
+
+Similar compression rules for the HTML page hold (as MathJax interprets the
+LaTeX code).
+
+Note: the highlighting in VIM is automatic. For the rendering in HTML, you
+have two *alternative* options:
+
+1. using the MathJax server for rendering (needs an internet connection).
+Add to your HTML header template the following line:
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> 
+
+2. installing MathJax locally (faster, no internet required). Choose a
+folder on your hard drive and save MathJax in it. Then add to your HTML
+header the following line:
+
+<script type="text/javascript" src="<mathjax_folder>/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+where <mathjax_folder> is the folder on your HD, as a relative path to the
+template folder. For instance, a sensible folder structure could be:
+
+- wiki
+  - text
+  - html
+  - templates
+  - mathjax
+
+In this case, <mathjax_folder> would be "../mathjax" (without quotes).
+
+
+------------------------------------------------------------------------------
+5.9. Blockquotes                                  *vimwiki-syntax-blockquotes*
 
 Text started with 4 or more spaces is a blockquote.
 
@@ -782,7 +854,7 @@ Text started with 4 or more spaces is a blockquote.
 
 
 ------------------------------------------------------------------------------
-5.9. Comments                                        *vimwiki-syntax-comments*
+5.10. Comments                                        *vimwiki-syntax-comments*
 
 Text line started with %% is a comment.
 E.g.: >
@@ -791,7 +863,7 @@ E.g.: >
 
 
 ------------------------------------------------------------------------------
-5.10. Horizontal line                                      *vimwiki-syntax-hr*
+5.11. Horizontal line                                      *vimwiki-syntax-hr*
 
 4 or more dashes at the start of the line is a 'horizontal line' (<hr />): >
  ----
@@ -950,7 +1022,7 @@ It is possible to toggle several list items using visual mode.
 
 Use the  :VimwikiTable command to create a default table with 5 columns and 2
 rows: >
-
+ 
  |   |   |   |   |   |
  |---+---+---+---+---|
  |   |   |   |   |   |
@@ -991,31 +1063,42 @@ new daily note with name based on current date. The link to this newly created
 file is added to a diary wiki file.
 
 Usage example with default settings: >
-  Consider today is 2010-01-27.
+  Consider today is 2011-12-08.
 
   Hit \w\w .
   ~/vimwiki/diary.wiki is created.
 
-  2 following lines are added to ~/vimwiki/diary/diary.wiki :
-  = Diary =
-  | [[2010-01-27]] |
+  Following lines are added to ~/vimwiki/diary/diary.wiki :
+    = Diary =
 
-  ~/vimwiki/diary/2010-01-27.wiki is created.
+    == 2011 ==
+
+    === December ===
+        * [[2011-12-08]]
+
+
+  ~/vimwiki/diary/2011-12-08.wiki is created.
   You are ready to add your information there.
   -------------------------------------------
 
   On the next day.
   Hit \w\w .
 
-  The first line after = Diary = is changed in ~/vimwiki/diary/diary.wiki :
-  = Diary =
-  | [[2010-01-28]] | [[2010-01-27]] |
+    = Diary =
 
-  ~/vimwiki/diary/2010-01-28.wiki is created.
+    == 2011 ==
+
+    === December ===
+        * [[2011-12-09]]
+        * [[2011-12-08]]
+
+
+  ~/vimwiki/diary/2011-12-09.wiki is created.
   You are ready to add your information there.
 >
+See |g:vimwiki_diary_months| if you would like to rename months.
 
-By default there are 4 links on the line. All links are sorted by their dates.
+
 
 Calendar integration                                        *vimwiki-calendar*
 ------------------------------------------------------------------------------
@@ -1189,12 +1272,12 @@ Each template could look like: >
     </body>
     </html>
 
-where
+where 
   %title% is replaced by a wiki page name or by a |vimwiki-title|
   %root_path% is replaced by a count of ../ for pages buried in subdirs:
     if you have wikilink [[dir1/dir2/dir3/my page in a subdir]] then
     %root_path% is replaced by '../../../'.
-
+  
   %content% is replaced by a wiki file content.
 
 
@@ -1340,6 +1423,34 @@ Ex:
 | [[2010-01-26]] | [[2010-01-25]] |
 
 
+*vimwiki-option-custom_wiki2html*
+------------------------------------------------------------------------------
+Key               Default value~
+custom_wiki2html  ''
+
+Description~
+The full path to an user-provided script that converts a wiki page to HTML.
+Vimwiki calls the provided |vimwiki-option-custom_wiki2html| script from the
+command-line, using '!' invocation.  
+
+The following arguments, in this order, are passed to the
+|vimwiki-option-custom_wiki2html| script:
+
+1. force : [0/1] overwrite an existing file
+2. syntax : the syntax chosen for this wiki
+3. extension : the file extension for this wiki
+4. output_dir : the full path of the output directory, i.e. 'path_html'
+5. input_file : the full path of the wiki page
+6. css_file : the full path of the css file for this wiki
+
+For an example and further instructions, refer to the following script:
+
+  $VIMHOME/autoload/vimwiki/customwiki2html.sh
+
+To use the internal wiki2html converter, use an empty string (the default).
+
+
+
 
 
 GLOBAL OPTIONS                                        *viwmiki-global-options*
@@ -1457,7 +1568,7 @@ If you do not like spaces in filenames (as some vimwiki users do), you can set
 up bad symbols to include spaces, so that they are also converted:
 |g:vimwiki_stripsym|: >
     let g:vimwiki_badsyms = ' '
-
+    
 Now files for all [[links with spaces]] would be created like
 'links_with_spaces'.
 
@@ -1489,7 +1600,7 @@ Default: 0
 ------------------------------------------------------------------------------
 *g:vimwiki_folding*
 
-Enable/disable vimwiki's folding/outline functionality. Folding in vimwiki
+Enable/disable vimwiki's folding/outline functionality. Folding in vimwiki 
 uses the 'expr' foldmethod which is very flexible but really slow.
 
 Value           Description~
@@ -1507,18 +1618,6 @@ Enable/disable folding of list subitems.
 Value           Description~
 0               Disable list subitem's folding.
 1               Enable list subitem's folding.
-
-Default: 0
-
-
-------------------------------------------------------------------------------
-*g:vimwiki_fold_trailing_empty_lines*
-
-Fold or do not fold empty lines between folded headers.
-
-Value           Description~
-0               Fold only one empty line. Leave the rest of the empty lines.
-1               Fold in all empty lines.
 
 Default: 0
 
@@ -1576,10 +1675,10 @@ just specify: >
  let g:vimwiki_browsers=['C:\Program Files\Firefox\firefox.exe']
 
 or redefine VimwikiWeblinkHandler function: >
-  function! VimwikiWeblinkHandler(weblink)
+  function! VimwikiWeblinkHandler(weblink) 
     let browser = 'C:\Program Files\Firefox\firefox.exe'
     execute '!start "'.browser.'" ' . a:weblink
-  endfunction
+  endfunction 
 
 
 ------------------------------------------------------------------------------
@@ -1615,7 +1714,7 @@ Default: ''
 *g:vimwiki_CJK_length*
 
 Use special method to calculate correct length of the strings with double-wide
-characters (to align table cells properly).
+characters (to align table cells properly). 
 
 Value           Description~
 0               Do not use it.
@@ -1683,15 +1782,15 @@ Default: 0
 ------------------------------------------------------------------------------
 *g:vimwiki_html_header_numbering_sym*
 
-Ending symbol for |g:vimwiki_html_header_numbering|.
+Ending symbol for |g:vimwiki_html_header_numbering|. 
 
 Value           Description~
 '.'             Dot will be added after a header's number.
 ')'             Closing bracket will be added after a header's number.
 etc.
 
-With
-    let g:vimwiki_html_header_numbering = '.'
+With 
+    let g:vimwiki_html_header_numbering_sym = '.'
 headers would look like: >
     1. Header1
     1.1. Header2
@@ -1752,7 +1851,67 @@ a new tab or window, it would be set to default value.
 Vimwiki sets |conceallevel| to g:vimwiki_conceallevel everytime vimwiki buffer
 is entered.
 
-Default: 3
+Default: 2
+
+
+------------------------------------------------------------------------------
+*g:vimwiki_url_mingain*
+
+The minimum number of characters that should be gained by concealing URLs. If
+the length of the concealed part of the URL would be less than
+|g:vimwiki_url_mingain|, the URL is not concealed at all.
+The conceal feature works only with vim >= 7.3.
+
+Default: 12
+
+
+------------------------------------------------------------------------------
+*g:vimwiki_url_maxsave*
+
+The maximum number of characters that is retained at the end after concealing
+URLs. At most there will be |g:vimwiki_url_maxsave| characters left at the end of the URL.
+However, it will be less when one of /,=,#,? can be found at the end.
+In that case the URL will be concealed right before the last occurance of one
+of these characters.
+The conceal feature works only with vim >= 7.3.
+
+Default: 12
+
+
+------------------------------------------------------------------------------
+*g:vimwiki_debug*
+
+In vim73 |conceallevel| is local to window, thus if you open viwmiki buffer in
+a new tab or window, it would be set to default value.
+
+Value           Description~
+0               Do not show debug messages.
+1               Show debug messages.
+
+Default: 0
+
+
+------------------------------------------------------------------------------
+*g:vimwiki_diary_months*
+
+It is a |Dictionary| with the numbers of months and corresponding names. Diary
+uses it.
+
+Redefine it in your .vimrc to get localized months in your diary:
+let g:vimwiki_diary_months = {
+      \ 1: 'Январь', 2: 'Февраль', 3: 'Март', 
+      \ 4: 'Апрель', 5: 'Май', 6: 'Июнь',
+      \ 7: 'Июль', 8: 'Август', 9: 'Сентябрь',
+      \ 10: 'Октябрь', 11: 'Ноябрь', 12: 'Декабрь'
+      \ }
+
+Default: 
+let g:vimwiki_diary_months = {
+      \ 1: 'January', 2: 'February', 3: 'March', 
+      \ 4: 'April', 5: 'May', 6: 'June',
+      \ 7: 'July', 8: 'August', 9: 'September',
+      \ 10: 'October', 11: 'November', 12: 'December'
+      \ }
 
 
 ==============================================================================
@@ -1779,6 +1938,30 @@ Vim plugins: http://www.vim.org/scripts/script.php?script_id=2226
 ==============================================================================
 14. Changelog                                              *vimwiki-changelog*
 
+1.3 dev~
+    * Issue 252: |:Vimwiki2HTML| now accepts PNG, GIF, JPG, and JPEG image
+      extensions, where before only the lower case versions worked.
+    * Small change in a table syntax. Row separator uses | instead of +.
+    * Insert mode mapping <S-CR> is removed.
+    * Option g:vimwiki_fold_trailing_empty_lines is removed.
+    * Issue 202: Markdown Support.
+    * Issue 222: Some words were recognized as link unexpectedly. Now
+      CamelCased links has at least 4 letters so DaI is not a link but DaIa
+      is.
+    * Issue 223: 2-leftmouse should be 2-leftmouse. Double click on non
+      wikilinks should visually select a word.
+    * Issue 229: Turn off the HTML conversion message. |g:vimwiki_debug|
+      option is added.
+    * Issue 233: Would like something to replicate VimOutliner 'body
+      text' in list outlines.
+    * Issue 238: Filetype not recognized when using symbolic links.
+    * Issue 240: Added |:VimwikiBacklinks| and |:VWB| commands.
+    * Issue 241: Custom wiki to HTML converters. See
+      |vimwiki-option-custom_wiki2html| for details.
+    * Issue 245: Conceal long weblinks. See |g:vimwiki_url_mingain|.
+    * Issue 204: patch for use with MathJax. See |vimwiki-syntax-math|
+    * Issue 250: Rework Diary Page. See |vimwiki-diary|
+
 1.2~
     * Issue 70: Table spanning cell support.
     * Issue 72: Do not convert again for unchanged file. |:VimwikiAll2HTML|
@@ -1801,7 +1984,7 @@ Vim plugins: http://www.vim.org/scripts/script.php?script_id=2226
     * Fix of g:vimwiki_stripsym = '' (i.e. an empty string) -- it removes bad
       symbols from filenames.
     * Issue 145: With modeline 'set ft=vimwiki' links are not correctly
-      highlighted when open wiki files.
+      highlighted when open wiki files. 
     * Issue 146: Filetype difficulty with ".txt" as a vimwiki extension.
     * Issue 148: There are no mailto links.
     * Issue 151: Use location list instead of quickfix list for :VimwikiSearch
@@ -1933,7 +2116,7 @@ Vim plugins: http://www.vim.org/scripts/script.php?script_id=2226
       date if it has corresponding diary page.
     * FIX: Issue 80: Debian Lenny GUI Vim 7.2 has problems with toggling inner
       todo list items.
-    * FIX: Issue 81: Don't convert WikiWord as a link in HTML when
+    * FIX: Issue 81: Don't convert WikiWord as a link in HTML when 
       `let g:vimwiki_camel_case = 0`
 
 0.9.9~
@@ -1942,7 +2125,7 @@ Vim plugins: http://www.vim.org/scripts/script.php?script_id=2226
       later.
     * NEW: Tables are redesigned. Syntax is changed. Now they are
       auto-formattable. You can navigate them with <tab> and <cr> in insert
-      mode. See |vimwiki-syntax-tables| and |vimwiki-tables| for more details.
+      mode. See |vimwiki-syntax-tables| and |vimwiki-tables| for more details. 
     * NEW: Keyword STARTED: is added.
     * NEW: Words TODO:, DONE:, STARTED:, XXX:, FIXME:, FIXED: are highlighed
       inside headers.
@@ -1963,7 +2146,7 @@ Vim plugins: http://www.vim.org/scripts/script.php?script_id=2226
     * NEW: Rename |g:vimwiki_fold_empty_lines| to
       |g:vimwiki_fold_trailing_empty_lines|.
     * NEW: One can use '-' along with '*' to start unordered list item.
-    * NEW: List items could be started from the first column.
+    * NEW: List items could be started from the first column. 
       As a result some limitations appeared:
         - a space after *, - or # for a list item is mandatory.
         - |g:vimwiki_fold_trailing_empty_lines| if set to 0 folds one trailing
@@ -1974,7 +2157,7 @@ Vim plugins: http://www.vim.org/scripts/script.php?script_id=2226
     * NEW: Centered headers. Start header with at least one space to make it
       HTML centered.
     * NEW: Change in default CSS: header's colors.
-    * NEW: Vimwiki is aware of |GetLatestVimScripts| now.
+    * NEW: Vimwiki is aware of |GetLatestVimScripts| now. 
     * FIX: Use <del> tag instead of custom <span class="strike"> in HTML.
     * FIX: There are no text styling in htmlized quoted text.
     * FIX: set default value of g:vimwiki_fold_lists to 0 as written in this

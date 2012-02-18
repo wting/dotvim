@@ -31,7 +31,7 @@ del {text-decoration: line-through; color: #777777;}
 .done3:before {content: "\2588\2588\2588\2592"; color: SkyBlue;}
 .done4:before {content: "\2588\2588\2588\2588"; color: SkyBlue;}
 /* comment the next four or five lines out   *
- * if you do not want color-coded todo lists */
+ * if you do not want color-coded todo lists */ 
 .done0 {color: #c00000;}
 .done1 {color: #c08000;}
 .done2 {color: #80a000;}

@@ -18,10 +18,6 @@ function! s:prefix_zero(num) "{{{
   return a:num
 endfunction "}}}
 
-function! s:desc(d1, d2) "{{{
-  return a:d1 == a:d2 ? 0 : a:d1 < a:d2 ? 1 : -1
-endfunction "}}}
-
 function! s:get_date_link(fmt) "{{{
   return strftime(a:fmt)
 endfunction "}}}
@@ -45,68 +41,15 @@ function! s:diary_index() "{{{
   return s:diary_path().VimwikiGet('diary_index').VimwikiGet('ext')
 endfunction "}}}
 
-function! s:get_diary_range(lines, header) "{{{
-  let rx = '\[\[\d\{4}-\d\d-\d\d\]\]'
-  let idx = 0
-  let ln_start = -1
-  let ln_end = -1
-  for line in a:lines
-    if ln_start != -1
-      if line =~ '^\s*\(=\)\+.*\1\s*$' || (line !~ rx && line !~ '^\s*$')
-        break
-      endif
-    endif
-    if line =~ '^\s*\(=\)\+\s*'.a:header.'\s*\1\s*$'
-      let ln_start = idx + 1
-    endif
-    let idx += 1
-  endfor
-
-  let ln_end = idx
-  return [ln_start, ln_end]
-endfunction "}}}
-
 function! s:diary_date_link() "{{{
   return s:get_date_link(VimwikiGet('diary_link_fmt'))
-endfunction "}}}
-
-function! s:get_file_contents(file_name) "{{{
-  let lines = []
-  let bufnr = bufnr(expand(a:file_name))
-  if bufnr != -1
-    let lines = getbufline(bufnr, 1, '$')
-  else
-    try
-      let lines = readfile(expand(a:file_name))
-    catch
-    endtry
-  endif
-  return [lines, bufnr]
-endfunction "}}}
-
-function! s:get_links() "{{{
-  let rx = '\d\{4}-\d\d-\d\d'
-  let s_links = glob(VimwikiGet('path').VimwikiGet('diary_rel_path').
-        \ '*'.VimwikiGet('ext'))
-
-  let s_links = substitute(s_links, '\'.VimwikiGet('ext'), "", "g")
-  let links = split(s_links, '\n')
-
-  " remove backup files (.wiki~)
-  call filter(links, 'v:val !~ ''.*\~$''')
-
-  " remove paths
-  call map(links, 'fnamemodify(v:val, ":t")')
-
-  call filter(links, 'v:val =~ "'.escape(rx, '\').'"')
-  return links
 endfunction "}}}
 
 function! s:get_position_links(link) "{{{
   let idx = -1
   let links = []
   if a:link =~ '\d\{4}-\d\d-\d\d'
-    let links = s:get_links()
+    let links = keys(s:get_diary_links())
     " include 'today' into links
     if index(links, s:diary_date_link()) == -1
       call add(links, s:diary_date_link())
@@ -117,84 +60,171 @@ function! s:get_position_links(link) "{{{
   return [idx, links]
 endfunction "}}}
 
-function! s:format_links(links) "{{{
-  let lines = []
-  let line = '| '
-  let idx = 0
-  let trigger = 0
-  while idx < len(a:links)
-    if idx/VimwikiGet('diary_link_count') > trigger
-      let trigger = idx/VimwikiGet('diary_link_count')
-      call add(lines, substitute(line, '\s\+$', '', ''))
-      let line = '| '
-    endif
-    let line .= a:links[idx].' | '
-    let idx += 1
-  endwhile
-  call add(lines, substitute(line, '\s\+$', '', ''))
-  call extend(lines, [''])
+fun! s:get_month_name(month) "{{{
+  return g:vimwiki_diary_months[str2nr(a:month)]
+endfun "}}}
 
+fun! s:read_captions(files) "{{{
+  let result = {}
+  for fl in a:files
+    " remove paths and extensions
+    let fl_key = fnamemodify(fl, ':t:r')
+
+    if filereadable(fl)
+      for line in readfile(fl, '', 5)
+        " TODO: Header regexp should be used here...
+        if line =~ '^\s*=.*=\s*' && !has_key(result, fl_key)
+          let result[fl_key] = matchstr(line, '=\s*\zs.\{-}\ze\s*=\s*')
+        endif
+      endfor
+    endif
+
+    if !has_key(result, fl_key)
+      let result[fl_key] = ''
+    endif
+
+  endfor
+  return result
+endfun "}}}
+
+fun! s:get_diary_links(...) "{{{
+  let rx = '\d\{4}-\d\d-\d\d'
+  let s_files = glob(VimwikiGet('path').VimwikiGet('diary_rel_path').'*'.VimwikiGet('ext'))
+  let files = split(s_files, '\n')
+  call filter(files, 'fnamemodify(v:val, ":t") =~ "'.escape(rx, '\').'"')
+
+  " remove backup files (.wiki~)
+  call filter(files, 'v:val !~ ''.*\~$''')
+
+  if a:0
+    call add(files, a:1)
+  endif
+  let links_with_captions = s:read_captions(files)
+
+  return links_with_captions
+endfun "}}}
+
+fun! s:group_links(links) "{{{
+  let result = {}
+  let p_year = 0
+  let p_month = 0
+  for fl in sort(keys(a:links))
+    let year = strpart(fl, 0, 4)
+    let month = strpart(fl, 5, 2)
+    if p_year != year
+      let result[year] = {}
+      let p_month = 0
+    endif
+    if p_month != month
+      let result[year][month] = {}
+    endif
+    let result[year][month][fl] = a:links[fl]
+    let p_year = year
+    let p_month = month
+  endfor
+  return result
+endfun "}}}
+
+fun! s:format_diary(...) "{{{
+  let result = []
+
+  call add(result, '= '.VimwikiGet('diary_header').' =')
+
+  if a:0
+    let g_files = s:group_links(s:get_diary_links(a:1))
+  else
+    let g_files = s:group_links(s:get_diary_links())
+  endif
+
+  for year in reverse(sort(keys(g_files)))
+    call add(result, '')
+    call add(result, '== '.year.' ==')
+
+    for month in reverse(sort(keys(g_files[year])))
+      call add(result, '')
+      call add(result, '=== '.s:get_month_name(month).' ===')
+
+      for [fl, cap] in reverse(sort(items(g_files[year][month])))
+        if empty(cap)
+          call add(result, repeat(' ', &sw).'* [['.fl.']]')
+        else
+          call add(result, repeat(' ', &sw).'* [['.fl.'|'.fl.': '.cap.']]')
+        endif
+      endfor
+
+    endfor
+  endfor
+  call add(result, '')
+
+  return result
+endfun "}}}
+
+function! s:get_file_contents(fname) "{{{
+  " read contents of diary index into buffer
+  let fname = expand(a:fname)
+  let lines = []
+  if bufnr(fname) == -1
+    let lines = readfile(fname)
+  else
+    let lines = getbufline(bufnr(fname), 1, '$')
+  endif
   return lines
 endfunction "}}}
 
-function! s:add_link(page, header, link) "{{{
-  let [lines, bufnr] = s:get_file_contents(a:page)
-
-  let [ln_start, ln_end] = s:get_diary_range(lines, a:header)
-
-  let link = '[['.a:link.']]'
-
-  let link_exists = s:link_exists(lines[ln_start : ln_end], link)
-
-  if !link_exists
-
-    if ln_start == -1
-      call insert(lines, '= '.a:header.' =')
-      let ln_start = 1
-      let ln_end = 1
-    endif
-
-    " removing 'old' links
-    let idx = ln_end - ln_start
-    while idx > 0
-      call remove(lines, ln_start)
-      let idx -= 1
-    endwhile
-
-    " get all diary links from filesystem
-    let links = s:get_links()
-    call map(links, '"[[".v:val."]]"')
-
-    " add current link
-    if index(links, link) == -1
-      call add(links, link)
-    endif
-
-    let links = sort(links, 's:desc')
-    call extend(lines, s:format_links(links), ln_start)
-
-    if bufnr != -1
-      exe 'buffer '.bufnr
-      if !&readonly
-        1,$delete _
-        call append(1, lines)
-        1,1delete _
-      endif
-    else
-      call writefile(lines, expand(a:page))
+function! s:set_file_contents(fname, lines) "{{{
+  " save contents of diary index with lines
+  let fname = expand(a:fname)
+  if bufnr(fname) == -1
+    call writefile(a:lines, fname)
+  else
+    exe 'buffer '.bufnr(fname)
+    if !&readonly
+      1,$delete _
+      call append(1, a:lines)
+      1,1delete _
     endif
   endif
+endfunction "}}}
+
+function! s:set_diary_section(lines, diary_lines) "{{{
+  " remove diary section
+  let lines = a:lines
+  let ln_start = match(lines, '=\s*'.VimwikiGet('diary_header').'\s*=')
+  let ln_end = match(lines, '=[^=].*[^=]=\s*$', ln_start+1)
+
+  if ln_end < 0
+    let ln_end = len(lines)
+  endif
+
+  if ln_start > -1
+    call remove(lines, ln_start, ln_end-1)
+  endif
+
+  if ln_start < 0
+    let ln_start = 0
+  endif
+
+  call extend(lines, a:diary_lines, ln_start)
+
+endfunction "}}}
+
+function! s:add_link(diaryfile, newlink) "{{{
+  let fname = expand(a:diaryfile)
+  let lines = s:get_file_contents(fname)
+
+  call s:set_diary_section(lines, s:format_diary(a:newlink))
+
+  call s:set_file_contents(fname, lines)
 endfunction "}}}
 
 function! s:make_date_link(...) "{{{
   if a:0
-    let link = a:1
+    let newlink = a:1
   else
-    let link = s:diary_date_link()
+    let newlink = s:diary_date_link()
   endif
-  let header = VimwikiGet('diary_header')
-  call s:add_link(s:diary_index(), header, link)
-  return VimwikiGet('diary_rel_path').link
+  call s:add_link(s:diary_index(), newlink)
+  return VimwikiGet('diary_rel_path').newlink
 endfunction "}}}
 
 function! vimwiki#diary#make_note(index, ...) "{{{
