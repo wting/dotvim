@@ -24,6 +24,7 @@ done
 
 if [ ${replace} ]; then
 	rm -rfv ~/.vim/ 2>/dev/null
+	rm -v ~/.vim/ 2>/dev/null
 	rm -v ~/.vimrc 2>/dev/null
 else
 	timestamp=`/usr/bin/env date +%s`

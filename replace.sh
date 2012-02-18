@@ -22,11 +22,13 @@ while true; do
 	esac
 done
 
+echo -e "\nRemoving existing vim related files ...\n"
 if [ -d ~/.vim ]; then
-	echo -e "\nRemoving existing vim related files ...\n"
 	rm -rf ~/.vim/ 2>/dev/null
+elif [ -h ~/.vim ]; then
+	rm ~/.vim/ 2>/dev/null
 fi
-if [ -f ~/.vimrc ]; then
+if [ -f ~/.vimrc ] || [ -h ~/.vimrc ]; then
 	rm ~/.vimrc 2>/dev/null
 fi
 
