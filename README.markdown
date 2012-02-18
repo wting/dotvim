@@ -31,7 +31,7 @@ via `curl`, replacing existing customizations:
 - [Local vimrc](http://www.vim.org/scripts/script.php?script_id=441): Sources .lvimrc after .vimrc to allow for project / directory specific vim settings.
 - [snipMate](http://www.vim.org/scripts/script.php?script_id=2540): Implements TextMate snippets feature, [quick intro](http://vimeo.com/3535418).
 - [Syntastic](http://www.vim.org/scripts/script.php?script_id=2736): Syntax checking plugin.
-- [vimwiki](http://www.vim.org/scripts/script.php?script_id=2226): Personalized wiki within vim, refer to included PDF file for a quick reference.
+- [vimwiki](http://www.vim.org/scripts/script.php?script_id=2226): Personalized wiki within vim, [quick reference](http://vimwiki.googlecode.com/hg/misc/Vimwiki1.1.1QR.pdf).
 
 ## Themes
 
@@ -49,7 +49,7 @@ For more info, refer to the [plugin page](http://www.vim.org/scripts/script.php?
 
 ### CSApprox
 
-If you get this error message:
+If you cannot load custom color schemes or are get this error message:
 
     CSApprox needs gui support - not loading.
         See :help |csapprox-+gui| for possible workarounds.
