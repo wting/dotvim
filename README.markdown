@@ -41,4 +41,6 @@ via `wget`, removing existing customizations:
 
 The selected color scheme is [zenburn](http://slinky.imukuppi.org/zenburnpage/), a low-contrast theme primarily for dark environments. Others are listed in `~/.vim/colors/`.
 
+![zenburn color scheme](http://slinky.imukuppi.org/wpress/wp-content/uploads/2008/04/zenburn.png "zenburn")
+
 Enjoy!
