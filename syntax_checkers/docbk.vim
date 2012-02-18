@@ -1,5 +1,5 @@
 "============================================================================
-"File:        sass.vim
+"File:        docbk.vim
 "Description: Syntax checking plugin for syntastic.vim
 "Maintainer:  Martin Grenfell <martin.grenfell at gmail dot com>
 "License:     This program is free software. It comes without any warranty,
@@ -9,26 +9,20 @@
 "             See http://sam.zoy.org/wtfpl/COPYING for more details.
 "
 "============================================================================
-if exists("loaded_sass_syntax_checker")
+if exists("loaded_docbk_syntax_checker")
     finish
 endif
-let loaded_sass_syntax_checker = 1
+let loaded_docbk_syntax_checker = 1
 
-"bail if the user doesnt have the sass binary installed
-if !executable("sass")
+"bail if the user doesnt have tidy or grep installed
+if !executable("xmllint")
     finish
 endif
 
-"use compass imports if available
-let s:imports = ""
-if executable("compass")
-    let s:imports = "--compass"
-endif
+function! SyntaxCheckers_docbk_GetLocList()
 
-function! SyntaxCheckers_sass_GetLocList()
-    let makeprg='sass '.s:imports.' --check '.shellescape(expand('%'))
-    let errorformat = '%ESyntax %trror:%m,%C        on line %l of %f,%Z%.%#'
-    let errorformat .= ',%Wwarning on line %l:,%Z%m,Syntax %trror on line %l: %m'
+    let makeprg="xmllint --xinclude --noout --postvalid ".shellescape(expand(%:p))
+    let errorformat='%E%f:%l: parser error : %m,%W%f:%l: parser warning : %m,%E%f:%l:%.%# validity error : %m,%W%f:%l:%.%# validity warning : %m,%-Z%p^,%-C%.%#,%-G%.%#'
     let loclist = SyntasticMake({ 'makeprg': makeprg, 'errorformat': errorformat })
 
     return loclist
