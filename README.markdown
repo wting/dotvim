@@ -27,11 +27,16 @@ Replacing existing customizations:
 
 - [Command-T](http://www.vim.org/scripts/script.php?script_id=3025): Activated by `shift t` in command mode, provides fast file open.
 - [CSApprox](http://www.vim.org/scripts/script.php?script_id=2390): Brings gvim color schemes into terminal vim.
+- [fugitive](http://www.vim.org/scripts/script.php?script_id=2975): Git wrapper
 - [Indent Guides](http://www.vim.org/scripts/script.php?script_id=3361): Visually displays indentation levels.
 - [Local vimrc](http://www.vim.org/scripts/script.php?script_id=441): Sources .lvimrc after .vimrc to allow for project / directory specific vim settings.
+- [NERD commenter](http://www.vim.org/scripts/script.php?script_id=1218): block commenting with <leader>c<space>, amongst other features
+- [NERD tree](http://www.vim.org/scripts/script.php?script_id=1658): file tree
+- [Rainbow Parentheses](http://www.vim.org/scripts/script.php?script_id=3772): Matching color parentheses
 - [snipMate](http://www.vim.org/scripts/script.php?script_id=2540): Implements TextMate snippets feature, [quick intro](http://vimeo.com/3535418).
 - [Syntastic](http://www.vim.org/scripts/script.php?script_id=2736): Syntax checking plugin.
 - [vimwiki](http://www.vim.org/scripts/script.php?script_id=2226): Personalized wiki within vim, [quick reference](http://vimwiki.googlecode.com/hg/misc/Vimwiki1.1.1QR.pdf).
+- [vundle](https://github.com/gmarik/vundle): vim plugin package management system
 
 ## Themes
 

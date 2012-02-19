@@ -350,7 +350,7 @@ let g:localvimrc_ask=0
 "Rainbow Parentheses
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare
+"au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _, disabled until fixed
 au Syntax * RainbowParenthesesLoadBraces
 
 "Syntastic
