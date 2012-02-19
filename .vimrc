@@ -82,13 +82,16 @@ set hidden
 " VIM User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number								"show line numbers
-set relativenumber						"show line number relative to cursor
-au FocusLost * :set number
-au FocusGained * :set relativenumber
-autocmd InsertEnter * :set number
-autocmd InsertLeave * :set relativenumber
 set nowrap								"no word wrapping
 set formatoptions=qrn1
+
+if has("relativenumber")
+	set relativenumber						"show line number relative to cursor
+	au FocusLost * :set number
+	au FocusGained * :set relativenumber
+	autocmd InsertEnter * :set number
+	autocmd InsertLeave * :set relativenumber
+endif
 
 set ttyfast
 set ruler
@@ -145,7 +148,9 @@ autocmd BufWritePre * :%s/\s\+$//e
 set t_Co=256							"force 256 color support even if terminal doesn't allow it
 colorscheme zenburn
 set background=dark
-set colorcolumn=80
+if has("colorcolumn")
+	set colorcolumn=80
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files and Backups
@@ -153,7 +158,6 @@ set colorcolumn=80
 set enc=utf-8
 set fenc=utf-8
 set nobackup
-set undofile
 set wildmenu
 set wildmode=list:longest
 set wildignore+=*.DS_Store							" OSX bullshit
@@ -169,9 +173,13 @@ set wildignore+=*.pyc								" Python
 "backups
 set backupdir=~/.vim/tmp/backup						" backups
 set directory=~/.vim/tmp/swap						" swap files
-set undodir=~/.vim/tmp/undo							" undo files
 set backup											" enable backups
 set noswapfile										" It's 2012, Vim.
+
+if has("persistent_undo")
+	set undodir=~/.vim/tmp/undo
+	set undofile
+endif
 
 "save on losing focus
 "au FocusLost * :wa
