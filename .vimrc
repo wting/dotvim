@@ -40,6 +40,7 @@ Bundle 'gmarik/vundle'
 
 " github repos
 Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'Lokaltog/vim-powerline'
 Bundle 'msanders/snipmate.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdtree'
@@ -378,6 +379,9 @@ let g:localvimrc_ask=0
 
 "NERD Tree
 nnoremap <leader>nt :NERDTreeToggle<CR>
+
+"Powerline
+let g:Powerline_symbols = 'fancy'
 
 "Rainbow Parentheses
 nnoremap <leader>rbt :RainbowParenthesesToggle<CR>
