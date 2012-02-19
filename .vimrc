@@ -162,9 +162,9 @@ set wildignore+=*.class								" Java
 set wildignore+=*.pyc								" Python
 
 "backups
-set backupdir=~/.vim/tmp/backup//					" backups
-set directory=~/.vim/tmp/swap//						" swap files
-set undodir=~/.vim/tmp/undo//						" undo files
+set backupdir=~/.vim/tmp/backup						" backups
+set directory=~/.vim/tmp/swap						" swap files
+set undodir=~/.vim/tmp/undo							" undo files
 set backup											" enable backups
 set noswapfile										" It's 2012, Vim.
 
@@ -268,6 +268,8 @@ set gdefault
 set incsearch
 set hlsearch
 set showmatch
+"redraw screen and remove search highlights
+nnoremap <silent> <C-l> :noh<return><C-l>
 "disable vim regex, use Perl/Python regex instead
 nnoremap / /\v
 vnoremap / /\v
@@ -306,7 +308,8 @@ inoremap jj <esc>j
 cnoremap jj <C-c>j
 inoremap kk <esc>k
 cnoremap kk <C-c>k
-
+nnoremap H ^
+nnoremap L $
 inoremap ZZ <esc>:wq<Cr>
 
 "Use Q for formatting the current paragraph (or selection)
