@@ -146,11 +146,26 @@ set colorcolumn=80
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set enc=utf-8
 set fenc=utf-8
-set wildignore=*.swp,*.bak,*.pyc,*.class
 set nobackup
+set undofile
 set wildmenu
 set wildmode=list:longest
-set undofile
+set wildignore+=*.DS_Store							" OSX bullshit
+set wildignore+=.hg,.git,.svn						" Version control
+set wildignore+=*.sw?,*.un?							" vim
+set wildignore+=*.aux,*.out,*.toc					" LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg		" binary images
+set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest	" compiled object files
+set wildignore+=*.spl								" compiled spelling word lists
+set wildignore+=*.class								" Java
+set wildignore+=*.pyc								" Python
+
+"backups
+set backupdir=~/.vim/tmp/backup//					" backups
+set directory=~/.vim/tmp/swap//						" swap files
+set undodir=~/.vim/tmp/undo//						" undo files
+set backup											" enable backups
+set noswapfile										" It's 2012, Vim.
 
 "save on losing focus
 "au FocusLost * :wa
