@@ -1,18 +1,20 @@
 " Customized by: william.h.ting at gmail.com
 "
 " Sections:
+"    -> Vundle Configuration
+"    -> GVIM Specific Options
 "    -> General
-"    -> VIM user interface
+"    -> VIM User Interface
 "    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Command mode related
-"    -> Moving around, tabs and buffers
+"    -> Files and Backups
+"    -> Text, Tab and Indent Related
+"    -> Visual Mode Related
+"    -> Command Mode Related
+"    -> Moving Around, Tabs and Buffers
 "    -> Statusline
-"    -> Parenthesis/bracket expanding
+"    -> Parenthesis/Bracket Expanding
 "    -> General Abbrevs
-"    -> Editing mappings
+"    -> Plugin Options
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle Configuration
@@ -27,7 +29,7 @@
 " NOTE: comments after Bundle command are not allowed.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-filetype on			" disable OS X exit with non-zero error code
+filetype on								"disable OS X exit with non-zero error code
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
@@ -51,203 +53,78 @@ Bundle 'vimwiki'
 filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" End Vundle Configuration
+" GVIM Specific Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set vb t_vb=
+set guioptions-=T
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set history=1000
+set undolevels=1000
 
-set enc=utf-8
-set fenc=utf-8
-set number
-set backspace=indent,eol,start "allow bs over everything
-"fixdel "for Cygwin
-set nobackup
-"set noswapfile
-"set dir=/tmp "swap file location
-
-set autoindent
-set smartindent
+set title                				"change the terminal's title
+set backspace=indent,eol,start 			"allow bs over everything
 set iskeyword=@,48-57,_,192-255
-set tabstop=4
-set shiftwidth=4
-set shiftround "use multiples of shiftwidth when using < or >
-"set expandtab "use spaces instead of \t
-set nowrap
-set history=1000         " remember more commands and search history
-set undolevels=1000      " use many muchos levels of undo
-set wildignore=*.swp,*.bak,*.pyc,*.class
-set title                " change the terminal's title
-set visualbell           " don't beep
-set noerrorbells         " don't beep
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" VIM User Interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set number								"show line numbers
+set nowrap								"no word wrapping
+
+set visualbell           				"don't beep
+set noerrorbells         				"don't beep
 set showmode
 
 set splitright
 set splitbelow
 
-" Minimal number of screen lines to keep above and below the cursor.
-set scrolloff=4
+set scrolloff=4							"minimal number of screen lines to keep above and below the cursor.
+set cursorline							"shows the current line in different color
 
-" Shows the current line in different color
-set cursorline
+"automatically resize vertical splits.
+:au WinEnter * :set winfixheight
+:au WinEnter * :wincmd =
 
-" Colorschemes
-set t_Co=256			" force 256 color support even if terminal doesn't allow it
-colorscheme zenburn
-set background=dark
-
-filetype plugin on
-syntax on
-highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
-
-"remove trailing whitespace
-"http://vim.wikia.com/wiki/Remove_unwanted_spaces#Automatically_removing_all_trailing_whitespace
-autocmd BufWritePre * :%s/\s\+$//e
-"autocmd BufWritePre *.c :%s/\s\+$//e
-"autocmd BufWritePre *.cpp :%s/\s\+$//e
-"autocmd BufWritePre *.css :%s/\s\+$//e
-"autocmd BufWritePre *.c++ :%s/\s\+$//e
-"autocmd BufWritePre *.h :%s/\s\+$//e
-"autocmd BufWritePre *.html :%s/\s\+$//e
-"autocmd BufWritePre *.java :%s/\s\+$//e
-"autocmd BufWritePre *.js :%s/\s\+$//e
-"autocmd BufWritePre *.php :%s/\s\+$//e
-"autocmd BufWritePre *.pl :%s/\s\+$//e
-"autocmd BufWritePre *.py :%s/\s\+$//e
-"autocmd BufWritePre *.sql :%s/\s\+$//e
-"autocmd BufWritePre *.wiki :%s/\s\+$//e
-"autocmd FileType c,cpp,c++,java,php,pl,py autocmd BufWritePre <buffer> :call setline(1,map(getline(1,"$"),'substitute(v:val,"\\s\\+$","","")'))
-
-"search options
-set smartcase "ignore case if all lowercase
-set ignorecase
-set incsearch
-set hlsearch
-set showmatch
-
-nmap <space> <C-f>
-nmap n nzz
-nmap N Nzz
-
-"adding / removing lines
-map <S-Enter> O<Esc>
-map <CR> o<Esc>
-
-"reduce keystrokes for command mode
-inoremap ;w <esc>:w<cr>a
-nnoremap ; :
-
-"set arrow keys to move between buffer / tabs
-inoremap <Up> <esc>:bprev<cr>
-inoremap <Down> <esc>:bnext<cr>
-inoremap <Left> <esc>:tabprev<cr>
-inoremap <Right> <esc>:tabnext<cr>
-noremap <Up> :bprev<cr>
-noremap <Down> :bnext<cr>
-noremap <Left> :tabprev<cr>
-noremap <Right> :tabnext<cr>
-
-" Easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-"Maps for jj to act as esc
-inoremap jj <esc>j
-cnoremap jj <C-c>j
-inoremap kk <esc>k
-cnoremap kk <C-c>k
-
-inoremap ZZ <esc>:wq<Cr>
-
-"Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
-
-"navigate wrapped lines
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
-
-"forget sudo
-cmap w!! w !sudo tee % >/dev/null
-
-"toggle paste option
-nnoremap <C-P><C-P> :set invpaste paste?<CR>
-
-"toggle line numbers
-nnoremap <C-N><C-N> :set invnumber<CR>
-
-" return cursur after using . command
-nmap . .`[
-
-"gvim specific options
-set vb t_vb=
-set guioptions-=T
-
-"http://vim.wikia.com/wiki/All_folds_open_when_open_a_file
-"Set folds, default open
+"set folds, default open
 set foldmethod=indent
 set foldlevel=20
 set foldlevelstart=20
 set showtabline=2
 
-" Vertical Split Buffer Function
-"function VerticalSplitBuffer(buffer)
-	"execute "vert belowright sb" a:buffer
-	"endfunction
-
-" Vertical Split Buffer Mapping
-"command -nargs=1 Vbuffer call VerticalSplitBuffer(<f-args>)
-
-" Automatically resize vertical splits.
-:au WinEnter * :set winfixheight
-:au WinEnter * :wincmd =
-
-" Note, perl automatically sets foldmethod in the syntax file
+"note, perl automatically sets foldmethod in the syntax file
 autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
 autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
-"Make saving and loading folds automatic
+"make saving and loading folds automatic
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
-"plugin command t
-noremap <S-T> :CommandT<cr>
-"change default behavior to open in new tab
-let g:CommandTAcceptSelectionTabMap=['<CR>']
-set wildignore+=*.o,*.obj,.git,*.pyc,*.png,*.jpg,*.gif
+"highlights trailing whitespace
+syntax on
+highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
+autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 
-"always show status line
-set laststatus=2
-set statusline=%<%y\ b%n\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-"\ %{SyntasticStatuslineFlag()}
-"set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+"remove trailing whitespace
+autocmd BufWritePre * :%s/\s\+$//e
+"autocmd BufWritePre *.c :%s/\s\+$//e
 
-"for Syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256							"force 256 color support even if terminal doesn't allow it
+colorscheme zenburn
+set background=dark
 
-"for indent guides plugin
-let g:indent_guides_enable_on_vim_startup = 1
-let g:indent_guides_guide_size = 1
-
-" indent guides without using above plugin
-" set list
-" set listchars=tab:→\
-
-"for localvimrc
-let g:localvimrc_ask=0
-
-" CS Approx
-let g:CSApprox_verbose_level = 0
-
-"for Gundo
-nnoremap <F5> :GundoToggle<CR>
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Files and Backups
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set enc=utf-8
+set fenc=utf-8
+set wildignore=*.swp,*.bak,*.pyc,*.class
+set nobackup
 
 "http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
 " Tell vim to remember certain things when we exit
@@ -292,4 +169,130 @@ if has("folding")
 	endfunction
 endif
 
-au BufWritePost ~/.vimrc source ~/.vimrc
+au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Text, Tab and Indent Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set shiftround 							"use multiples of shiftwidth when using < or >
+"set expandtab 							"use spaces instead of tabs
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Visual Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Command Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"reduce keystrokes for command mode
+inoremap ;w <esc>:w<cr>a
+nnoremap ; :
+
+"return cursor after using . command
+nmap . .`[
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Moving Around, Tabs and Buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"arrow keys move between buffers / tabs
+inoremap <Up> <esc>:bprev<cr>
+inoremap <Down> <esc>:bnext<cr>
+inoremap <Left> <esc>:tabprev<cr>
+inoremap <Right> <esc>:tabnext<cr>
+noremap <Up> :bprev<cr>
+noremap <Down> :bnext<cr>
+noremap <Left> :tabprev<cr>
+noremap <Right> :tabnext<cr>
+
+"easy window navigation
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+
+"search options
+set ignorecase
+set smartcase							"ignore case if upper case present
+set incsearch
+set hlsearch
+set showmatch
+
+"navigate wrapped lines
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
+nmap <space> <C-f>
+nmap n nzz
+nmap N Nzz
+
+"adding / removing lines
+map <S-Enter> O<Esc>
+map <CR> o<Esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Statusline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+set statusline=%<%y\ b%n\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+"\ %{SyntasticStatuslineFlag()}
+"set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Parenthesis/Bracket Expanding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Abbrevs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"exit insert mode alternatives
+inoremap jj <esc>j
+cnoremap jj <C-c>j
+inoremap kk <esc>k
+cnoremap kk <C-c>k
+
+inoremap ZZ <esc>:wq<Cr>
+
+"Use Q for formatting the current paragraph (or selection)
+vmap Q gq
+nmap Q gqap
+
+"forgot sudo?
+cmap w!! w !sudo tee % >/dev/null
+
+"toggle paste option
+nnoremap <C-P><C-P> :set invpaste paste?<CR>
+
+"toggle line numbers
+nnoremap <C-N><C-N> :set invnumber<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Plugin Options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Command-T
+noremap <S-T> :CommandT<cr>
+let g:CommandTAcceptSelectionTabMap=['<CR>']				"change default behavior to open in new tab
+set wildignore+=*.o,*.obj,*.git,*.pyc,*.png,*.jpg,*.gif		"ignore certain files when searching
+
+"CSApprox
+let g:CSApprox_verbose_level = 0
+
+"Indent Guides
+let g:indent_guides_enable_on_vim_startup = 1
+let g:indent_guides_guide_size = 1
+
+"Indent guides without using plugin
+"set list
+"set listchars=tab:→\
+
+"localvimrc
+let g:localvimrc_ask=0
+
+"Syntastic
+let g:syntastic_enable_signs=1
+let g:syntastic_quiet_warnings=1
