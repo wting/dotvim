@@ -18,24 +18,24 @@
 " Vundle configuration
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
+filetype on			" disable OS X exit with non-zero error code
 filetype off
 
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" let Vundle manage Vundle
 Bundle 'gmarik/vundle'
 
-" My Bundles here:
-"
-" original repos on github
-"Bundle 'tpope/vim-fugitive'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
-"Bundle 'tpope/vim-rails.git'
+" github repos
+Bundle 'wincent/Command-T'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'msanders/snipmate.vim'
+Bundle 'scrooloose/syntastic'
+"Bundle 'vim-scripts/vimwiki'
 " vim-scripts repos
-"Bundle 'L9'
-"Bundle 'FuzzyFinder'
+Bundle 'CSApprox'
+Bundle 'localvimrc'
+Bundle 'vimwiki'
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
 
