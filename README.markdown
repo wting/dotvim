@@ -32,6 +32,7 @@ Replacing existing customizations:
 - [Local vimrc](http://www.vim.org/scripts/script.php?script_id=441): Sources .lvimrc after .vimrc to allow for project / directory specific vim settings.
 - [NERD commenter](http://www.vim.org/scripts/script.php?script_id=1218): block commenting with <leader>c<space>, amongst other features
 - [NERD tree](http://www.vim.org/scripts/script.php?script_id=1658): file tree
+- [Powerline](http://www.vim.org/scripts/script.php?script_id=3881): A better, more functional statusline
 - [Rainbow Parentheses](http://www.vim.org/scripts/script.php?script_id=3772): Matching color parentheses
 - [snipMate](http://www.vim.org/scripts/script.php?script_id=2540): Implements TextMate snippets feature, [quick intro](http://vimeo.com/3535418).
 - [Syntastic](http://www.vim.org/scripts/script.php?script_id=2736): Syntax checking plugin.

@@ -324,9 +324,6 @@ nmap Q gqap
 "forgot sudo?
 cmap w!! w !sudo tee % >/dev/null
 
-"toggle paste option
-nnoremap <C-P><C-P> :set invpaste paste?<CR>
-
 "toggle line numbers
 nnoremap <C-N><C-N> :set invnumber<CR>
 
@@ -352,6 +349,15 @@ vnoremap <A-l> >gv
 "adding / removing lines
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
+
+"toggle paste option
+nnoremap <C-P><C-P> :set invpaste paste?<CR>
+
+"automatically indent after pasting, use <leader>p to use regular paste
+nnoremap <leader>p p
+nnoremap <leader>P P
+nnoremap p p'[v']=
+nnoremap P P'[v']=
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
