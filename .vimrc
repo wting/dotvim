@@ -38,10 +38,15 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " github repos
-Bundle 'wincent/Command-T'
-Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'msanders/snipmate.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'scrooloose/nerdtree'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
+Bundle 'sjl/gundo.vim'
+Bundle 'tpope/vim-fugitive'
+Bundle 'wincent/Command-T'
 "Bundle 'vim-scripts/vimwiki'
 " vim-scripts repos
 Bundle 'CSApprox'
@@ -68,15 +73,23 @@ set title                				"change the terminal's title
 set backspace=indent,eol,start 			"allow bs over everything
 set iskeyword=@,48-57,_,192-255
 
+set modelines=0							"remove modelines, prevents a few security exploits
+set hidden
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number								"show line numbers
+set relativenumber						"show line number relative to cursor
 set nowrap								"no word wrapping
+set formatoptions=qrn1
 
+set ttyfast
+set ruler
 set visualbell           				"don't beep
 set noerrorbells         				"don't beep
 set showmode
+set showcmd
 
 set splitright
 set splitbelow
@@ -93,6 +106,11 @@ set foldmethod=indent
 set foldlevel=20
 set foldlevelstart=20
 set showtabline=2
+
+"fold tags (for html)
+nnoremap <leader>hft Vatzf
+"sort CSS properties
+nnoremap <leader>hcss ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 "note, perl automatically sets foldmethod in the syntax file
 autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
@@ -111,12 +129,17 @@ autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 autocmd BufWritePre * :%s/\s\+$//e
 "autocmd BufWritePre *.c :%s/\s\+$//e
 
+"show tabs and carriage returns, unnecessary because of indent guides plugin
+"set list
+"set listchars=tab:▸\ ,eol:¬
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256							"force 256 color support even if terminal doesn't allow it
 colorscheme zenburn
 set background=dark
+set colorcolumn=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files and Backups
@@ -125,6 +148,12 @@ set enc=utf-8
 set fenc=utf-8
 set wildignore=*.swp,*.bak,*.pyc,*.class
 set nobackup
+set wildmenu
+set wildmode=list:longest
+set undofile
+
+"save on losing focus
+"au FocusLost * :wa
 
 "http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
 " Tell vim to remember certain things when we exit
@@ -218,10 +247,17 @@ map <C-l> <C-w>l
 
 "search options
 set ignorecase
-set smartcase							"ignore case if upper case present
+set smartcase							"disable ignore case if uppercase present
+set gdefault
 set incsearch
 set hlsearch
 set showmatch
+"disable vim regex, use Perl/Python regex instead
+nnoremap / /\v
+vnoremap / /\v
+"remapt tab to %
+nnoremap <tab> %
+vnoremap <tab> %
 
 "navigate wrapped lines
 nnoremap k gk
@@ -273,6 +309,8 @@ nnoremap <C-P><C-P> :set invpaste paste?<CR>
 "toggle line numbers
 nnoremap <C-N><C-N> :set invnumber<CR>
 
+let mapleader=","
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -284,16 +322,21 @@ set wildignore+=*.o,*.obj,*.git,*.pyc,*.png,*.jpg,*.gif		"ignore certain files w
 "CSApprox
 let g:CSApprox_verbose_level = 0
 
+"Gundo
+nnoremap <leader>gt :GundoToggle<CR>
+
 "Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
-"Indent guides without using plugin
-"set list
-"set listchars=tab:→\
-
 "localvimrc
 let g:localvimrc_ask=0
+
+"Rainbow Parentheses
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 "Syntastic
 let g:syntastic_enable_signs=1
