@@ -82,6 +82,10 @@ set hidden
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set number								"show line numbers
 set relativenumber						"show line number relative to cursor
+au FocusLost * :set number
+au FocusGained * :set relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertLeave * :set relativenumber
 set nowrap								"no word wrapping
 set formatoptions=qrn1
 
