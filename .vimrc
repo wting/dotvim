@@ -14,6 +14,7 @@
 "    -> Statusline
 "    -> Parenthesis/Bracket Expanding
 "    -> General Abbrevs
+"    -> Editing mappings
 "    -> Plugin Options
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -280,13 +281,10 @@ nnoremap j gj
 nnoremap gk k
 nnoremap gj j
 
+nmap <S-k> <C-b>
 nmap <space> <C-f>
 nmap n nzz
 nmap N Nzz
-
-"adding / removing lines
-map <S-Enter> O<Esc>
-map <CR> o<Esc>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Statusline
@@ -327,6 +325,27 @@ nnoremap <C-N><C-N> :set invnumber<CR>
 let mapleader=","
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"    -> Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"manipulate text using alt + hjkl
+nnoremap <A-j> :m+<CR>==
+nnoremap <A-k> :m-2<CR>==
+nnoremap <A-h> <<
+nnoremap <A-l> >>
+inoremap <A-j> <Esc>:m+<CR>==gi
+inoremap <A-k> <Esc>:m-2<CR>==gi
+inoremap <A-h> <Esc><<`]a
+inoremap <A-l> <Esc>>>`]a
+vnoremap <A-j> :m'>+<CR>gv=gv
+vnoremap <A-k> :m-2<CR>gv=gv
+vnoremap <A-h> <gv
+vnoremap <A-l> >gv
+
+"adding / removing lines
+map <S-Enter> O<Esc>
+map <CR> o<Esc>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Command-T
@@ -347,7 +366,14 @@ let g:indent_guides_guide_size = 1
 "localvimrc
 let g:localvimrc_ask=0
 
+"NERD Commenter
+"<leader>c <space> = block comment
+
+"NERD Tree
+nnoremap <leader>nt :NERDTreeToggle<CR>
+
 "Rainbow Parentheses
+nnoremap <leader>rbt :RainbowParenthesesToggle<CR>
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
 "au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _, disabled until fixed
