@@ -184,6 +184,8 @@ set shiftround 							"use multiples of shiftwidth when using < or >
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Command Mode Related
