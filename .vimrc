@@ -86,12 +86,12 @@ set nowrap								"no word wrapping
 set formatoptions=qrn1
 
 if has("relativenumber")
-	set relativenumber						"show line number relative to cursor
-	au FocusLost * :set number
-	au FocusGained * :set relativenumber
-	autocmd InsertEnter * :set number
-	autocmd InsertLeave * :set relativenumber
+	set relativenumber					"show line number relative to cursor
 endif
+silent! au FocusLost * :set number
+silent! au FocusGained * :set relativenumber
+silent! autocmd InsertEnter * :set number
+silent! autocmd InsertLeave * :set relativenumber
 
 set ttyfast
 set ruler
@@ -373,7 +373,6 @@ nnoremap P P'[v']=
 "Command-T
 noremap <S-T> :CommandT<cr>
 let g:CommandTAcceptSelectionTabMap=['<CR>']				"change default behavior to open in new tab
-set wildignore+=*.o,*.obj,*.git,*.pyc,*.png,*.jpg,*.gif		"ignore certain files when searching
 
 "CSApprox
 let g:CSApprox_verbose_level = 0
