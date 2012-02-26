@@ -85,13 +85,13 @@ set number								"show line numbers
 set nowrap								"no word wrapping
 set formatoptions=qrn1
 
-if has("relativenumber")
+if exists("&relativenumber")
 	set relativenumber					"show line number relative to cursor
+	silent! autocmd InsertEnter * :set number
+	silent! autocmd InsertLeave * :set relativenumber
+	silent! au FocusLost * :set number
+	silent! au FocusGained * :set relativenumber
 endif
-silent! au FocusLost * :set number
-silent! au FocusGained * :set relativenumber
-silent! autocmd InsertEnter * :set number
-silent! autocmd InsertLeave * :set relativenumber
 
 set ttyfast
 set ruler
