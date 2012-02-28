@@ -364,6 +364,9 @@ nnoremap <leader>P P
 nnoremap p p'[v']=
 nnoremap P P'[v']=
 
+"make Y behave like other capitals
+map Y y$
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -397,7 +400,7 @@ let g:Powerline_symbols = 'fancy'
 nnoremap <leader>rbt :RainbowParenthesesToggle<CR>
 au VimEnter * RainbowParenthesesToggle
 au Syntax * RainbowParenthesesLoadRound
-"au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _, disabled until fixed
+au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _, disabled until fixed
 au Syntax * RainbowParenthesesLoadBraces
 
 "Syntastic
