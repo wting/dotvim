@@ -135,8 +135,19 @@ highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
 autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 "remove trailing whitespace
-autocmd BufWritePre * :%s/\s\+$//e
-"autocmd BufWritePre *.c :%s/\s\+$//e
+"autocmd BufWritePre * :%s/\s\+$//e
+function! StripTrailingWhitespaces()
+	" Preparation: save last search, and cursor position.
+	let _s=@/
+	let l = line(".")
+	let c = col(".")
+	" Do the business:
+	%s/\s\+$//e
+	" Clean up: restore previous search history, and cursor position
+	let @/=_s
+	call cursor(l, c)
+endfunction
+autocmd BufWritePre * :call StripTrailingWhitespaces()
 
 "show tabs and carriage returns, unnecessary because of indent guides plugin
 "set list
