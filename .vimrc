@@ -157,7 +157,7 @@ autocmd BufWritePre * :call StripTrailingWhitespaces()
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256							"force 256 color support even if terminal doesn't allow it
-colorscheme zenburn
+colorscheme jellybeans
 set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -183,14 +183,15 @@ set backupdir=~/.vim/tmp/backup						" backups
 set directory=~/.vim/tmp/swap						" swap files
 set backup											" enable backups
 set noswapfile										" It's 2012, Vim.
+set tags=./tags;/
 
 if has("persistent_undo")
 	set undodir=~/.vim/tmp/undo
 	set undofile
 endif
 
-"save on losing focus
-"au FocusLost * :wa
+"save all on losing focus
+au FocusLost * :wa
 
 "http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
 " Tell vim to remember certain things when we exit
