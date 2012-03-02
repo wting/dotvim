@@ -157,7 +157,7 @@ autocmd BufWritePre * :call StripTrailingWhitespaces()
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256							"force 256 color support even if terminal doesn't allow it
-colorscheme jellybeans
+colorscheme zenburn
 set background=dark
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
