@@ -242,11 +242,9 @@ au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
 " Text, Tab and Indent Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set autoindent
-set smartindent
 set tabstop=4
 set shiftwidth=4
 set shiftround 							"use multiples of shiftwidth when using < or >
-"set expandtab 							"use spaces instead of tabs
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode Related
@@ -350,16 +348,16 @@ let mapleader=","
 "    -> Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "manipulate text using alt + hjkl
-nnoremap <A-j> :m+<CR>==
-nnoremap <A-k> :m-2<CR>==
+nnoremap <A-j> :m+<cr>==
+nnoremap <A-k> :m-2<cr>==
 nnoremap <A-h> <<
 nnoremap <A-l> >>
-inoremap <A-j> <Esc>:m+<CR>==gi
-inoremap <A-k> <Esc>:m-2<CR>==gi
+inoremap <A-j> <Esc>:m+<cr>==gi
+inoremap <A-k> <Esc>:m-2<cr>==gi
 inoremap <A-h> <Esc><<`]a
 inoremap <A-l> <Esc>>>`]a
-vnoremap <A-j> :m'>+<CR>gv=gv
-vnoremap <A-k> :m-2<CR>gv=gv
+vnoremap <A-j> :m'>+<cr>gv=gv
+vnoremap <A-k> :m-2<cr>gv=gv
 vnoremap <A-h> <gv
 vnoremap <A-l> >gv
 
@@ -368,7 +366,7 @@ map <S-Enter> O<Esc>
 map <CR> o<Esc>
 
 "toggle paste option
-nnoremap <C-P><C-P> :set invpaste paste?<CR>
+nnoremap <C-P><C-P> :set invpaste paste?<cr>
 
 "automatically indent after pasting, use <leader>p to use regular paste
 nnoremap <leader>p p
