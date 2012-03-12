@@ -87,8 +87,8 @@ set formatoptions=qrn1
 
 if exists("&relativenumber")
 	set relativenumber					"show line number relative to cursor
-	silent! autocmd InsertEnter * :set number
-	silent! autocmd InsertLeave * :set relativenumber
+	silent! au InsertEnter * :set number
+	silent! au InsertLeave * :set relativenumber
 	silent! au FocusLost * :set number
 	silent! au FocusGained * :set relativenumber
 endif
@@ -122,20 +122,21 @@ nnoremap <leader>hft Vatzf
 nnoremap <leader>hcss ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 "note, perl automatically sets foldmethod in the syntax file
-autocmd Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
-autocmd Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
+au Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
+au Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
 "make saving and loading folds automatic
 au BufWinLeave * silent! mkview
 au BufWinEnter * silent! loadview
 
 "highlights trailing whitespace
-syntax on
+"syntax on
+syntax enable
 highlight ExtraWhitespace ctermbg=darkgreen guibg=lightgreen
-autocmd Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
+au Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 
 "remove trailing whitespace
-"autocmd BufWritePre * :%s/\s\+$//e
+"au BufWritePre * :%s/\s\+$//e
 function! StripTrailingWhitespaces()
 	" Preparation: save last search, and cursor position.
 	let _s=@/
@@ -147,7 +148,7 @@ function! StripTrailingWhitespaces()
 	let @/=_s
 	call cursor(l, c)
 endfunction
-autocmd BufWritePre * :call StripTrailingWhitespaces()
+au BufWritePre * :call StripTrailingWhitespaces()
 
 "show tabs and carriage returns, unnecessary because of indent guides plugin
 "set list
@@ -209,11 +210,11 @@ function! ResCur()
 endfunction
 
 augroup resCur
-	autocmd!
+	au!
 	if has("folding")
-		autocmd BufWinEnter * if ResCur() | call UnfoldCur() | endif
+		au BufWinEnter * if ResCur() | call UnfoldCur() | endif
 	else
-		autocmd BufWinEnter * call ResCur()
+		au BufWinEnter * call ResCur()
 	endif
 augroup END
 
@@ -406,12 +407,12 @@ nnoremap <leader>nt :NERDTreeToggle<CR>
 "Powerline
 let g:Powerline_symbols = 'fancy'
 
-"Rainbow Parentheses
+"Rainbow Parentheses, causes problems with markdown files
 nnoremap <leader>rbt :RainbowParenthesesToggle<CR>
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _, disabled until fixed
-au Syntax * RainbowParenthesesLoadBraces
+"au VimEnter * RainbowParenthesesToggle
+"au Syntax * RainbowParenthesesLoadRound
+"au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _
+"au Syntax * RainbowParenthesesLoadBraces
 
 "Syntastic
 let g:syntastic_enable_signs=1
