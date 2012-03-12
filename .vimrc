@@ -40,6 +40,7 @@ Bundle 'gmarik/vundle'
 
 " github repos
 Bundle 'kien/rainbow_parentheses.vim'
+" vim-powerline: requires vim-fugitive
 Bundle 'Lokaltog/vim-powerline'
 Bundle 'msanders/snipmate.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
@@ -49,11 +50,9 @@ Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'wincent/Command-T'
-"Bundle 'vim-scripts/vimwiki'
 " vim-scripts repos
 Bundle 'CSApprox'
 Bundle 'localvimrc'
-Bundle 'vimwiki'
 " non github repos
 "Bundle 'git://git.wincent.com/command-t.git'
 
