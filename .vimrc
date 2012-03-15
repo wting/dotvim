@@ -49,6 +49,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
 Bundle 'wincent/Command-T'
 " vim-scripts repos
 Bundle 'CSApprox'
