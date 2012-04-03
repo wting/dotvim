@@ -53,6 +53,7 @@ Bundle 'tpope/vim-surround'
 Bundle 'vim-scripts/Solarized'
 Bundle 'wincent/Command-T'
 " vim-scripts repos
+Bundle 'AutoTag'
 Bundle 'CSApprox'
 Bundle 'localvimrc'
 " non github repos
