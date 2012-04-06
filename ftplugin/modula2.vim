@@ -1,1 +1,1 @@
-setlocal filetype=markdown
+setlocal filetype=mkd
