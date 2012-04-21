@@ -51,7 +51,6 @@ Bundle 'scrooloose/syntastic'
 Bundle 'sjl/gundo.vim'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-surround'
-Bundle 'vim-scripts/Solarized'
 Bundle 'wincent/Command-T'
 " vim-scripts repos
 Bundle 'AutoTag'
