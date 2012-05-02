@@ -39,6 +39,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " github repos
+Bundle 'derekwyatt/vim-scala'
 Bundle 'kien/rainbow_parentheses.vim'
 " vim-powerline: requires vim-fugitive
 Bundle 'Lokaltog/vim-powerline'
