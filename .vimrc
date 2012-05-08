@@ -1,6 +1,7 @@
 " Customized by: william.h.ting at gmail.com
 "
 " Sections:
+"    -> Plugins
 "    -> Vundle Configuration
 "    -> GVIM Specific Options
 "    -> General
@@ -17,6 +18,17 @@
 "    -> Editing mappings
 "    -> Plugin Options
 
+set nocompatible
+filetype on								"disable OS X exit with non-zero error code
+filetype off
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" GVIM Specific Options
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle Configuration
 "
@@ -29,35 +41,38 @@
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-filetype on								"disable OS X exit with non-zero error code
-filetype off
-
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
-" github repos
-Bundle 'derekwyatt/vim-scala'
-Bundle 'kien/rainbow_parentheses.vim'
-" vim-powerline: requires vim-fugitive
-Bundle 'Lokaltog/vim-powerline'
-Bundle 'msanders/snipmate.vim'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'plasticboy/vim-markdown'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/nerdcommenter'
-Bundle 'scrooloose/syntastic'
-Bundle 'sjl/gundo.vim'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'wincent/Command-T'
-" vim-scripts repos
-Bundle 'AutoTag'
+" Look & Feel
 Bundle 'CSApprox'
+Bundle 'kien/rainbow_parentheses.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
+" vim-fugitive: required by powerline
+Bundle 'tpope/vim-fugitive'
+Bundle 'Lokaltog/vim-powerline'
+
+" Add Additional Features
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/nerdcommenter'
 Bundle 'localvimrc'
-" non github repos
+
+Bundle 'wincent/Command-T'
+Bundle 'sjl/gundo.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'AutoTag'
+
+" Syntax Related
+" required by snipmate
+Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle "tomtom/tlib_vim"
+Bundle "snipmate-snippets"
+Bundle 'garbas/vim-snipmate'
+Bundle 'scrooloose/syntastic'
+Bundle 'plasticboy/vim-markdown'
+Bundle 'derekwyatt/vim-scala'
+
+" non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
 
 filetype plugin indent on
