@@ -385,7 +385,7 @@ map Y y$
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Command-T
-noremap <S-T> :CommandT<cr>
+noremap <S-T> :CommandTFlush<CR> :CommandT<CR>
 let g:CommandTAcceptSelectionTabMap=['<CR>']				"change default behavior to open in new tab
 
 "CSApprox
