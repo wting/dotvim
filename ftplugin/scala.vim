@@ -4,5 +4,5 @@ if has("colorcolumn")
 	set colorcolumn=80
 endif
 
-map <buffer> <Leader>c :!javac %
-map <buffer> <Leader>r :!java %:r
+map <buffer> <Leader>c :!scalac %
+map <buffer> <Leader>r :!scala %:r
