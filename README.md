@@ -13,7 +13,8 @@ My personal .vimrc and collection of plugins and themes.
 
 3. Install the Vundle plugin.
 
-        git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+        cd ~/.vim
+        make vundle
 
 4. Install vim plugins via Vundle.
 
@@ -22,9 +23,8 @@ My personal .vimrc and collection of plugins and themes.
 
 5. Compile the Command-T plugin.
 
-        cd ~/.vim/bundle/Command-T/ruby/command-t/
-        ruby extconf.rb
-        make
+        cd ~/.vim
+        make command-t
 
 ## Plugins
 
