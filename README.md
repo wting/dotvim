@@ -5,26 +5,26 @@ My personal .vimrc and collection of plugins and themes.
 
 1. Clone the repository.
 
-  git clone git://github.com/wting/dotvim.git ~/.vim
+    git clone git://github.com/wting/dotvim.git ~/.vim
 
 2. Create the new .vimrc file.
 
-  ln -s ~/.vim/.vimrc ~/.vimrc
+    ln -s ~/.vim/.vimrc ~/.vimrc
 
 3. Install the Vundle plugin.
 
-  git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+    git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 4. Install vim plugins via Vundle.
 
-  vim
-  :BundleInstall!
+    vim
+    :BundleInstall!
 
 5. Compile the Command-T plugin.
 
-  cd ~/.vim/bundle/Command-T/ruby/command-t/
-  ruby extconf.rb
-  make
+    cd ~/.vim/bundle/Command-T/ruby/command-t/
+    ruby extconf.rb
+    make
 
 ## Plugins
 
