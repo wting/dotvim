@@ -312,9 +312,6 @@ nnoremap <silent> <C-l> :noh<return><C-l>
 "disable vim regex, use Perl/Python regex instead
 nnoremap / /\v
 vnoremap / /\v
-"remapt tab to %
-nnoremap <tab> %
-vnoremap <tab> %
 
 "navigate wrapped lines
 nnoremap k gk
