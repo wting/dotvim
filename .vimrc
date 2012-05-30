@@ -390,10 +390,10 @@ nnoremap <C-P><C-P> "+p
 "nnoremap <C-P><C-P> :set invpaste paste?<cr>
 
 "automatically indent after pasting, use <leader>p to use regular paste
-nnoremap <leader>p p
-nnoremap <leader>P P
-nnoremap p p'[v']=
-nnoremap P P'[v']=
+"nnoremap <leader>p p
+"nnoremap <leader>P P
+"nnoremap p p'[v']=
+"nnoremap P P'[v']=
 
 "make Y behave like other capitals
 map Y y$
