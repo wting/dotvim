@@ -382,8 +382,12 @@ vnoremap <A-l> >gv
 map <S-Enter> O<Esc>
 map <CR> o<Esc>
 
+" yank and paste from system register / clipboard
+vnoremap <C-Y><C-Y> "+y
+nnoremap <C-P><C-P> "+p
+
 "toggle paste option
-nnoremap <C-P><C-P> :set invpaste paste?<cr>
+"nnoremap <C-P><C-P> :set invpaste paste?<cr>
 
 "automatically indent after pasting, use <leader>p to use regular paste
 nnoremap <leader>p p
