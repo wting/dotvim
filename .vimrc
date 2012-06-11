@@ -266,6 +266,10 @@ set tabstop=4
 set shiftwidth=4
 set shiftround 							"use multiples of shiftwidth when using < or >
 
+"Move tabs left/right http://stackoverflow.com/a/7192324/195139
+nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
