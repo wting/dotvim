@@ -256,7 +256,7 @@ if has("folding")
 	endfunction
 endif
 
-au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
+"au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text, Tab and Indent Related
@@ -406,8 +406,10 @@ map Y y$
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Command-T
-noremap <S-T> :CommandTFlush<CR> :CommandT<CR>
-let g:CommandTAcceptSelectionTabMap=['<CR>']				"change default behavior to open in new tab
+nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
+nnoremap <silent> <leader>t :CommandT<CR>
+nnoremap <silent> <leader>b :CommandTBuffer<CR>
+let g:CommandTAcceptSelectionTabMap = ['<CR>']				"change default behavior to open in new tab
 
 "CSApprox
 let g:CSApprox_verbose_level = 0
