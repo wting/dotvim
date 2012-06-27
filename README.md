@@ -72,15 +72,17 @@ If you see `+ruby` then you're fine. If not or you see `-ruby`, then you need to
 
 For more info, refer to the [Command-T plugin page](http://www.vim.org/scripts/script.php?script_id=3025).
 
+An alternative to Command-T that does not require any additional support is [CtrlP][ctrlp], written entirely in VimL.
+
 ### CSApprox
 
-If you cannot load custom color schemes or are get this error message:
+If vim cannot load color schemes or shows this message:
 
     CSApprox needs gui support - not loading.
     See :help |csapprox-+gui| for possible workarounds.
     Press ENTER or type command to continue
 
-Plugin requires vim to be built with +gui.  Depending on the distro, please install one of the following packages: `vim-enhanced`, `vim-gtk`, `vim-gnome`.
+Then the CSApprox plugin requires vim to be built with +gui support. Depending on the distro, please install one of the following packages: `vim-enhanced`, `vim-gtk`, `vim-gnome`.
 
 Enjoy!
 
@@ -99,3 +101,4 @@ Enjoy!
 [gundo]: https://github.com/sjl/gundo.vim
 [surround]: https://github.com/tpope/vim-surround/#surroundvim
 [autotag]: http://www.vim.org/scripts/script.php?script_id=1343
+[ctrlp]: https://github.com/kien/ctrlp.vim

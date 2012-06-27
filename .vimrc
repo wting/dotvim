@@ -58,6 +58,8 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'localvimrc'
 
 Bundle 'wincent/Command-T'
+" ctrlp: Command-T replacement written entirely in VimL
+"Bundle 'kien/ctrlp.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'AutoTag'
