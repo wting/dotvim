@@ -64,9 +64,13 @@ The selected color scheme is [zenburn](http://slinky.imukuppi.org/zenburnpage/),
 
 ### Command-T
 
-Plugin requires vim to be built with +Ruby.  Most gvim packages have +Ruby support, so installing these packages will usually solve the problem. Depending on the distro, these packages are called: `vim-enhanced`, `vim-gtk`, `vim-gnome`.
+Plugin requires vim to be built with Ruby support. To check if vim is compiled with Ruby support, run:
 
-For more info, refer to the [plugin page](http://www.vim.org/scripts/script.php?script_id=3025).
+    vim --version | grep ruby
+
+If you see `+ruby` then you're fine. If not or you see `-ruby`, then you need to install a different version of vim. Most gvim packages have +Ruby support, so installing these packages will usually solve the problem. Depending on the distro, these packages are typically called: `vim-enhanced`, `vim-gtk`, `vim-gnome`.
+
+For more info, refer to the [Command-T plugin page](http://www.vim.org/scripts/script.php?script_id=3025).
 
 ### CSApprox
 
