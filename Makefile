@@ -1,7 +1,7 @@
 .PHONY: all
 
 all: vundle command-t
-	rm ~/.vimrc
+	@-mv ~/.vimrc ~/.vimrc.bak
 	ln -s ~/.vim/.vimrc ~/.vimrc
 
 vundle:

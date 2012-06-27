@@ -28,19 +28,31 @@ My personal .vimrc and collection of plugins and themes.
 
 ## Plugins
 
-- [Command-T](http://www.vim.org/scripts/script.php?script_id=3025): Activated by `shift t` in command mode, provides fast file open.
-- [CSApprox](http://www.vim.org/scripts/script.php?script_id=2390): Brings gvim color schemes into terminal vim.
-- [fugitive](http://www.vim.org/scripts/script.php?script_id=2975): Git wrapper
-- [Indent Guides](http://www.vim.org/scripts/script.php?script_id=3361): Visually displays indentation levels.
-- [Local vimrc](http://www.vim.org/scripts/script.php?script_id=441): Sources .lvimrc after .vimrc to allow for project / directory specific vim settings.
-- [NERD commenter](http://www.vim.org/scripts/script.php?script_id=1218): block commenting with <leader>c<space>, amongst other features
-- [NERD tree](http://www.vim.org/scripts/script.php?script_id=1658): file tree
-- [Powerline](http://www.vim.org/scripts/script.php?script_id=3881): A better, more functional statusline
-- [Rainbow Parentheses](http://www.vim.org/scripts/script.php?script_id=3772): Matching color parentheses
-- [snipMate](http://www.vim.org/scripts/script.php?script_id=2540): Implements TextMate snippets feature, [quick intro](http://vimeo.com/3535418).
-- [Syntastic](http://www.vim.org/scripts/script.php?script_id=2736): Syntax checking plugin.
-- [vimwiki](http://www.vim.org/scripts/script.php?script_id=2226): Personalized wiki within vim, [quick reference](http://vimwiki.googlecode.com/hg/misc/Vimwiki1.1.1QR.pdf).
-- [vundle](https://github.com/gmarik/vundle): vim plugin package management system
+- [vundle][vundle]: vim plugin package management system
+
+### Look & Feel
+- [CSApprox][csapprox]: Brings gvim color schemes into terminal vim.
+- [Indent Guides][indent]: Visually displays indentation levels.
+- [Rainbow Parentheses][rainbow]: Matching color parentheses.
+- [Powerline][powerline]: A better, more functional statusline.
+- [fugitive][fugitive]: Git wrapper, required by Powerline.
+
+### Additional Features
+- [Command-T][command-t]: Activated by `shift t` in command mode, provides fast file open.
+- [Surround][surround]: Quoting/parenthesizing made simple.
+- [gundo][gundo]: Visual undo tree to jump to alternate undo paths.
+- [Local vimrc][local]: Sources .lvimrc after .vimrc to allow for project / directory specific vim settings.
+- [NERD commenter][nerd-commenter]: block commenting with <leader>c<space>, amongst other features
+- [NERD tree][nerd-tree]: file tree
+- [snipMate][snipmate]: Implements TextMate snippets feature, [quick intro](http://vimeo.com/3535418).
+- [AutoTag][autotag]: Automatically update ctags file.
+- tlib_vim: Utility library, required by ... something.
+
+### Syntax
+- [Syntastic][syntastic]: Syntax checking plugin.
+- Markdown
+- Scala
+- Less CSS
 
 ## Themes
 
@@ -60,10 +72,26 @@ For more info, refer to the [plugin page](http://www.vim.org/scripts/script.php?
 
 If you cannot load custom color schemes or are get this error message:
 
-CSApprox needs gui support - not loading.
-See :help |csapprox-+gui| for possible workarounds.
-Press ENTER or type command to continue
+    CSApprox needs gui support - not loading.
+    See :help |csapprox-+gui| for possible workarounds.
+    Press ENTER or type command to continue
 
 Plugin requires vim to be built with +gui.  Depending on the distro, please install one of the following packages: `vim-enhanced`, `vim-gtk`, `vim-gnome`.
 
 Enjoy!
+
+[vundle]: https://github.com/gmarik/vundle
+[csapprox]: http://www.vim.org/scripts/script.php?script_id=2390
+[indent]: http://www.vim.org/scripts/script.php?script_id=3361
+[rainbow]: http://www.vim.org/scripts/script.php?script_id=3772
+[powerline]: http://www.vim.org/scripts/script.php?script_id=3881
+[fugitive]: http://www.vim.org/scripts/script.php?script_id=2975
+[command-t]: http://www.vim.org/scripts/script.php?script_id=3025
+[local]: http://www.vim.org/scripts/script.php?script_id=441
+[nerd-commenter]: http://www.vim.org/scripts/script.php?script_id=1218
+[nerd-tree]: http://www.vim.org/scripts/script.php?script_id=1658
+[snipmate]: http://www.vim.org/scripts/script.php?script_id=2540
+[syntastic]: http://www.vim.org/scripts/script.php?script_id=2736
+[gundo]: https://github.com/sjl/gundo.vim
+[surround]: https://github.com/tpope/vim-surround/#surroundvim
+[autotag]: http://www.vim.org/scripts/script.php?script_id=1343
