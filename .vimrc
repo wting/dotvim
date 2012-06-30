@@ -55,7 +55,7 @@ Bundle 'Lokaltog/vim-powerline'
 " Add Additional Features
 Bundle 'tpope/vim-surround'
 Bundle 'scrooloose/nerdcommenter'
-Bundle 'localvimrc'
+Bundle 'embear/vim-localvimrc'
 
 Bundle 'wincent/Command-T'
 " ctrlp: Command-T replacement written entirely in VimL
@@ -267,6 +267,9 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 set shiftround 							"use multiples of shiftwidth when using < or >
+
+nnoremap <S-Up> :set sw=2 ts=2 sts=2 et<CR>
+nnoremap <S-Down> :set sw=4 ts=4 sts=4 et<CR>
 
 "Move tabs left/right http://stackoverflow.com/a/7192324/195139
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
