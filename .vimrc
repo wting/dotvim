@@ -79,6 +79,7 @@ Bundle 'groenewege/vim-less'
 "Bundle 'git://git.wincent.com/command-t.git'
 
 filetype plugin indent on
+set ofu=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM Specific Options
@@ -268,8 +269,11 @@ set tabstop=4
 set shiftwidth=4
 set shiftround 							"use multiples of shiftwidth when using < or >
 
-nnoremap <S-Up> :set sw=2 ts=2 sts=2 et<CR>
-nnoremap <S-Down> :set sw=4 ts=4 sts=4 et<CR>
+nnoremap <f1> :set sw=4 ts=4 sts=4 et wrap linebreak nolist tw=76 cc=80<CR>
+nnoremap <f2> :set sw=2 ts=2 sts=2 et<CR>
+nnoremap <f3> :set sw=2 ts=2 sts=2 noet<CR>
+nnoremap <f4> :set sw=4 ts=4 sts=4 et<CR>
+nnoremap <f5> :set sw=4 ts=4 sts=4 noet<CR>
 
 "Move tabs left/right http://stackoverflow.com/a/7192324/195139
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
