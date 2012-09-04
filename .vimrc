@@ -54,8 +54,10 @@ Bundle 'Lokaltog/vim-powerline'
 
 " Add Additional Features
 Bundle 'tpope/vim-surround'
+Bundle 'camelcasemotion'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
+Bundle 'bufexplorer.zip'
 
 Bundle 'wincent/Command-T'
 " ctrlp: Command-T replacement written entirely in VimL
@@ -414,6 +416,22 @@ map Y y$
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"CamelCaseMotion
+"remap default keys
+map w <Plug>CamelCaseMotion_w
+map b <Plug>CamelCaseMotion_b
+map e <Plug>CamelCaseMotion_e
+sunmap w
+sunmap b
+sunmap e
+
+omap iw <Plug>CamelCaseMotion_iw
+xmap iw <Plug>CamelCaseMotion_iw
+omap ib <Plug>CamelCaseMotion_ib
+xmap ib <Plug>CamelCaseMotion_ib
+omap ie <Plug>CamelCaseMotion_ie
+xmap ie <Plug>CamelCaseMotion_ie
+
 "Command-T
 nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
 nnoremap <silent> <leader>t :CommandT<CR>
