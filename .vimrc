@@ -74,8 +74,9 @@ Bundle 'garbas/vim-snipmate'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
-Bundle 'derekwyatt/vim-scala'
+"Bundle 'derekwyatt/vim-scala'
 Bundle 'groenewege/vim-less'
+Bundle 'VimClojure'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
