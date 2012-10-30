@@ -1,7 +1,8 @@
 setlocal ts=4 sts=4 sw=4 et
 setlocal spell spelllang=en_us
 setlocal wrap
-setlocal textwidth=76
+setlocal textwidth=80
+set fo=tcqbl
 
 if has("colorcolumn")
 	set colorcolumn=80
