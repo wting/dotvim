@@ -277,6 +277,9 @@ nnoremap <f2> :set sw=2 ts=2 sts=2 et<CR>
 nnoremap <f3> :set sw=2 ts=2 sts=2 noet<CR>
 nnoremap <f4> :set sw=4 ts=4 sts=4 et<CR>
 nnoremap <f5> :set sw=4 ts=4 sts=4 noet<CR>
+nnoremap <f6> :set fo=tcqbl<CR>
+" http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
+nnoremap <f6> gg gqG<CR>
 
 "Move tabs left/right http://stackoverflow.com/a/7192324/195139
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
