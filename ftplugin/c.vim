@@ -1,4 +1,3 @@
-
 if has("colorcolumn")
 	set colorcolumn=80
 endif
