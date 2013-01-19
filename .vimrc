@@ -21,6 +21,8 @@
 set nocompatible
 filetype on								"disable OS X exit with non-zero error code
 filetype off
+filetype plugin on
+filetype plugin indent on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM Specific Options
@@ -81,7 +83,6 @@ Bundle 'VimClojure'
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
 
-filetype plugin indent on
 set ofu=syntaxcomplete#Complete
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
