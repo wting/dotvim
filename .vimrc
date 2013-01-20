@@ -20,7 +20,6 @@
 
 set nocompatible
 filetype on								"disable OS X exit with non-zero error code
-filetype off
 filetype plugin on
 filetype plugin indent on
 
@@ -78,7 +77,8 @@ Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 "Bundle 'derekwyatt/vim-scala'
 Bundle 'groenewege/vim-less'
-Bundle 'vim-scripts/VimClojure'
+"Bundle 'vim-scripts/VimClojure'
+"Bundle 'fsouza/rust.vim'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'

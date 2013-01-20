@@ -5,7 +5,7 @@ setlocal textwidth=80
 set fo=tcqbl
 
 if has("colorcolumn")
-	set colorcolumn=80
+	setlocal colorcolumn=80
 endif
 
 map <buffer> <Leader>c :!markdown % > %:r.html
