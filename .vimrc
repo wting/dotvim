@@ -78,7 +78,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 "Bundle 'derekwyatt/vim-scala'
 Bundle 'groenewege/vim-less'
-Bundle 'VimClojure'
+Bundle 'vim-scripts/VimClojure'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
