@@ -1,9 +1,7 @@
-setlocal sw=4 sts=4 ts=4 et
+setlocal cc=78
+setlocal textwidth=80
+
 setlocal errorformat=%f:%l:\ %m
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%79v.\+/
-
-if has("colorcolumn")
-	set colorcolumn=78
-endif
