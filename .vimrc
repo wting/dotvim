@@ -72,6 +72,7 @@ Bundle 'garbas/vim-snipmate'
 
 " Syntax Related
 " required by snipmate
+Bundle 'wting/rust.vim'
 Bundle "MarcWeber/vim-addon-mw-utils"
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
