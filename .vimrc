@@ -78,6 +78,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 "Bundle 'derekwyatt/vim-scala'
 Bundle 'groenewege/vim-less'
+Bundle 'vim-scripts/haskell.vim'
 "Bundle 'vim-scripts/VimClojure'
 "Bundle 'fsouza/rust.vim'
 
