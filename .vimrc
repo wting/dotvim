@@ -66,14 +66,14 @@ Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'AutoTag'
-Bundle "tomtom/tlib_vim"
-Bundle "snipmate-snippets"
-Bundle 'garbas/vim-snipmate'
+Bundle 'tomtom/tlib_vim'
+"Bundle 'snipmate-snippets'
+"Bundle 'garbas/vim-snipmate'
 
 " Syntax Related
 " required by snipmate
 Bundle 'wting/rust.vim'
-Bundle "MarcWeber/vim-addon-mw-utils"
+Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 "Bundle 'derekwyatt/vim-scala'
