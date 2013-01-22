@@ -19,9 +19,8 @@
 "    -> Plugin Options
 
 set nocompatible
-filetype on								"disable OS X exit with non-zero error code
-filetype plugin on
-filetype plugin indent on
+filetype on				"disable OS X exit with non-zero error code
+filetype off			"disabled to work around vundle ftdetect bug
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM Specific Options
@@ -84,6 +83,9 @@ Bundle 'vim-scripts/VimClojure'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
+
+filetype plugin on
+filetype plugin indent on
 
 set ofu=syntaxcomplete#Complete
 
