@@ -1,13 +1,9 @@
-setlocal ts=4 sw=4 sts=4 et
 setlocal makeprg=python\ %
 setlocal errorformat=%C\ %.%#,%A\ \ File\ \"%f\"\\,\ line\ %l%.%#,%Z%[%^\ ]%\\@=%m
+set colorcolumn=78
 
 highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
-
-if has("colorcolumn")
-	set colorcolumn=80
-endif
 
 map <buffer> <Leader>c :!python %
 map <buffer> <Leader>r :!python %
