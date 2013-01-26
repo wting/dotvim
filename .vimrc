@@ -112,6 +112,8 @@ set iskeyword=@,48-57,_,192-255
 set modelines=0							"remove modelines, prevents a few security exploits
 set hidden
 
+ca waq wqa
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM User Interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
