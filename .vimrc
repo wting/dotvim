@@ -66,16 +66,18 @@ Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'AutoTag'
 
-" vim-snipmate dependencies
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'honza/snipmate-snippets'
-Bundle 'tomtom/tlib_vim'
+Bundle 'SirVer/ultisnips'
 
-Bundle 'garbas/vim-snipmate'
+" vim-snipmate dependencies
+"Bundle 'MarcWeber/vim-addon-mw-utils'
 "Bundle 'snipmate-snippets'
+"Bundle 'honza/snipmate-snippets'
+"Bundle 'scrooloose/snipmate-snippets'
+"Bundle 'tomtom/tlib_vim'
+
+"Bundle 'garbas/vim-snipmate'
 
 " Syntax Related
-" required by snipmate
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
@@ -466,17 +468,14 @@ let g:indent_guides_guide_size = 1
 "localvimrc
 let g:localvimrc_ask=0
 
-"NERD Commenter
-"<leader>c <space> = block comment
-
 "NERD Tree
-nnoremap <leader>nt :NERDTreeToggle<CR>
+ca nt NERDTreeToggle
 
 "Powerline
 let g:Powerline_symbols = 'fancy'
 
 "Rainbow Parentheses, causes problems with markdown files
-nnoremap <leader>rbt :RainbowParenthesesToggle<CR>
+ca rbt RainbowParenthesesToggle
 "au VimEnter * RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadRound
 "au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _
@@ -485,3 +484,12 @@ nnoremap <leader>rbt :RainbowParenthesesToggle<CR>
 "Syntastic
 let g:syntastic_enable_signs=1
 let g:syntastic_quiet_warnings=1
+
+"UltiSnips
+ca use UltiSnipsEdit
+let g:UltiSnipsSnippetDirectories = ["snippets"]
+let g:UltiSnipsEditSplit = "horizontal"
+let g:UltiSnipsListSnippets = "<c-s>"
+let g:UltiSnipsExpandTrigger = "<tab>"
+let g:UltiSnipsJumpForwardTrigger = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"

@@ -1,0 +1,44 @@
+snippet todo "todo reminder"
+// TODO: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
+endsnippet
+
+snippet fixme "fixme reminder"
+// FIXME: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
+endsnippet
+
+snippet stdio "insert stdio library" b
+#include <stdio.h>
+endsnippet
+
+snippet main "main function" b!
+#include <stdio.h>
+
+int main(int argc, char const* argv[]) {
+	${1:// code}
+	return 0;
+}
+endsnippet
+
+snippet for "for int loop (fori)" b!
+for (${4:size_t} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+snippet if "if .. (if)" b!
+if (${1:/* condition */}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+snippet ife "if .. else (ife)" b!
+if (${1:/* condition */}) {
+	${2:/* code */}
+} else {
+	${3:/* else */}
+}
+endsnippet
+
+snippet printf "printf .. (printf)"
+printf("${1:%s}\n"${1/([^%]|%%)*(%.)?.*/(?2:, :\);)/}$2${1/([^%]|%%)*(%.)?.*/(?2:\);)/}
+endsnippet
