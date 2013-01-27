@@ -45,10 +45,11 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 " Look & Feel
-Bundle 'CSApprox'
+Bundle 'vim-scripts/CSApprox'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
-" vim-fugitive: required by powerline
+
+" Powerline and dependencies
 Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-powerline'
 
@@ -58,34 +59,30 @@ Bundle 'camelcasemotion'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-
-Bundle 'wincent/Command-T'
-" ctrlp: Command-T replacement written entirely in VimL
-"Bundle 'kien/ctrlp.vim'
-Bundle 'sjl/gundo.vim'
-Bundle 'scrooloose/nerdtree'
-Bundle 'AutoTag'
-
 Bundle 'SirVer/ultisnips'
 
-" vim-snipmate dependencies
+"Bundle 'kien/ctrlp.vim'
+Bundle 'wincent/Command-T'
+Bundle 'sjl/gundo.vim'
+Bundle 'scrooloose/nerdtree'
+Bundle 'vim-scripts/AutoTag'
+
+
+" SnipMate and related dependencies
 "Bundle 'MarcWeber/vim-addon-mw-utils'
 "Bundle 'snipmate-snippets'
 "Bundle 'honza/snipmate-snippets'
 "Bundle 'scrooloose/snipmate-snippets'
 "Bundle 'tomtom/tlib_vim'
-
 "Bundle 'garbas/vim-snipmate'
 
 " Syntax Related
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
-"Bundle 'derekwyatt/vim-scala'
 Bundle 'groenewege/vim-less'
 Bundle 'vim-scripts/haskell.vim'
 Bundle 'vim-scripts/VimClojure'
-"Bundle 'fsouza/rust.vim'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
@@ -393,6 +390,9 @@ nnoremap <C-N><C-N> :set invnumber<CR>
 
 let mapleader=","
 
+map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "    -> Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -448,6 +448,11 @@ omap ib <Plug>CamelCaseMotion_ib
 xmap ib <Plug>CamelCaseMotion_ib
 omap ie <Plug>CamelCaseMotion_ie
 xmap ie <Plug>CamelCaseMotion_ie
+
+"AutoTag
+if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
+	source ~/.vim/bundle/AutoTag/plugin/autotag.vim
+endif
 
 "Command-T
 nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
