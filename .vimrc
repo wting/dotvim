@@ -54,12 +54,14 @@ Bundle 'tpope/vim-fugitive'
 Bundle 'Lokaltog/vim-powerline'
 
 " Add Additional Features
+Bundle 'SirVer/ultisnips'
 Bundle 'tpope/vim-surround'
 Bundle 'camelcasemotion'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-Bundle 'SirVer/ultisnips'
+"Bundle 'Lokaltog/vim-easymotion'
+Bundle 'goldfeld/vim-seek'
 
 "Bundle 'kien/ctrlp.vim'
 Bundle 'wincent/Command-T'
