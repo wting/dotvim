@@ -1,4 +1,5 @@
-" Customized by: william.h.ting at gmail.com
+" william.h.ting at gmail.com
+" https://github.com/wting/dotvim
 "
 " Sections:
 "    -> Plugins
@@ -494,9 +495,10 @@ let g:syntastic_quiet_warnings=1
 
 "UltiSnips
 ca use UltiSnipsEdit
-let g:UltiSnipsSnippetDirectories = ["snippets"]
+let g:UltiSnipsDontReverseSearchPath = "1"					"vundle messing up search order
+let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:UltiSnipsEditSplit = "horizontal"
-let g:UltiSnipsListSnippets = "<c-s>"
+let g:UltiSnipsListSnippets = "<c-l>"
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
