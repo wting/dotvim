@@ -6,8 +6,12 @@ snippet fixme "fixme reminder"
 // FIXME: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
 endsnippet
 
-snippet stdio "insert stdio library" b
-#include <stdio.h>
+snippet Inc "#include local header" b!
+#include "${1:`!p snip.rv = snip.basename + '.h'`}"
+endsnippet
+
+snippet inc "#include global header" b!
+#include <${1:.h}>
 endsnippet
 
 snippet main "main function" b!

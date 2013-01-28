@@ -301,6 +301,12 @@ nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Don't use Ex mode
+nmap Q gqG
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Visual Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
 
@@ -414,7 +420,7 @@ vnoremap <A-h> <gv
 vnoremap <A-l> >gv
 
 "adding / removing lines
-map <S-Enter> O<Esc>
+map <S-Enter> O<CR><Esc>
 map <CR> o<Esc>
 
 " yank and paste from system register / clipboard
