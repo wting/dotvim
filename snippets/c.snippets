@@ -29,6 +29,12 @@ for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
 }
 endsnippet
 
+snippet while "while loop" b!
+while (${1:/* condition */}) {
+	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
 snippet if "if .. (if)" b!
 if (${1:/* condition */}) {
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
