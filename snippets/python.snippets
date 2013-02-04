@@ -9,3 +9,23 @@ snippet #!3 "Shebang header for python3 scripts" b
 # encoding: utf-8
 $0
 endsnippet
+
+snippet __n "__name__ test" b
+if __name__ == "__main__":
+	$0
+endsnippet
+
+snippet __r "__repr__ stub" b
+def __repr__:
+	return $0
+endsnippet
+
+snippet __s "__str__ stub" b
+def __str__:
+	return $0
+endsnippet
+
+snippet __l "__len__ stub" b
+def __len__:
+	$0
+endsnippet
