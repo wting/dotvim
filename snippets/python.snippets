@@ -29,3 +29,16 @@ snippet __l "__len__ stub" b
 def __len__:
 	$0
 endsnippet
+
+snippet main "main() Guido style" b!
+import sys
+
+def main(argv = None):
+	if argv is None:
+		argv = sys.argv
+
+	$0
+
+if __name__ == "__main__":
+	sys.exit(main())
+endsnippet
