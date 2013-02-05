@@ -63,22 +63,12 @@ Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 "Bundle 'Lokaltog/vim-easymotion'
 Bundle 'goldfeld/vim-seek'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 
-"Bundle 'kien/ctrlp.vim'
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'vim-scripts/AutoTag'
-
-
-" SnipMate and related dependencies
-"Bundle 'MarcWeber/vim-addon-mw-utils'
-"Bundle 'snipmate-snippets'
-"Bundle 'honza/snipmate-snippets'
-"Bundle 'scrooloose/snipmate-snippets'
-"Bundle 'tomtom/tlib_vim'
-"Bundle 'garbas/vim-snipmate'
 
 " Syntax Related
 Bundle 'wting/rust.vim'

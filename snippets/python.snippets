@@ -10,9 +10,19 @@ snippet #!3 "Shebang header for python3 scripts" b
 $0
 endsnippet
 
+snippet __f "__future__ future imports for Python 3" b
+from __future__ import division, print_function
+$0
+endsnippet
+
 snippet __n "__name__ test" b
 if __name__ == "__main__":
 	$0
+endsnippet
+
+snippet __i "__init__ stub" b
+def __init__:
+	return $0
 endsnippet
 
 snippet __r "__repr__ stub" b
