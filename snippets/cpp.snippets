@@ -1,5 +1,5 @@
 snippet for "for int loop (fori)" b!
-for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:++$2}) {
+for (${4:int} ${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
 	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
