@@ -57,6 +57,7 @@ Bundle 'Lokaltog/vim-powerline'
 " Add Additional Features
 Bundle 'SirVer/ultisnips'
 Bundle 'tpope/vim-surround'
+Bundle 'tpope/vim-repeat'
 Bundle 'camelcasemotion'
 Bundle 'scrooloose/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
