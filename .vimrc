@@ -118,11 +118,11 @@ set nowrap								"no word wrapping
 set formatoptions=qrn1
 
 if exists("&relativenumber")
-	set relativenumber					"show line number relative to cursor
-	silent! au InsertEnter * :set number
-	silent! au InsertLeave * :set relativenumber
-	silent! au FocusLost * :set number
-	silent! au FocusGained * :set relativenumber
+    set relativenumber					"show line number relative to cursor
+    silent! au InsertEnter * :set number
+    silent! au InsertLeave * :set relativenumber
+    silent! au FocusLost * :set number
+    silent! au FocusGained * :set relativenumber
 endif
 
 set ttyfast
@@ -170,15 +170,15 @@ au Syntax * syn match ExtraWhitespace /\s\+$\| \+\ze\t/
 "remove trailing whitespace
 "au BufWritePre * :%s/\s\+$//e
 function! StripTrailingWhitespaces()
-	" Preparation: save last search, and cursor position.
-	let _s=@/
-	let l = line(".")
-	let c = col(".")
-	" Do the business:
-	%s/\s\+$//e
-	" Clean up: restore previous search history, and cursor position
-	let @/=_s
-	call cursor(l, c)
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
 endfunction
 au BufWritePre * :call StripTrailingWhitespaces()
 
@@ -219,8 +219,8 @@ set noswapfile										" It's 2012, Vim.
 set tags=./tags;/
 
 if has("persistent_undo")
-	set undodir=~/.vim/tmp/undo
-	set undofile
+    set undodir=~/.vim/tmp/undo
+    set undofile
 endif
 
 "save all on losing focus
@@ -235,38 +235,38 @@ au FocusLost * :wa
 "  n... :  where to save the viminfo files
 set viminfo='10,\"100,:20,%,n~/.viminfo
 function! ResCur()
-	if line("'\"") <= line("$")
-		normal! g`"
-		return 1
-	endif
+    if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+    endif
 endfunction
 
 augroup resCur
-	au!
-	if has("folding")
-		au BufWinEnter * if ResCur() | call UnfoldCur() | endif
-	else
-		au BufWinEnter * call ResCur()
-	endif
+    au!
+    if has("folding")
+        au BufWinEnter * if ResCur() | call UnfoldCur() | endif
+    else
+        au BufWinEnter * call ResCur()
+    endif
 augroup END
 
 if has("folding")
-	function! UnfoldCur()
-		if !&foldenable
-			return
-		endif
-		let cl = line(".")
-		if cl <= 1
-			return
-		endif
-		let cf	= foldlevel(cl)
-		let uf	= foldlevel(cl - 1)
-		let min = (cf > uf ? uf : cf)
-		if min
-			execute "normal!" min . "zo"
-			return 1
-		endif
-	endfunction
+    function! UnfoldCur()
+        if !&foldenable
+            return
+        endif
+        let cl = line(".")
+        if cl <= 1
+            return
+        endif
+        let cf	= foldlevel(cl)
+        let uf	= foldlevel(cl - 1)
+        let min = (cf > uf ? uf : cf)
+        if min
+            execute "normal!" min . "zo"
+            return 1
+        endif
+    endfunction
 endif
 
 "au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
