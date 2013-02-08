@@ -1,2 +1,1 @@
-au VimEnter * RainbowParenthesesToggle
-au Syntax * RainbowParenthesesLoadRound
+cc80.vim
