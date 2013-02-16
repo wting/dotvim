@@ -69,6 +69,7 @@ Bundle 'goldfeld/vim-seek'
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
+Bundle 'brookhong/cscope.vim'
 Bundle 'vim-scripts/AutoTag'
 
 " Syntax Related
@@ -184,7 +185,25 @@ au BufWritePre * :call StripTrailingWhitespaces()
 
 "show tabs and carriage returns, unnecessary because of indent guides plugin
 "set list
-"set listchars=tab:▸\ ,eol:¬
+"listchars=tab:▸\ ,eol:¬
+
+" http://vim.wikia.com/wiki/Cscope
+if has('cscope')
+    set cscopetag cscopeverbose
+
+    if has('quickfix')
+        set cscopequickfix=s-,c-,d-,i-,t-,e-
+    endif
+
+    cnoreabbrev csa cs add
+    cnoreabbrev csf cs find
+    cnoreabbrev csk cs kill
+    cnoreabbrev csr cs reset
+    cnoreabbrev css cs show
+    cnoreabbrev csh cs help
+
+    command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -298,9 +317,6 @@ nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 " Don't use Ex mode
 nmap Q gqG
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Visual Mode Related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
 
