@@ -11,4 +11,4 @@ vundle:
 	vim -c ":execute 'BundleInstall!' | qa"
 
 command-t:
-	sh ./command-t_compile.sh
+	sh ./command-t.sh
