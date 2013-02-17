@@ -1,5 +1,91 @@
-snippet main "main function" b!
+# common actions
+snippet todo "todo reminder" b
+// TODO: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
+endsnippet
+
+snippet fixme "fixme reminder" b
+// FIXME: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
+endsnippet
+
+# common functions
+snippet main "main function" b
 fn main() {
-    $0
+    ${VISUAL}${0:/* code */}
 }
 endsnippet
+
+snippet fn "function" b
+fn ${1:name}(${2:var1: type, var2: type}) -> ${3:return type} {
+    ${VISUAL}${0:/* code */}
+}
+endsnippet
+
+# conditionals
+snippet if "if"
+if ${1:/* condition */} {
+    ${VISUAL}${0:/* code */}
+}
+endsnippet
+
+snippet else "else"
+else {
+    ${VISUAL}${0:/* code */}
+}
+endsnippet
+
+# loops
+snippet loop "loop" b
+loop {
+    ${VISUAL}${0:/* code */}
+}
+endsnippet
+
+snippet while "while loop" b
+while ${1:/* condition */} {
+    ${VISUAL}${0:/* code */}
+}
+endsnippet
+
+snippet for "for loop" b
+for (${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
+    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+}
+endsnippet
+
+# data structures
+snippet st "struct" b
+struct ${1} {
+    ${VISUAL}${0:/*
+    var1: type,
+    var2: type,
+    var3: type
+    */}
+}
+endsnippet
+
+snippet en "enum" b
+enum ${1} {
+    ${VISUAL}${0:/*
+    attr1 = 0,
+    attr2 = 1,
+    attr3 = 2
+    */}
+}
+endsnippet
+
+# common statements
+snippet pr "println"
+io::println("${0}");
+endsnippet
+
+snippet fmt "print fmt?"
+io::println(fmt!("$1: %?", ${1}));
+endsnippet
+
+snippet match "pattern match" b
+match ${1} {
+    ${2}    =>  { io::println("first match") }
+    _     =>  { io::println("default") }
+}
+endsnippet
+
