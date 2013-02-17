@@ -16,34 +16,34 @@ endsnippet
 
 snippet main "main function" b!
 int main(int argc, char const* argv[]) {
-	${1:// code}
-	return 0;
+    ${1:// code}
+    return 0;
 }
 endsnippet
 
 snippet for "for int loop (fori)" b!
 for (${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet while "while loop" b!
 while (${1:/* condition */}) {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet if "if .. (if)" b!
 if (${1:/* condition */}) {
-	${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
+    ${VISUAL}${0:${VISUAL/(.*)/(?1::\/* code *\/)/}}
 }
 endsnippet
 
 snippet ife "if .. else (ife)" b!
 if (${1:/* condition */}) {
-	${2:/* code */}
+    ${2:/* code */}
 } else {
-	${3:/* else */}
+    ${3:/* else */}
 }
 endsnippet
 
@@ -53,6 +53,6 @@ endsnippet
 
 snippet asm "assembly code" !
 __asm__ __volatile__(
-		"$0\n\t"
-		);
+        "$0\n\t"
+        );
 endsnippet

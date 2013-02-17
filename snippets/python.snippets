@@ -17,38 +17,38 @@ endsnippet
 
 snippet __n "__name__ test" b
 if __name__ == "__main__":
-	$0
+    $0
 endsnippet
 
 snippet __i "__init__ stub" b
 def __init__:
-	return $0
+    return $0
 endsnippet
 
 snippet __r "__repr__ stub" b
 def __repr__:
-	return $0
+    return $0
 endsnippet
 
 snippet __s "__str__ stub" b
 def __str__:
-	return $0
+    return $0
 endsnippet
 
 snippet __l "__len__ stub" b
 def __len__:
-	$0
+    $0
 endsnippet
 
 snippet main "main() Guido style" b!
 import sys
 
 def main(argv = None):
-	if argv is None:
-		argv = sys.argv
+    if argv is None:
+        argv = sys.argv
 
-	$0
+    $0
 
 if __name__ == "__main__":
-	sys.exit(main())
+    sys.exit(main())
 endsnippet
