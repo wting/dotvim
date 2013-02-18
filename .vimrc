@@ -110,6 +110,11 @@ set modelines=0							"remove modelines, prevents a few security exploits
 set hidden
 
 ca waq wqa
+ca 2et setlocal ts=2 sts=2 sw=2 et
+ca 2noet setlocal ts=2 sts=2 sw=2 noet
+ca 4et setlocal ts=4 sts=4 sw=4 et
+ca 4noet setlocal ts=4 sts=4 sw=4 noet
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM User Interface
