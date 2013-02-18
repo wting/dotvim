@@ -40,7 +40,7 @@ loop {
 }
 endsnippet
 
-snippet while "while loop" b
+snippet "wh(ile)?" "while loop" br
 while ${1:/* condition */} {
     ${VISUAL}${0:/* code */}
 }
@@ -53,7 +53,7 @@ for (${2:i} = 0; $2 < ${1:count}; ${3:$2++}) {
 endsnippet
 
 # data structures
-snippet st "struct" b
+snippet "st(ruct)?" "struct" br
 struct ${1} {
     ${VISUAL}${0:/*
     var1: type,
@@ -63,7 +63,7 @@ struct ${1} {
 }
 endsnippet
 
-snippet en "enum" b
+snippet "en(um)?" "enum" br
 enum ${1} {
     ${VISUAL}${0:/*
     attr1 = 0,
@@ -88,4 +88,3 @@ match ${1} {
     _     =>  { io::println("default") }
 }
 endsnippet
-

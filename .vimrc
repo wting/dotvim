@@ -79,6 +79,7 @@ Bundle 'scrooloose/syntastic'
 "Bundle 'plasticboy/vim-markdown'
 Bundle 'wting/vim-markdown'
 Bundle 'groenewege/vim-less'
+"Bundle 'ehamberg/vim-cute-python'
 Bundle 'vim-scripts/haskell.vim'
 Bundle 'vim-scripts/VimClojure'
 
