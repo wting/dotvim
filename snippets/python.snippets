@@ -1,4 +1,10 @@
 # header
+snippet #! "Shebang header for python scripts" b
+#!/usr/bin/env python
+# encoding: utf-8
+$0
+endsnippet
+
 snippet #!2 "Shebang header for python2 scripts" b
 #!/usr/bin/env python2
 # encoding: utf-8
@@ -66,5 +72,8 @@ endsnippet
 # misc
 snippet open "open file"
 with open(${1:file}, 'r') as f:
-    ${0:lines = f.read().splitlines()}
+    ${2:lines} = f.read().splitlines()
+
+$0
+
 endsnippet
