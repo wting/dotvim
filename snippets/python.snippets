@@ -1,3 +1,4 @@
+# header
 snippet #!2 "Shebang header for python2 scripts" b
 #!/usr/bin/env python2
 # encoding: utf-8
@@ -10,11 +11,13 @@ snippet #!3 "Shebang header for python3 scripts" b
 $0
 endsnippet
 
+# imports
 snippet __f "__future__ future imports for Python 3" b
 from __future__ import division, print_function
 $0
 endsnippet
 
+# magic functions
 snippet __n "__name__ test" b
 if __name__ == "__main__":
     $0
@@ -40,6 +43,7 @@ def __len__:
     $0
 endsnippet
 
+# common functions
 snippet main "main() Guido style" b!
 import sys
 
@@ -51,4 +55,16 @@ def main(argv = None):
 
 if __name__ == "__main__":
     sys.exit(main())
+endsnippet
+
+snippet def "function with docstrings" b!
+def ${1:function}(${2:arg1, arg2}):
+    ${0:pass}
+
+endsnippet
+
+# misc
+snippet open "open file"
+with open(${1:file}, 'r') as f:
+    ${0:lines = f.read().splitlines()}
 endsnippet
