@@ -1,2 +1,2 @@
-au BufEnter *.tex set filetype=tex
-au BufEnter *.cls set filetype=tex
+au BufRead,BufNewFile *.tex set filetype=tex
+au BufRead,BufNewFile *.cls set filetype=tex

@@ -1,1 +1,1 @@
-au BufEnter *.gdb set filetype=gdb
+au BufRead,BufNewFile *.gdb set filetype=gdb
