@@ -66,7 +66,7 @@ endsnippet
 # misc
 snippet open "open file"
 with open(${1:file}, 'r') as f:
-    ${2:lines} = f.read().splitlines()
+    ${2:lines} = f.readlines()
 
 $0
 
