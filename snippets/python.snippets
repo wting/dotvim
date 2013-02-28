@@ -28,22 +28,24 @@ if __name__ == "__main__":
 endsnippet
 
 snippet __i "__init__ stub" b
-def __init__:
+def __init__():
     return $0
 endsnippet
 
+# unambiguous object hashable
 snippet __r "__repr__ stub" b
-def __repr__:
+def __repr__():
     return $0
 endsnippet
 
+# human readable, text represention; defaults to __repr__
 snippet __s "__str__ stub" b
-def __str__:
+def __str__():
     return $0
 endsnippet
 
 snippet __l "__len__ stub" b
-def __len__:
+def __len__():
     $0
 endsnippet
 

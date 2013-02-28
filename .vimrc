@@ -71,6 +71,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'brookhong/cscope.vim'
 Bundle 'vim-scripts/AutoTag'
+Bundle 'kshenoy/vim-signature'
 
 " Syntax Related
 Bundle 'wting/rust.vim'
