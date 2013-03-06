@@ -49,6 +49,8 @@ Bundle 'gmarik/vundle'
 Bundle 'vim-scripts/CSApprox'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'kshenoy/vim-signature'
+Bundle 'airblade/vim-gitgutter'
 
 " Powerline and dependencies
 Bundle 'tpope/vim-fugitive'
@@ -71,7 +73,6 @@ Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'brookhong/cscope.vim'
 Bundle 'vim-scripts/AutoTag'
-Bundle 'kshenoy/vim-signature'
 
 " Syntax Related
 Bundle 'wting/rust.vim'
@@ -531,3 +532,7 @@ let g:UltiSnipsListSnippets = "<c-l>"
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+"make sign column same color as theme
+"highlight clear SignColumn
+hi! link SignColumn LineNr
