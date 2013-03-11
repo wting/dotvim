@@ -83,7 +83,7 @@ Bundle 'wting/vim-markdown'
 Bundle 'groenewege/vim-less'
 "Bundle 'ehamberg/vim-cute-python'
 Bundle 'vim-scripts/haskell.vim'
-Bundle 'vim-scripts/VimClojure'
+"Bundle 'vim-scripts/VimClojure'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
