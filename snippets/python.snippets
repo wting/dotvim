@@ -36,24 +36,29 @@ if __name__ == "__main__":
 endsnippet
 
 snippet __i "__init__ stub" b
-def __init__():
-    return $0
+def __init__(self):
+    $0
 endsnippet
 
 # unambiguous object hashable
 snippet __r "__repr__ stub" b
-def __repr__():
+def __repr__(self):
     return $0
 endsnippet
 
 # human readable, text represention; defaults to __repr__
 snippet __s "__str__ stub" b
-def __str__():
+def __str__(self):
     return $0
 endsnippet
 
 snippet __l "__len__ stub" b
-def __len__():
+def __len__(self):
+    $0
+endsnippet
+
+snippet __nz "__nonzero__ stub" b
+def __nonzero__(self):
     $0
 endsnippet
 
