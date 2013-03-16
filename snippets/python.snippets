@@ -81,9 +81,11 @@ def ${1:function}(${2:arg1, arg2}):
 endsnippet
 
 snippet memoize "memoize" b!
-def memoize(f):
+def memoize(f:function):
     cache = {}
-    def aux(*x):
+    @functools.wraps(f)
+    def aux(*x:arguments):
+        nonlocal cache
         if x not in cache:
             cache[x] = f(*x)
         return cache[x]
