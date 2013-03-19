@@ -21,6 +21,10 @@ snippet fr "import functions" b
 from ${1:package} import ${2:function}
 endsnippet
 
+snippet ft "import functools" b
+import functools
+endsnippet
+
 snippet sys "import sys" b
 import sys
 endsnippet
@@ -59,13 +63,13 @@ endsnippet
 
 snippet __nz "__nonzero__ stub" b
 def __nonzero__(self):
-    $0
+    ${0:return len(self) > 0}
 endsnippet
 
 # common functions
 snippet main "main() Guido style" b!
-def main(argv = None):
-    if argv is None:
+def main(argv=None):
+    if not argv:
         argv = sys.argv
 
     $0
@@ -81,10 +85,10 @@ def ${1:function}(${2:arg1, arg2}):
 endsnippet
 
 snippet memoize "memoize" b!
-def memoize(f:function):
+def memoize(f):
     cache = {}
     @functools.wraps(f)
-    def aux(*x:arguments):
+    def aux(*x):
         nonlocal cache
         if x not in cache:
             cache[x] = f(*x)
