@@ -65,7 +65,7 @@ Bundle 'scrooloose/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 "Bundle 'Lokaltog/vim-easymotion'
-Bundle 'goldfeld/vim-seek'
+"Bundle 'goldfeld/vim-seek'
 "Bundle 'Valloric/YouCompleteMe'
 
 Bundle 'wincent/Command-T'
