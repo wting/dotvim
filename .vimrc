@@ -78,8 +78,8 @@ Bundle 'vim-scripts/AutoTag'
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 "Bundle 'Rip-Rip/clang_complete'
-"Bundle 'plasticboy/vim-markdown'
-Bundle 'wting/vim-markdown'
+Bundle 'plasticboy/vim-markdown'
+"Bundle 'wting/vim-markdown'
 Bundle 'groenewege/vim-less'
 "Bundle 'ehamberg/vim-cute-python'
 Bundle 'vim-scripts/haskell.vim'
@@ -532,6 +532,8 @@ let g:UltiSnipsListSnippets = "<c-l>"
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+
+let g:vim_markdown_folding_disabled=1
 
 "make sign column same color as theme
 "highlight clear SignColumn
