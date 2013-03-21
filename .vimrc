@@ -54,7 +54,7 @@ Bundle 'airblade/vim-gitgutter'
 
 " Powerline and dependencies
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-powerline'
+Bundle 'Lokaltog/powerline'
 
 " Add Additional Features
 Bundle 'SirVer/ultisnips'
