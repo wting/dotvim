@@ -147,6 +147,8 @@ set cursorline							"shows the current line in different color
 set splitright
 set splitbelow
 
+"set winminheight=5
+
 "automatically resize vertical splits.
 :au WinEnter * :set winfixheight
 :au WinEnter * :wincmd =
@@ -516,6 +518,7 @@ let g:localvimrc_ask=0
 ca nt NERDTreeToggle
 
 "Powerline
+set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'fancy'
 
 "Rainbow Parentheses, causes problems with markdown files
