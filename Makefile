@@ -1,6 +1,6 @@
 .PHONY: all
 
-all: vundle command-t
+all: vundle command-t fonts
 	@-mv ~/.vimrc ~/.vimrc.bak
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
 
@@ -12,3 +12,7 @@ vundle:
 
 command-t:
 	sh ./command-t.sh
+
+# required for powerline plugin
+fonts:
+	fc-cache -vf ~/.fonts
