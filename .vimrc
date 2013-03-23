@@ -141,15 +141,21 @@ set noerrorbells         				"don't beep
 set showmode
 set showcmd
 
-set splitright
-set splitbelow
-
 set scrolloff=4							"minimal number of screen lines to keep above and below the cursor.
 set cursorline							"shows the current line in different color
+
+set splitright
+set splitbelow
 
 "automatically resize vertical splits.
 :au WinEnter * :set winfixheight
 :au WinEnter * :wincmd =
+
+"rebind to modify window heights
+if bufwinnr(1)
+  nnoremap + <C-W>+
+  nnoremap - <C-W>-
+endif
 
 "set folds, default open
 set foldmethod=indent
