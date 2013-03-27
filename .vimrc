@@ -498,8 +498,8 @@ nnoremap <silent> <leader>t :CommandT<CR>
 nnoremap <silent> <leader>b :CommandTBuffer<CR>
 "change default behavior to open in new tab
 let g:CommandTAcceptSelectionTabMap = ['<CR>', '<C-t>']
-let g:CommandTAcceptSelectionSplitMap = ['<C-CR>', '<C-s>']
-let g:CommandTAcceptSelectionVSplitMap = ['<C-v>', '<C-\>']
+let g:CommandTAcceptSelectionSplitMap = ['<C-\>']
+let g:CommandTAcceptSelectionVSplitMap = ['<C-v>']
 
 "CSApprox
 let g:CSApprox_verbose_level = 0
