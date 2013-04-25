@@ -10,6 +10,7 @@
 "    -> Colors and Fonts
 "    -> Files and Backups
 "    -> Text, Tab and Indent Related
+"    -> Insert Mode Related
 "    -> Visual Mode Related
 "    -> Command Mode Related
 "    -> Moving Around, Tabs and Buffers
@@ -329,6 +330,14 @@ ca s2t :%s/    /\t/
 "Move tabs left/right http://stackoverflow.com/a/7192324/195139
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Insert Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" fix slight delay after pressing ESC then O
+" http://ksjoberg.com/vim-esckeys.html
+" set noesckeys
+set timeout timeoutlen=1000 ttimeoutlen=100
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode Related
