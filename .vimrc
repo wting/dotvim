@@ -62,7 +62,8 @@ Bundle 'SirVer/ultisnips'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'camelcasemotion'
-Bundle 'scrooloose/nerdcommenter'
+"Bundle 'scrooloose/nerdcommenter'
+Bundle 'wting/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 "Bundle 'Lokaltog/vim-easymotion'
@@ -522,6 +523,9 @@ let g:indent_guides_guide_size = 1
 
 "localvimrc
 let g:localvimrc_ask=0
+
+"NERD commentor
+let g:NERDSpaceDelims = 1
 
 "NERD Tree
 ca nt NERDTreeToggle
