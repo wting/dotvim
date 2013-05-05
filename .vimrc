@@ -173,8 +173,8 @@ nnoremap <leader>hft Vatzf
 nnoremap <leader>hcss ?{<CR>jV/^\s*\}?$<CR>k:sort<CR>:noh<CR>
 
 "note, perl automatically sets foldmethod in the syntax file
-au Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
-au Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
+" au Syntax c,cpp,vim,xml,html,xhtml setlocal foldmethod=syntax
+" au Syntax c,cpp,vim,xml,html,xhtml,perl normal zR
 
 "make saving and loading folds automatic
 au BufWinLeave * silent! mkview
