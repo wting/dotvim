@@ -84,6 +84,15 @@ def ${1:function}(${2:arg1, arg2}):
 
 endsnippet
 
+snippet compose "function composition" b!
+def compose(*funcs, **kfuncs):
+    """
+    usage: compose(f, g, h)(10)
+    """
+    return reduce(lambda f, g: lambda *args, **kaargs: f(g(*args, **kaargs)), funcs)
+
+endsnippet
+
 snippet memoize "memoize" b!
 def memoize(f):
     cache = {}
