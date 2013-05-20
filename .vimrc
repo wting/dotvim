@@ -76,7 +76,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'brookhong/cscope.vim'
 Bundle 'vim-scripts/AutoTag'
 
-" Syntax Related
+" Syntax
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 "Bundle 'Rip-Rip/clang_complete'
@@ -86,6 +86,7 @@ Bundle 'groenewege/vim-less'
 "Bundle 'ehamberg/vim-cute-python'
 Bundle 'vim-scripts/haskell.vim'
 "Bundle 'vim-scripts/VimClojure'
+Bundle 'kchmck/vim-coffee-script'
 
 " non github, git repos
 "Bundle 'git://git.wincent.com/command-t.git'
