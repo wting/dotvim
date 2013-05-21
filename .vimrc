@@ -507,7 +507,8 @@ if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
 endif
 
 "Command-T
-nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
+" nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
+nnoremap <S-T> CommandT<CR>
 nnoremap <silent> <leader>t :CommandT<CR>
 nnoremap <silent> <leader>b :CommandTBuffer<CR>
 "change default behavior to open in new tab
