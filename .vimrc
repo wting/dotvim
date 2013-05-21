@@ -392,6 +392,9 @@ nnoremap <silent> <C-l> :noh<return><C-l>
 nnoremap / /\v
 vnoremap / /\v
 
+"change default grep behavior
+set grepprg=gp\ -n
+
 "navigate wrapped lines
 nnoremap k gk
 nnoremap j gj
