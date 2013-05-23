@@ -309,6 +309,11 @@ endif
 
 "au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
 
+" save and restore sessions
+ca save_session :mksession! ~/.vim/session<CR>
+ca load_session :source ~/.vim/session<CR>
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text, Tab and Indent Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -388,6 +393,7 @@ set hlsearch
 set showmatch
 "redraw screen and remove search highlights
 nnoremap <silent> <C-l> :noh<return><C-l>
+nnoremap <silent> = :noh<return><C-l>
 "disable vim regex, use Perl/Python regex instead
 nnoremap / /\v
 vnoremap / /\v
