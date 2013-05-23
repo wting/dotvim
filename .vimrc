@@ -150,6 +150,10 @@ set cursorline							"shows the current line in different color
 set splitright
 set splitbelow
 
+" ca sb sb
+" Open a vertical split buffer by number
+ca vb vert sb
+
 "set winminheight=5
 
 "automatically resize vertical splits.
