@@ -121,6 +121,10 @@ ca 2noet setlocal ts=2 sts=2 sw=2 noet
 ca 4et setlocal ts=4 sts=4 sw=4 et
 ca 4noet setlocal ts=4 sts=4 sw=4 noet
 
+ca vv :vsplit $MYVIMRC<cr>
+ca rfv so $MYVIMRC
+" automatically reload vimrc when it's saved
+" au BufWritePost .vimrc so $MYVIMRC
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM User Interface
@@ -207,22 +211,22 @@ au BufWritePre * :call StripTrailingWhitespaces()
 "listchars=tab:▸\ ,eol:¬
 
 " http://vim.wikia.com/wiki/Cscope
-if has('cscope')
-    set cscopetag cscopeverbose
+" if has('cscope')
+    " set cscopetag cscopeverbose
 
-    if has('quickfix')
-        set cscopequickfix=s-,c-,d-,i-,t-,e-
-    endif
+    " if has('quickfix')
+        " set cscopequickfix=s-,c-,d-,i-,t-,e-
+    " endif
 
-    cnoreabbrev csa cs add
-    cnoreabbrev csf cs find
-    cnoreabbrev csk cs kill
-    cnoreabbrev csr cs reset
-    cnoreabbrev css cs show
-    cnoreabbrev csh cs help
+    " cnoreabbrev csa cs add
+    " cnoreabbrev csf cs find
+    " cnoreabbrev csk cs kill
+    " cnoreabbrev csr cs reset
+    " cnoreabbrev css cs show
+    " cnoreabbrev csh cs help
 
-    command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-endif
+    " command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+" endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -521,7 +525,7 @@ let g:CommandTAcceptSelectionVSplitMap = ['<C-v>']
 let g:CSApprox_verbose_level = 0
 
 "Gundo
-nnoremap <leader>gt :GundoToggle<CR>
+nnoremap <leader>tgd :GundoToggle<CR>
 
 "Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
@@ -541,15 +545,24 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'fancy'
 
 "Rainbow Parentheses, causes problems with markdown files
-ca rbt RainbowParenthesesToggle
+ca trb RainbowParenthesesToggle
 "au VimEnter * RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadRound
 "au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _
 "au Syntax * RainbowParenthesesLoadBraces
 
+" Sessions
+let g:session_autosave = 0
+
+" a+b-c/d*e=f
+nnoremap <leader>aos :s/\v([+-/*=])/ \1 /<cr> :noh<cr>
+nnoremap <leader>sos :s/\v ([+-/*=]) /\1/<cr> :noh<cr>
+ca add_op_space s/\v([+-/*=])/ \1 /
+ca sub_op_space s/\v ([+-/*=]) /\1/
+
 "Syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
+let g:syntastic_enable_signs = 1
+let g:syntastic_quiet_warnings = 1
 
 "UltiSnips
 ca use UltiSnipsEdit
