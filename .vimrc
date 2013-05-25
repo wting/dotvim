@@ -1,4 +1,4 @@
-" william.h.ting at gmail.com
+" io at williamting.com
 " https://github.com/wting/dotvim
 "
 " Sections:
@@ -17,7 +17,8 @@
 "    -> Statusline
 "    -> Parenthesis/Bracket Expanding
 "    -> General Abbrevs
-"    -> Editing mappings
+"    -> Editing Mappings
+"    -> Session Management
 "    -> Plugin Options
 
 set nocompatible
@@ -66,9 +67,8 @@ Bundle 'camelcasemotion'
 Bundle 'wting/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'goldfeld/vim-seek'
-"Bundle 'Valloric/YouCompleteMe'
+" Bundle 'xolox/vim-misc.git'
+" Bundle 'xolox/vim-session.git'
 
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
@@ -79,13 +79,9 @@ Bundle 'vim-scripts/AutoTag'
 " Syntax
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
-"Bundle 'Rip-Rip/clang_complete'
 Bundle 'plasticboy/vim-markdown'
-"Bundle 'wting/vim-markdown'
 Bundle 'groenewege/vim-less'
-"Bundle 'ehamberg/vim-cute-python'
 Bundle 'vim-scripts/haskell.vim'
-"Bundle 'vim-scripts/VimClojure'
 Bundle 'kchmck/vim-coffee-script'
 
 " non github, git repos
@@ -121,7 +117,9 @@ ca 2noet setlocal ts=2 sts=2 sw=2 noet
 ca 4et setlocal ts=4 sts=4 sw=4 et
 ca 4noet setlocal ts=4 sts=4 sw=4 noet
 
-ca vv :vsplit $MYVIMRC<cr>
+ca vv :vs $MYVIMRC<cr>
+ca va :vs ~/custom/aliases<cr>
+ca vg :vs ~/.gitconfig<cr>
 ca rfv so $MYVIMRC
 " automatically reload vimrc when it's saved
 " au BufWritePost .vimrc so $MYVIMRC
@@ -253,65 +251,21 @@ set wildignore+=*.spl								" compiled spelling word lists
 set wildignore+=*.class								" Java
 set wildignore+=*.pyc								" Python
 
-"backups
-set backupdir=~/.vim/tmp/backup						" backups
-set directory=~/.vim/tmp/swap						" swap files
-set backup											" enable backups
-set noswapfile										" It's 2012, Vim.
 set tags=./tags;/
 
+silent !mkdir -p ~/.vim/tmp/backup >/dev/null 2>&1
+set backupdir=~/.vim/tmp/backup						" backups
+set backup											" enable backups
+
+silent !mkdir -p ~/.vim/tmp/swap >/dev/null 2>&1
+set directory=~/.vim/tmp/swap						" swap files
+set noswapfile										" It's 2013, Vim.
+
 if has("persistent_undo")
+    silent !mkdir -p ~/.vim/tmp/undo >/dev/null 2>&1
     set undodir=~/.vim/tmp/undo
     set undofile
 endif
-
-"save all on losing focus
-au FocusLost * :wa
-
-"http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
-" Tell vim to remember certain things when we exit
-"  '10  :  marks will be remembered for up to 10 previously edited files
-"  "100 :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
-set viminfo='10,\"100,:20,%,n~/.viminfo
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
-
-augroup resCur
-    au!
-    if has("folding")
-        au BufWinEnter * if ResCur() | call UnfoldCur() | endif
-    else
-        au BufWinEnter * call ResCur()
-    endif
-augroup END
-
-if has("folding")
-    function! UnfoldCur()
-        if !&foldenable
-            return
-        endif
-        let cl = line(".")
-        if cl <= 1
-            return
-        endif
-        let cf	= foldlevel(cl)
-        let uf	= foldlevel(cl - 1)
-        let min = (cf > uf ? uf : cf)
-        if min
-            execute "normal!" min . "zo"
-            return 1
-        endif
-    endfunction
-endif
-
-"au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text, Tab and Indent Related
@@ -423,8 +377,6 @@ nmap N Nzz
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 set statusline=%<%y\ b%n\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-"\ %{SyntasticStatuslineFlag()}
-"set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Parenthesis/Bracket Expanding
@@ -458,7 +410,7 @@ nnoremap <C-\><C-\> :vs <CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"    -> Editing mappings
+" Editing Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "manipulate text using alt + hjkl
 nnoremap <A-j> :m+<cr>==
@@ -481,6 +433,8 @@ map <CR> o<Esc>
 " yank and paste from system register / clipboard
 vnoremap <C-Y><C-Y> "+y
 nnoremap <C-P><C-P> "+p
+ca p set paste
+ca np set nopaste
 
 "toggle paste option
 "nnoremap <C-P><C-P> :set invpaste paste?<cr>
@@ -493,6 +447,91 @@ nnoremap <C-P><C-P> "+p
 
 "make Y behave like other capitals
 map Y y$
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session Management
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
+" Tell vim to remember certain things when we exit
+"  '50  :  marks will be remembered for up to 10 previously edited files
+"  "100 :  will save up to 100 lines for each register
+"  :20  :  up to 20 lines of command-line history will be remembered
+"  %    :  saves and restores the buffer list
+"  n... :  where to save the viminfo files
+set viminfo='50,\"100,:20,%,n~/.viminfo
+function! ResCur()
+    if line("'\"") <= line("$")
+        normal! g`"
+        return 1
+    endif
+endfunction
+
+augroup resCur
+    au!
+    if has("folding")
+        au BufWinEnter * if ResCur() | call UnfoldCur() | endif
+    else
+        au BufWinEnter * call ResCur()
+    endif
+augroup END
+
+if has("folding")
+    function! UnfoldCur()
+        if !&foldenable
+            return
+        endif
+        let cl = line(".")
+        if cl <= 1
+            return
+        endif
+        let cf	= foldlevel(cl)
+        let uf	= foldlevel(cl - 1)
+        let min = (cf > uf ? uf : cf)
+        if min
+            execute "normal!" min . "zo"
+            return 1
+        endif
+    endfunction
+endif
+
+function! GitBranchName()
+    return system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+endfunction
+
+" Creates a session
+function! MakeSession()
+    let b:sessiondir = $HOME . "/.vim/tmp/sessions" . getcwd()
+    if (filewritable(b:sessiondir) != 2)
+        exe 'silent !mkdir -p ' b:sessiondir
+        redraw!
+    endif
+    let b:filename = b:sessiondir . '/session.vim'
+    exe "mksession! " . b:filename
+endfunction
+
+" Updates a session, but only if it already exists
+function! UpdateSession()
+    let b:sessiondir = $HOME . "/.vim/tmp/sessions" . getcwd()
+    let b:sessionfile = b:sessiondir . "session.vim"
+    if (filereadable(b:sessionfile))
+        exe "mksession! " . b:filename
+    endif
+endfunction
+
+" Loads a session if it exists
+function! LoadSession()
+    let b:sessiondir = $HOME . "/.vim/tmp/sessions" . getcwd()
+    let b:sessionfile = b:sessiondir . "/session.vim"
+    if (filereadable(b:sessionfile))
+        exe 'source ' b:sessionfile
+    else
+        echo "No session loaded."
+    endif
+endfunction
+
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call UpdateSession()
+map <leader>ms :call MakeSession()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
