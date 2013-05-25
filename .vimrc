@@ -341,11 +341,15 @@ nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 " set noesckeys
 set timeout timeoutlen=1000 ttimeoutlen=100
 
+inoremap <c-d> <esc>ddi
+inoremap <c-u> <esc>gUiwi
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Don't use Ex mode
-nmap Q gqG
+nnoremap Q gqG
 
 "allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<CR>
@@ -374,10 +378,10 @@ noremap <Left> :tabprev<cr>
 noremap <Right> :tabnext<cr>
 
 "easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
 
 "search options
 set ignorecase
@@ -388,6 +392,7 @@ set hlsearch
 set showmatch
 "redraw screen and remove search highlights
 nnoremap <silent> <C-l> :noh<return><C-l>
+nnoremap <silent> = :noh<return>
 "disable vim regex, use Perl/Python regex instead
 nnoremap / /\v
 vnoremap / /\v
