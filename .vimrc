@@ -337,6 +337,12 @@ ca s2t :%s/    /\t/
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
+" Add / Subtract Operator Spacing
+nnoremap <leader>aos :s/\v([+-/*=])/ \1 /<cr> :noh<cr>
+nnoremap <leader>sos :s/\v ([+-/*=]) /\1/<cr> :noh<cr>
+ca add_op_space s/\v([+-/*=])/ \1 /
+ca sub_op_space s/\v ([+-/*=]) /\1/
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Insert Mode Related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -553,12 +559,6 @@ ca trb RainbowParenthesesToggle
 
 " Sessions
 let g:session_autosave = 0
-
-" a+b-c/d*e=f
-nnoremap <leader>aos :s/\v([+-/*=])/ \1 /<cr> :noh<cr>
-nnoremap <leader>sos :s/\v ([+-/*=]) /\1/<cr> :noh<cr>
-ca add_op_space s/\v([+-/*=])/ \1 /
-ca sub_op_space s/\v ([+-/*=]) /\1/
 
 "Syntastic
 let g:syntastic_enable_signs = 1
