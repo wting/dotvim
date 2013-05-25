@@ -332,14 +332,14 @@ nmap . .`[
 " Moving Around, Tabs and Buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "arrow keys move between buffers / tabs
-inoremap <Up> <esc>:bprev<cr>
-inoremap <Down> <esc>:bnext<cr>
-inoremap <Left> <esc>:tabprev<cr>
-inoremap <Right> <esc>:tabnext<cr>
-noremap <Up> :bprev<cr>
-noremap <Down> :bnext<cr>
-noremap <Left> :tabprev<cr>
-noremap <Right> :tabnext<cr>
+inoremap <silent> <Up> <esc>:bprev<cr>
+inoremap <silent> <Down> <esc>:bnext<cr>
+inoremap <silent> <Left> <esc>:tabprev<cr>
+inoremap <silent> <Right> <esc>:tabnext<cr>
+noremap <silent> <Up> :bprev<cr>
+noremap <silent> <Down> :bnext<cr>
+noremap <silent> <Left> :tabprev<cr>
+noremap <silent> <Right> :tabnext<cr>
 
 "easy window navigation
 noremap <C-h> <C-w>h
@@ -501,40 +501,55 @@ function! GitBranchName()
     return system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
 endfunction
 
-" Creates a session
+function! SessionDir()
+    return $HOME . "/.vim/tmp/sessions" . getcwd()
+endfunction
+
+function! SessionFile()
+    let b:branch = GitBranchName()
+    if (b:branch == '')
+        return SessionDir() . '/session.vim'
+    endif
+    return SessionDir() . '/' . b:branch
+endfunction
+
 function! MakeSession()
-    let b:sessiondir = $HOME . "/.vim/tmp/sessions" . getcwd()
+    let b:sessiondir = SessionDir()
     if (filewritable(b:sessiondir) != 2)
         exe 'silent !mkdir -p ' b:sessiondir
         redraw!
     endif
-    let b:filename = b:sessiondir . '/session.vim'
-    exe "mksession! " . b:filename
+    let b:sessionfile = SessionFile()
+    exe "mksession! " . b:sessionfile
+    echom "session file created: " . b:sessionfile
 endfunction
 
-" Updates a session, but only if it already exists
 function! UpdateSession()
-    let b:sessiondir = $HOME . "/.vim/tmp/sessions" . getcwd()
-    let b:sessionfile = b:sessiondir . "session.vim"
+    let b:sessiondir = SessionDir()
+    let b:sessionfile = SessionFile()
     if (filereadable(b:sessionfile))
-        exe "mksession! " . b:filename
+        exe "mksession! " . b:sessionfile
+        echom "session file updated: " . b:sessionfile
     endif
 endfunction
 
 " Loads a session if it exists
 function! LoadSession()
-    let b:sessiondir = $HOME . "/.vim/tmp/sessions" . getcwd()
-    let b:sessionfile = b:sessiondir . "/session.vim"
-    if (filereadable(b:sessionfile))
+    let b:sessiondir = SessionDir()
+    let b:sessionfile = SessionFile()
+    " exe 'source ' b:sessionfile
+    if (filereadable(b:sessionfile)) " always fails even if file exists
         exe 'source ' b:sessionfile
+        echom "session file loaded: " . b:sessionfile
     else
-        echo "No session loaded."
+        echom "session file not found: " . b:sessionfile
     endif
 endfunction
 
 au VimEnter * nested :call LoadSession()
 au VimLeave * :call UpdateSession()
-map <leader>ms :call MakeSession()<cr>
+nnoremap <leader>ls :call MakeSession()<cr>
+nnoremap <leader>ms :call MakeSession()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
