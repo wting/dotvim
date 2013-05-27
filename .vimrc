@@ -287,6 +287,9 @@ nnoremap <f6> gg gqG<CR>
 ca t2s :%s/\t/    /
 ca s2t :%s/    /\t/
 
+ca "2' :s/"/'/
+ca '2" :s/'/"/
+
 "Move tabs left/right http://stackoverflow.com/a/7192324/195139
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
@@ -588,14 +591,15 @@ let g:CommandTAcceptSelectionVSplitMap = ['<C-v>']
 let g:CSApprox_verbose_level = 0
 
 "Gundo
-nnoremap <leader>tgd :GundoToggle<CR>
+" nnoremap <leader>gdt :GundoToggle<CR>
+ca gdt GundoToggle
 
 "Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
 "localvimrc
-let g:localvimrc_ask=0
+let g:localvimrc_ask = 0
 
 "NERD commentor
 let g:NERDSpaceDelims = 1
@@ -608,7 +612,7 @@ set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 let g:Powerline_symbols = 'fancy'
 
 "Rainbow Parentheses, causes problems with markdown files
-ca trb RainbowParenthesesToggle
+ca rbt RainbowParenthesesToggle
 "au VimEnter * RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadRound
 "au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _
