@@ -500,59 +500,61 @@ if has("folding")
     endfunction
 endif
 
+function! Trim(string)
+    return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
+endfunction
+
 function! GitBranchName()
-    return system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
+    return Trim((system("git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //'")))
 endfunction
 
 function! SessionDir()
-    return $HOME . "/.vim/tmp/sessions" . getcwd()
+    let l:dir = $HOME . '/.vim/tmp/sessions' . getcwd()
+    if (filewritable(l:dir) != 2)
+        exe 'silent !mkdir -p ' l:dir
+        redraw!
+    endif
+    return l:dir
 endfunction
 
 function! SessionFile()
-    let b:branch = GitBranchName()
-    if (b:branch == '')
+    let l:branch = GitBranchName()
+    if (l:branch == '')
         return SessionDir() . '/session.vim'
     endif
-    return SessionDir() . '/' . b:branch
+    return SessionDir() . '/' . l:branch
 endfunction
 
-function! MakeSession()
-    let b:sessiondir = SessionDir()
-    if (filewritable(b:sessiondir) != 2)
-        exe 'silent !mkdir -p ' b:sessiondir
-        redraw!
-    endif
-    let b:sessionfile = SessionFile()
-    exe "mksession! " . b:sessionfile
-    echom "session file created: " . b:sessionfile
+function! SaveSession()
+    let l:sessiondir = SessionDir()
+    let l:sessionfile = SessionFile()
+    exe "mksession! " . l:sessionfile
+    echom "session created: " . l:sessionfile
 endfunction
 
 function! UpdateSession()
-    let b:sessiondir = SessionDir()
-    let b:sessionfile = SessionFile()
-    if (filereadable(b:sessionfile))
-        exe "mksession! " . b:sessionfile
-        echom "session file updated: " . b:sessionfile
+    let l:sessiondir = SessionDir()
+    let l:sessionfile = SessionFile()
+    if (filereadable(l:sessionfile))
+        exe "mksession! " . l:sessionfile
+        echom "session updated: " . l:sessionfile
     endif
 endfunction
 
-" Loads a session if it exists
 function! LoadSession()
-    let b:sessiondir = SessionDir()
-    let b:sessionfile = SessionFile()
-    " exe 'source ' b:sessionfile
-    if (filereadable(b:sessionfile)) " always fails even if file exists
-        exe 'source ' b:sessionfile
-        echom "session file loaded: " . b:sessionfile
+    let l:sessionfile = SessionFile()
+    if (filereadable(l:sessionfile))
+        echom "session loaded: " . l:sessionfile
+        exe 'source ' l:sessionfile
     else
-        echom "session file not found: " . b:sessionfile
+        echom "session not found: " . l:sessionfile
     endif
 endfunction
 
 au VimEnter * nested :call LoadSession()
 au VimLeave * :call UpdateSession()
-nnoremap <leader>ls :call MakeSession()<cr>
-nnoremap <leader>ms :call MakeSession()<cr>
+nnoremap <leader>ss :call SaveSession()<cr>
+nnoremap <leader>ls :call LoadSession()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
