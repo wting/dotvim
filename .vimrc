@@ -1,4 +1,4 @@
-" william.h.ting at gmail.com
+" io at williamting.com
 " https://github.com/wting/dotvim
 "
 " Sections:
@@ -17,7 +17,8 @@
 "    -> Statusline
 "    -> Parenthesis/Bracket Expanding
 "    -> General Abbrevs
-"    -> Editing mappings
+"    -> Editing Mappings
+"    -> Session Management
 "    -> Plugin Options
 
 set nocompatible
@@ -66,9 +67,8 @@ Bundle 'camelcasemotion'
 Bundle 'wting/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-"Bundle 'Lokaltog/vim-easymotion'
-"Bundle 'goldfeld/vim-seek'
-"Bundle 'Valloric/YouCompleteMe'
+" Bundle 'xolox/vim-misc.git'
+" Bundle 'xolox/vim-session.git'
 
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
@@ -79,13 +79,9 @@ Bundle 'vim-scripts/AutoTag'
 " Syntax
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
-"Bundle 'Rip-Rip/clang_complete'
 Bundle 'plasticboy/vim-markdown'
-"Bundle 'wting/vim-markdown'
 Bundle 'groenewege/vim-less'
-"Bundle 'ehamberg/vim-cute-python'
 Bundle 'vim-scripts/haskell.vim'
-"Bundle 'vim-scripts/VimClojure'
 Bundle 'kchmck/vim-coffee-script'
 
 " non github, git repos
@@ -121,6 +117,12 @@ ca 2noet setlocal ts=2 sts=2 sw=2 noet
 ca 4et setlocal ts=4 sts=4 sw=4 et
 ca 4noet setlocal ts=4 sts=4 sw=4 noet
 
+ca vv :vs $MYVIMRC<cr>
+ca va :vs ~/custom/aliases<cr>
+ca vg :vs ~/.gitconfig<cr>
+ca rfv so $MYVIMRC
+" automatically reload vimrc when it's saved
+" au BufWritePost .vimrc so $MYVIMRC
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " VIM User Interface
@@ -211,22 +213,22 @@ au BufWritePre * :call StripTrailingWhitespaces()
 "listchars=tab:▸\ ,eol:¬
 
 " http://vim.wikia.com/wiki/Cscope
-if has('cscope')
-    set cscopetag cscopeverbose
+" if has('cscope')
+    " set cscopetag cscopeverbose
 
-    if has('quickfix')
-        set cscopequickfix=s-,c-,d-,i-,t-,e-
-    endif
+    " if has('quickfix')
+        " set cscopequickfix=s-,c-,d-,i-,t-,e-
+    " endif
 
-    cnoreabbrev csa cs add
-    cnoreabbrev csf cs find
-    cnoreabbrev csk cs kill
-    cnoreabbrev csr cs reset
-    cnoreabbrev css cs show
-    cnoreabbrev csh cs help
+    " cnoreabbrev csa cs add
+    " cnoreabbrev csf cs find
+    " cnoreabbrev csk cs kill
+    " cnoreabbrev csr cs reset
+    " cnoreabbrev css cs show
+    " cnoreabbrev csh cs help
 
-    command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-endif
+    " command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+" endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -253,29 +255,223 @@ set wildignore+=*.spl								" compiled spelling word lists
 set wildignore+=*.class								" Java
 set wildignore+=*.pyc								" Python
 
-"backups
-set backupdir=~/.vim/tmp/backup						" backups
-set directory=~/.vim/tmp/swap						" swap files
-set backup											" enable backups
-set noswapfile										" It's 2012, Vim.
 set tags=./tags;/
 
+silent !mkdir -p ~/.vim/tmp/backup >/dev/null 2>&1
+set backupdir=~/.vim/tmp/backup						" backups
+set backup											" enable backups
+
+silent !mkdir -p ~/.vim/tmp/swap >/dev/null 2>&1
+set directory=~/.vim/tmp/swap						" swap files
+set noswapfile										" It's 2013, Vim.
+
 if has("persistent_undo")
+    silent !mkdir -p ~/.vim/tmp/undo >/dev/null 2>&1
     set undodir=~/.vim/tmp/undo
     set undofile
 endif
 
-"save all on losing focus
-au FocusLost * :wa
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Text, Tab and Indent Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set autoindent
+set tabstop=4
+set shiftwidth=4
+set shiftround 							"use multiples of shiftwidth when using < or >
 
+nnoremap <f1> :set sw=4 ts=4 sts=4 et wrap linebreak nolist tw=76 cc=80<CR>
+nnoremap <f2> :set sw=2 ts=2 sts=2 et<CR>
+nnoremap <f3> :set sw=2 ts=2 sts=2 noet<CR>
+nnoremap <f4> :set sw=4 ts=4 sts=4 et<CR>
+nnoremap <f5> :set sw=4 ts=4 sts=4 noet<CR>
+nnoremap <f6> :set fo=tcqbl<CR>
+" http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
+nnoremap <f6> gg gqG<CR>
+
+ca t2s :%s/\t/    /
+ca s2t :%s/    /\t/
+
+ca "2' :s/"/'/
+ca '2" :s/'/"/
+
+"Move tabs left/right http://stackoverflow.com/a/7192324/195139
+nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+
+" Add / Subtract Operator Spacing
+nnoremap <leader>aos :s/\v([+-/*=])/ \1 /<cr> :noh<cr>
+nnoremap <leader>sos :s/\v ([+-/*=]) /\1/<cr> :noh<cr>
+ca add_op_space s/\v([+-/*=])/ \1 /
+ca sub_op_space s/\v ([+-/*=]) /\1/
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Insert Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" fix slight delay after pressing ESC then O
+" http://ksjoberg.com/vim-esckeys.html
+" set noesckeys
+set timeout timeoutlen=1000 ttimeoutlen=100
+
+inoremap <c-d> <esc>ddi
+inoremap <c-u> <esc>gUiwi
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Visual Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Don't use Ex mode
+nnoremap Q gqG
+
+"allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Command Mode Related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"reduce keystrokes for command mode
+inoremap ;w <esc>:w<cr>a
+nnoremap ; :
+
+"return cursor after using . command
+nmap . .`[
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Moving Around, Tabs and Buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"arrow keys move between buffers / tabs
+inoremap <silent> <Up> <esc>:bprev<cr>
+inoremap <silent> <Down> <esc>:bnext<cr>
+inoremap <silent> <Left> <esc>:tabprev<cr>
+inoremap <silent> <Right> <esc>:tabnext<cr>
+noremap <silent> <Up> :bprev<cr>
+noremap <silent> <Down> :bnext<cr>
+noremap <silent> <Left> :tabprev<cr>
+noremap <silent> <Right> :tabnext<cr>
+
+"easy window navigation
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+"search options
+set ignorecase
+set smartcase							"disable ignore case if uppercase present
+set gdefault
+set incsearch
+set hlsearch
+set showmatch
+"redraw screen and remove search highlights
+nnoremap <silent> <C-l> :noh<return><C-l>
+nnoremap <silent> = :noh<return>
+"disable vim regex, use Perl/Python regex instead
+nnoremap / /\v
+vnoremap / /\v
+
+"change default grep behavior
+set grepprg=gp\ -n
+
+"navigate wrapped lines
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
+nmap <S-k> <C-b>
+nmap <space> <C-f>
+nmap n nzz
+nmap N Nzz
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Statusline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2
+set statusline=%<%y\ b%n\ %h%m%r%=%-14.(%l,%c%V%)\ %P
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Parenthesis/Bracket Expanding
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" General Abbrevs
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"exit insert mode alternatives
+inoremap jj <esc>j
+cnoremap jj <C-c>j
+inoremap kk <esc>k
+cnoremap kk <C-c>k
+nnoremap H ^
+nnoremap L $
+inoremap ZZ <esc>:wq<Cr>
+
+"Use Q for formatting the current paragraph (or selection)
+vmap Q gq
+nmap Q gqap
+
+"forgot sudo?
+cmap w!! w !sudo tee % >/dev/null
+
+"toggle line numbers
+nnoremap <C-N><C-N> :set invnumber<CR>
+
+let mapleader=","
+
+nnoremap <C-\><C-\> :vs <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Editing Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"manipulate text using alt + hjkl
+nnoremap <A-j> :m+<cr>==
+nnoremap <A-k> :m-2<cr>==
+nnoremap <A-h> <<
+nnoremap <A-l> >>
+inoremap <A-j> <Esc>:m+<cr>==gi
+inoremap <A-k> <Esc>:m-2<cr>==gi
+inoremap <A-h> <Esc><<`]a
+inoremap <A-l> <Esc>>>`]a
+vnoremap <A-j> :m'>+<cr>gv=gv
+vnoremap <A-k> :m-2<cr>gv=gv
+vnoremap <A-h> <gv
+vnoremap <A-l> >gv
+
+"adding / removing lines
+map <S-Enter> O<CR><Esc>
+map <CR> o<Esc>
+
+" yank and paste from system register / clipboard
+vnoremap <C-Y><C-Y> "+y
+nnoremap <C-P><C-P> "+p
+ca p set paste
+ca np set nopaste
+
+"toggle paste option
+"nnoremap <C-P><C-P> :set invpaste paste?<cr>
+
+"automatically indent after pasting, use <leader>p to use regular paste
+"nnoremap <leader>p p
+"nnoremap <leader>P P
+"nnoremap p p'[v']=
+"nnoremap P P'[v']=
+
+"make Y behave like other capitals
+map Y y$
+
+ca w' w
+ca w" w
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Session Management
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
 " Tell vim to remember certain things when we exit
-"  '10  :  marks will be remembered for up to 10 previously edited files
+"  '50  :  marks will be remembered for up to 10 previously edited files
 "  "100 :  will save up to 100 lines for each register
 "  :20  :  up to 20 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='10,\"100,:20,%,n~/.viminfo
+set viminfo='50,\"100,:20,%,n~/.viminfo
 function! ResCur()
     if line("'\"") <= line("$")
         normal! g`"
@@ -311,186 +507,61 @@ if has("folding")
     endfunction
 endif
 
-"au BufWritePost ~/.vimrc source ~/.vimrc "auto-reload .vimrc after saving
+function! Trim(string)
+    return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
+endfunction
 
-" save and restore sessions
-ca save_session :mksession! ~/.vim/tmp/session/quick<CR>
-ca load_session :source ~/.vim/tmp/session/quick<CR>
+function! GitBranchName()
+    return Trim((system("git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //'")))
+endfunction
 
+function! SessionDir()
+    let l:dir = $HOME . '/.vim/tmp/sessions' . getcwd()
+    if (filewritable(l:dir) != 2)
+        exe 'silent !mkdir -p ' l:dir
+        redraw!
+    endif
+    return l:dir
+endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Text, Tab and Indent Related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set autoindent
-set tabstop=4
-set shiftwidth=4
-set shiftround 							"use multiples of shiftwidth when using < or >
+function! SessionFile()
+    let l:branch = GitBranchName()
+    if (l:branch == '')
+        return SessionDir() . '/session.vim'
+    endif
+    return SessionDir() . '/' . l:branch
+endfunction
 
-nnoremap <f1> :set sw=4 ts=4 sts=4 et wrap linebreak nolist tw=76 cc=80<CR>
-nnoremap <f2> :set sw=2 ts=2 sts=2 et<CR>
-nnoremap <f3> :set sw=2 ts=2 sts=2 noet<CR>
-nnoremap <f4> :set sw=4 ts=4 sts=4 et<CR>
-nnoremap <f5> :set sw=4 ts=4 sts=4 noet<CR>
-nnoremap <f6> :set fo=tcqbl<CR>
-" http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
-nnoremap <f6> gg gqG<CR>
+function! SaveSession()
+    let l:sessiondir = SessionDir()
+    let l:sessionfile = SessionFile()
+    exe "mksession! " . l:sessionfile
+    echom "session created: " . l:sessionfile
+endfunction
 
-ca t2s :%s/\t/    /
-ca s2t :%s/    /\t/
+function! UpdateSession()
+    let l:sessiondir = SessionDir()
+    let l:sessionfile = SessionFile()
+    if (filereadable(l:sessionfile))
+        exe "mksession! " . l:sessionfile
+        echom "session updated: " . l:sessionfile
+    endif
+endfunction
 
-"Move tabs left/right http://stackoverflow.com/a/7192324/195139
-nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
-nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+function! LoadSession()
+    let l:sessionfile = SessionFile()
+    if (filereadable(l:sessionfile))
+        echom "session loaded: " . l:sessionfile
+        exe 'source ' l:sessionfile
+    else
+        echom "session not found: " . l:sessionfile
+    endif
+endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Insert Mode Related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" fix slight delay after pressing ESC then O
-" http://ksjoberg.com/vim-esckeys.html
-" set noesckeys
-set timeout timeoutlen=1000 ttimeoutlen=100
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Visual Mode Related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Don't use Ex mode
-nmap Q gqG
-
-"allow the . to execute once for each line of a visual selection
-vnoremap . :normal .<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Command Mode Related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"reduce keystrokes for command mode
-inoremap ;w <esc>:w<cr>a
-nnoremap ; :
-
-"return cursor after using . command
-nmap . .`[
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Moving Around, Tabs and Buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"arrow keys move between buffers / tabs
-inoremap <Up> <esc>:bprev<cr>
-inoremap <Down> <esc>:bnext<cr>
-inoremap <Left> <esc>:tabprev<cr>
-inoremap <Right> <esc>:tabnext<cr>
-noremap <Up> :bprev<cr>
-noremap <Down> :bnext<cr>
-noremap <Left> :tabprev<cr>
-noremap <Right> :tabnext<cr>
-
-"easy window navigation
-map <C-h> <C-w>h
-map <C-j> <C-w>j
-map <C-k> <C-w>k
-map <C-l> <C-w>l
-
-"search options
-set ignorecase
-set smartcase							"disable ignore case if uppercase present
-set gdefault
-set incsearch
-set hlsearch
-set showmatch
-"redraw screen and remove search highlights
-nnoremap <silent> <C-l> :noh<return><C-l>
-nnoremap <silent> = :noh<return><C-l>
-"disable vim regex, use Perl/Python regex instead
-nnoremap / /\v
-vnoremap / /\v
-
-"change default grep behavior
-set grepprg=gp\ -n
-
-"navigate wrapped lines
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
-
-nmap <S-k> <C-b>
-nmap <space> <C-f>
-nmap n nzz
-nmap N Nzz
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Statusline
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set laststatus=2
-set statusline=%<%y\ b%n\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-"\ %{SyntasticStatuslineFlag()}
-"set statusline=%<%F%h%m%r%h%w%y\ %{&ff}\ %{strftime(\"%d/%m/%Y-%H:%M\")}%=\ col:%c%V\ ascii:%b\ pos:%o\ lin:%l\,%L\ %P
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Parenthesis/Bracket Expanding
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" General Abbrevs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"exit insert mode alternatives
-inoremap jj <esc>j
-cnoremap jj <C-c>j
-inoremap kk <esc>k
-cnoremap kk <C-c>k
-nnoremap H ^
-nnoremap L $
-inoremap ZZ <esc>:wq<Cr>
-
-"Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
-
-"forgot sudo?
-cmap w!! w !sudo tee % >/dev/null
-
-"toggle line numbers
-nnoremap <C-N><C-N> :set invnumber<CR>
-
-let mapleader=","
-
-nnoremap <C-\><C-\> :vs <CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"    -> Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"manipulate text using alt + hjkl
-nnoremap <A-j> :m+<cr>==
-nnoremap <A-k> :m-2<cr>==
-nnoremap <A-h> <<
-nnoremap <A-l> >>
-inoremap <A-j> <Esc>:m+<cr>==gi
-inoremap <A-k> <Esc>:m-2<cr>==gi
-inoremap <A-h> <Esc><<`]a
-inoremap <A-l> <Esc>>>`]a
-vnoremap <A-j> :m'>+<cr>gv=gv
-vnoremap <A-k> :m-2<cr>gv=gv
-vnoremap <A-h> <gv
-vnoremap <A-l> >gv
-
-"adding / removing lines
-map <S-Enter> O<CR><Esc>
-map <CR> o<Esc>
-
-" yank and paste from system register / clipboard
-vnoremap <C-Y><C-Y> "+y
-nnoremap <C-P><C-P> "+p
-
-"toggle paste option
-"nnoremap <C-P><C-P> :set invpaste paste?<cr>
-
-"automatically indent after pasting, use <leader>p to use regular paste
-"nnoremap <leader>p p
-"nnoremap <leader>P P
-"nnoremap p p'[v']=
-"nnoremap P P'[v']=
-
-"make Y behave like other capitals
-map Y y$
+au VimEnter * nested :call LoadSession()
+au VimLeave * :call UpdateSession()
+nnoremap <leader>ss :call SaveSession()<cr>
+nnoremap <leader>ls :call LoadSession()<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
@@ -530,14 +601,15 @@ let g:CommandTAcceptSelectionVSplitMap = ['<C-v>']
 let g:CSApprox_verbose_level = 0
 
 "Gundo
-nnoremap <leader>gt :GundoToggle<CR>
+" nnoremap <leader>gdt :GundoToggle<CR>
+ca gdt GundoToggle
 
 "Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
 
 "localvimrc
-let g:localvimrc_ask=0
+let g:localvimrc_ask = 0
 
 "NERD commentor
 let g:NERDSpaceDelims = 1
@@ -556,9 +628,12 @@ ca rbt RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _
 "au Syntax * RainbowParenthesesLoadBraces
 
+" Sessions
+let g:session_autosave = 0
+
 "Syntastic
-let g:syntastic_enable_signs=1
-let g:syntastic_quiet_warnings=1
+let g:syntastic_enable_signs = 1
+let g:syntastic_quiet_warnings = 1
 
 "UltiSnips
 ca use UltiSnipsEdit
