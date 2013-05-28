@@ -69,6 +69,7 @@ Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 " Bundle 'xolox/vim-misc.git'
 " Bundle 'xolox/vim-session.git'
+Bundle 'wting/gitsessions.vim'
 
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
