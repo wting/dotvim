@@ -472,41 +472,41 @@ ca w" w
 "  :20  :  up to 20 lines of command-line history will be remembered
 "  %    :  saves and restores the buffer list
 "  n... :  where to save the viminfo files
-set viminfo='50,\"100,:20,%,n~/.viminfo
-function! ResCur()
-    if line("'\"") <= line("$")
-        normal! g`"
-        return 1
-    endif
-endfunction
+" set viminfo='50,\"100,:20,%,n~/.viminfo
+" function! ResCur()
+    " if line("'\"") <= line("$")
+        " normal! g`"
+        " return 1
+    " endif
+" endfunction
 
-augroup resCur
-    au!
-    if has("folding")
-        au BufWinEnter * if ResCur() | call UnfoldCur() | endif
-    else
-        au BufWinEnter * call ResCur()
-    endif
-augroup END
+" augroup resCur
+    " au!
+    " if has("folding")
+        " au BufWinEnter * if ResCur() | call UnfoldCur() | endif
+    " else
+        " au BufWinEnter * call ResCur()
+    " endif
+" augroup END
 
-if has("folding")
-    function! UnfoldCur()
-        if !&foldenable
-            return
-        endif
-        let cl = line(".")
-        if cl <= 1
-            return
-        endif
-        let cf	= foldlevel(cl)
-        let uf	= foldlevel(cl - 1)
-        let min = (cf > uf ? uf : cf)
-        if min
-            execute "normal!" min . "zo"
-            return 1
-        endif
-    endfunction
-endif
+" if has("folding")
+    " function! UnfoldCur()
+        " if !&foldenable
+            " return
+        " endif
+        " let cl = line(".")
+        " if cl <= 1
+            " return
+        " endif
+        " let cf	= foldlevel(cl)
+        " let uf	= foldlevel(cl - 1)
+        " let min = (cf > uf ? uf : cf)
+        " if min
+            " execute "normal!" min . "zo"
+            " return 1
+        " endif
+    " endfunction
+" endif
 
 function! Trim(string)
     return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
