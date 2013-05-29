@@ -125,3 +125,7 @@ with open(${1:file}, 'r') as f:
     ${2:lines} = f.readlines()
     $0
 endsnippet
+
+snippet trace "test trace" b!
+import ipdb; ipdb.set_trace()
+endsnippet
