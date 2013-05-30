@@ -300,8 +300,8 @@ nnoremap <f6> :set fo=tcqbl<CR>
 " http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
 nnoremap <f6> gg gqG<CR>
 
-ca t2s :%s/\t/    /
-ca s2t :%s/    /\t/
+ca t2s :%s/\t/    / | noh
+ca s2t :%s/    /\t/ | noh
 
 ca "2' :s/"/'/ | noh
 ca '2" :s/'/"/ | noh
