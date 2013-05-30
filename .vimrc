@@ -303,8 +303,8 @@ nnoremap <f6> gg gqG<CR>
 ca t2s :%s/\t/    /
 ca s2t :%s/    /\t/
 
-ca "2' :s/"/'/
-ca '2" :s/'/"/
+ca "2' :s/"/'/ | noh
+ca '2" :s/'/"/ | noh
 
 "Move tabs left/right http://stackoverflow.com/a/7192324/195139
 nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
@@ -374,8 +374,8 @@ set incsearch
 set hlsearch
 set showmatch
 "redraw screen and remove search highlights
-nnoremap <silent> <C-l> :noh<return><C-l>
-nnoremap <silent> = :noh<return>
+nnoremap <silent> <c-l> :noh<cr><c-l>
+nnoremap <silent> = :noh<cr>
 "disable vim regex, use Perl/Python regex instead
 nnoremap / /\v
 vnoremap / /\v
