@@ -49,6 +49,7 @@ Bundle 'gmarik/vundle'
 
 " Look & Feel
 Bundle 'vim-scripts/CSApprox'
+Bundle 'guns/xterm-color-table.vim'
 Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kshenoy/vim-signature'
@@ -148,7 +149,6 @@ set showmode
 set showcmd
 
 set scrolloff=4							"minimal number of screen lines to keep above and below the cursor.
-set cursorline							"shows the current line in different color
 
 set splitright
 set splitbelow
@@ -235,8 +235,17 @@ au BufWritePre * :call StripTrailingWhitespaces()
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set t_Co=256							"force 256 color support even if terminal doesn't allow it
+set cursorline							"shows the current line in different color
+
+let g:zenburn_high_Contrast = 1
+" let g:zenburn_force_dark_Background = 1
+" let g:zenburn_unified_CursorColumn = 1
 colorscheme zenburn
-set background=dark
+
+" autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=24 gui=bold guibg=#121212
+autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=darkblue gui=bold guibg=#121212
+
+set background=dark                     " dark tab display
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files and Backups
