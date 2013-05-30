@@ -63,9 +63,9 @@ Bundle 'SirVer/ultisnips'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'camelcasemotion'
-"Bundle 'scrooloose/nerdcommenter'
+" Bundle 'scrooloose/nerdcommenter'
 Bundle 'wting/nerdcommenter'
-Bundle 'embear/vim-localvimrc'
+" Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 " Bundle 'xolox/vim-misc.git'
 " Bundle 'xolox/vim-session.git'
@@ -255,6 +255,10 @@ set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest	" compiled object files
 set wildignore+=*.spl								" compiled spelling word lists
 set wildignore+=*.class								" Java
 set wildignore+=*.pyc								" Python
+
+" Yelp
+set wildignore+='build/**'
+set wildignore+='htdocs/**'
 
 set tags=./tags;/
 
@@ -589,6 +593,7 @@ if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
 endif
 
 "Command-T
+let g:CommandTScanDotDirectories = 0
 " nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
 nnoremap <S-T> :CommandT<CR>
 nnoremap <silent> <leader>t :CommandT<CR>
