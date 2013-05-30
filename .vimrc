@@ -264,8 +264,8 @@ set wildignore+=*.class								" Java
 set wildignore+=*.pyc								" Python
 
 " Yelp
-set wildignore+='build/**'
-set wildignore+='htdocs/**'
+set wildignore+=build/**
+set wildignore+=htdocs/**
 
 set tags=./tags;/
 
