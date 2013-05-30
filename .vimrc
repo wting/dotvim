@@ -68,8 +68,6 @@ Bundle 'camelcasemotion'
 Bundle 'wting/nerdcommenter'
 " Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-" Bundle 'xolox/vim-misc.git'
-" Bundle 'xolox/vim-session.git'
 Bundle 'wting/gitsessions.vim'
 
 Bundle 'wincent/Command-T'
@@ -237,13 +235,13 @@ au BufWritePre * :call StripTrailingWhitespaces()
 set t_Co=256							"force 256 color support even if terminal doesn't allow it
 set cursorline							"shows the current line in different color
 
-let g:zenburn_high_Contrast = 1
+" let g:zenburn_high_Contrast = 1
 " let g:zenburn_force_dark_Background = 1
 " let g:zenburn_unified_CursorColumn = 1
 colorscheme zenburn
 
 " autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=24 gui=bold guibg=#121212
-autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=darkblue gui=bold guibg=#121212
+" autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=darkblue gui=bold guibg=#121212
 
 set background=dark                     " dark tab display
 
@@ -478,104 +476,7 @@ ca w" w
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Session Management
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
-" Tell vim to remember certain things when we exit
-"  '50  :  marks will be remembered for up to 10 previously edited files
-"  "100 :  will save up to 100 lines for each register
-"  :20  :  up to 20 lines of command-line history will be remembered
-"  %    :  saves and restores the buffer list
-"  n... :  where to save the viminfo files
-" set viminfo='50,\"100,:20,%,n~/.viminfo
-" function! ResCur()
-    " if line("'\"") <= line("$")
-        " normal! g`"
-        " return 1
-    " endif
-" endfunction
-
-" augroup resCur
-    " au!
-    " if has("folding")
-        " au BufWinEnter * if ResCur() | call UnfoldCur() | endif
-    " else
-        " au BufWinEnter * call ResCur()
-    " endif
-" augroup END
-
-" if has("folding")
-    " function! UnfoldCur()
-        " if !&foldenable
-            " return
-        " endif
-        " let cl = line(".")
-        " if cl <= 1
-            " return
-        " endif
-        " let cf	= foldlevel(cl)
-        " let uf	= foldlevel(cl - 1)
-        " let min = (cf > uf ? uf : cf)
-        " if min
-            " execute "normal!" min . "zo"
-            " return 1
-        " endif
-    " endfunction
-" endif
-
-function! Trim(string)
-    return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
-endfunction
-
-function! GitBranchName()
-    return Trim((system("git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //'")))
-endfunction
-
-function! SessionDir()
-    let l:dir = $HOME . '/.vim/tmp/sessions' . getcwd()
-    if (filewritable(l:dir) != 2)
-        exe 'silent !mkdir -p ' l:dir
-        redraw!
-    endif
-    return l:dir
-endfunction
-
-function! SessionFile()
-    let l:branch = GitBranchName()
-    if (l:branch == '')
-        return SessionDir() . '/session.vim'
-    endif
-    return SessionDir() . '/' . l:branch
-endfunction
-
-function! SaveSession()
-    let l:sessiondir = SessionDir()
-    let l:sessionfile = SessionFile()
-    exe "mksession! " . l:sessionfile
-    echom "session created: " . l:sessionfile
-endfunction
-
-function! UpdateSession()
-    let l:sessiondir = SessionDir()
-    let l:sessionfile = SessionFile()
-    if (filereadable(l:sessionfile))
-        exe "mksession! " . l:sessionfile
-        echom "session updated: " . l:sessionfile
-    endif
-endfunction
-
-function! LoadSession()
-    let l:sessionfile = SessionFile()
-    if (filereadable(l:sessionfile))
-        echom "session loaded: " . l:sessionfile
-        exe 'source ' l:sessionfile
-    else
-        echom "session not found: " . l:sessionfile
-    endif
-endfunction
-
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call UpdateSession()
-nnoremap <leader>ss :call SaveSession()<cr>
-nnoremap <leader>ls :call LoadSession()<cr>
+let g:gitsessions_dir = 'tmp/sessions'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
