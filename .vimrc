@@ -240,8 +240,8 @@ set cursorline							"shows the current line in different color
 " let g:zenburn_unified_CursorColumn = 1
 colorscheme zenburn
 
-" autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=24 gui=bold guibg=#121212
-" autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=darkblue gui=bold guibg=#121212
+" autocmd ColorScheme * hi CursorLine term=underline ctermfg=white ctermbg=24
+autocmd ColorScheme * hi CursorLine term=underline ctermbg=darkblue
 
 set background=dark                     " dark tab display
 
@@ -428,8 +428,9 @@ nnoremap <C-N><C-N> :set invnumber<CR>
 
 let mapleader=","
 
-nnoremap <C-\><C-\> :vs <CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <C-\> :sp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
+nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
+nnoremap <c-y> :tabnew %<cr>g<c-]>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editing Mappings
