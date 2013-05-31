@@ -478,6 +478,60 @@ ca w" w
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:gitsessions_dir = 'tmp/sessions'
 
+function! Trim(string)
+    return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
+endfunction
+
+function! GitBranchName()
+    return Trim((system("git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //'")))
+endfunction
+
+function! MySessionDir()
+    let l:dir = $HOME . '/.vim/sessions' . getcwd()
+    if (filewritable(l:dir) != 2)
+        exe 'silent !mkdir -p ' l:dir
+        redraw!
+    endif
+    return l:dir
+endfunction
+
+function! MySessionFile()
+    let l:branch = GitBranchName()
+    if empty(l:branch)
+        return MySessionDir() . '/master.vim'
+    endif
+    return MySessionDir() . '/' . l:branch
+endfunction
+
+function! MySaveSession()
+    let l:sessiondir = MySessionDir()
+    let l:sessionfile = MySessionFile()
+    exe "mksession! " . l:sessionfile
+    echom "session created: " . l:sessionfile
+endfunction
+
+function! MyUpdateSession()
+    let l:sessiondir = MySessionDir()
+    let l:sessionfile = MySessionFile()
+    if (filereadable(l:sessionfile))
+        exe "mksession! " . l:sessionfile
+        echom "session updated: " . l:sessionfile
+    endif
+endfunction
+
+function! MyLoadSession()
+    let l:sessionfile = MySessionFile()
+    if (filereadable(l:sessionfile))
+        echom "session loaded: " . l:sessionfile
+        exe 'source ' l:sessionfile
+    else
+        echom "session not found: " . l:sessionfile
+    endif
+endfunction
+
+command MSS call MySaveSession()
+command MLS call MyLoadSession()
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
