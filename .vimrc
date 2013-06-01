@@ -67,8 +67,7 @@ Bundle 'camelcasemotion'
 Bundle 'wting/nerdcommenter'
 Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-" Bundle 'xolox/vim-misc.git'
-" Bundle 'xolox/vim-session.git'
+" Bundle 'wting/gitsessions.vim'
 
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
@@ -295,10 +294,8 @@ nnoremap <silent> <S-Left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <S-Right> :execute 'silent! tabmove ' . tabpagenr()<CR>
 
 " Add / Subtract Operator Spacing
-nnoremap <leader>aos :s/\v([+-/*=])/ \1 /<cr> :noh<cr>
-nnoremap <leader>sos :s/\v ([+-/*=]) /\1/<cr> :noh<cr>
-ca add_op_space s/\v([+-/*=])/ \1 /
-ca sub_op_space s/\v ([+-/*=]) /\1/
+ca aos s/\v([+-/*=])/ \1 /
+ca sos s/\v ([+-/*=]) /\1/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Insert Mode Related
@@ -500,62 +497,6 @@ if has("folding")
     endfunction
 endif
 
-function! Trim(string)
-    return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
-endfunction
-
-function! GitBranchName()
-    return Trim((system("git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* //'")))
-endfunction
-
-function! SessionDir()
-    let l:dir = $HOME . '/.vim/tmp/sessions' . getcwd()
-    if (filewritable(l:dir) != 2)
-        exe 'silent !mkdir -p ' l:dir
-        redraw!
-    endif
-    return l:dir
-endfunction
-
-function! SessionFile()
-    let l:branch = GitBranchName()
-    if (l:branch == '')
-        return SessionDir() . '/session.vim'
-    endif
-    return SessionDir() . '/' . l:branch
-endfunction
-
-function! SaveSession()
-    let l:sessiondir = SessionDir()
-    let l:sessionfile = SessionFile()
-    exe "mksession! " . l:sessionfile
-    echom "session created: " . l:sessionfile
-endfunction
-
-function! UpdateSession()
-    let l:sessiondir = SessionDir()
-    let l:sessionfile = SessionFile()
-    if (filereadable(l:sessionfile))
-        exe "mksession! " . l:sessionfile
-        echom "session updated: " . l:sessionfile
-    endif
-endfunction
-
-function! LoadSession()
-    let l:sessionfile = SessionFile()
-    if (filereadable(l:sessionfile))
-        echom "session loaded: " . l:sessionfile
-        exe 'source ' l:sessionfile
-    else
-        echom "session not found: " . l:sessionfile
-    endif
-endfunction
-
-au VimEnter * nested :call LoadSession()
-au VimLeave * :call UpdateSession()
-nnoremap <leader>ss :call SaveSession()<cr>
-nnoremap <leader>ls :call LoadSession()<cr>
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -620,9 +561,6 @@ ca rbt RainbowParenthesesToggle
 "au Syntax * RainbowParenthesesLoadSquare					"bug: triggers on _
 "au Syntax * RainbowParenthesesLoadBraces
 
-" Sessions
-let g:session_autosave = 0
-
 "Syntastic
 let g:syntastic_enable_signs = 1
 let g:syntastic_quiet_warnings = 1
@@ -637,8 +575,10 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled = 1
 
 "make sign column same color as theme
 "highlight clear SignColumn
 hi! link SignColumn LineNr
+
+let g:gitsessions_dir = 'tmp/sessions'
