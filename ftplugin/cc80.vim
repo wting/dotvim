@@ -3,7 +3,7 @@ highlight OverLength ctermbg=238
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 match OverLength /\%81v.\+/
 
-au VimEnter * RainbowParenthesesToggle
+au VimEnter * RainbowParenthesesActivate
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadBraces
 au Syntax * RainbowParenthesesLoadSquare

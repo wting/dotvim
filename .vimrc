@@ -57,7 +57,8 @@ Bundle 'airblade/vim-gitgutter'
 
 " Powerline and dependencies
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/powerline'
+Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/powerline'
 
 " Add Additional Features
 Bundle 'SirVer/ultisnips'
@@ -430,7 +431,7 @@ let mapleader=","
 
 nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
 nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
-nnoremap <c-y> :tabnew %<cr>g<c-]>
+nnoremap <c-y> :tabnew %<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editing Mappings
@@ -454,8 +455,8 @@ map <S-Enter> O<CR><Esc>
 map <CR> o<Esc>
 
 " yank and paste from system register / clipboard
-vnoremap <C-Y><C-Y> "+y
-nnoremap <C-P><C-P> "+p
+vnoremap <c-y><c-y> "+y
+nnoremap <c-p><c-p> "+p
 ca p set paste
 ca np set nopaste
 
@@ -590,7 +591,7 @@ ca nt NERDTreeToggle
 
 "Powerline
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'fancy'
 
 "Rainbow Parentheses, causes problems with markdown files
 ca rbt RainbowParenthesesToggle

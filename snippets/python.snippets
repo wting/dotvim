@@ -106,6 +106,17 @@ def memoize(f):
 
 endsnippet
 
+snippet mem2 "memoize for Python 2" b!
+def memoize(f):
+    cache = {}
+    def aux(*x):
+        if x not in cache:
+            cache[x] = f(*x)
+        return cache[x]
+    return aux
+
+endsnippet
+
 snippet trace "trace" b!
 def trace(f):
     def aux(x):
