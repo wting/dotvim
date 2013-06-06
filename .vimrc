@@ -70,8 +70,9 @@ Bundle 'wting/nerdcommenter'
 " Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 " Bundle 'wting/gitsessions.vim'
+Bundle 'kien/ctrlp.vim'
 
-Bundle 'wincent/Command-T'
+" Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'brookhong/cscope.vim'
@@ -464,9 +465,6 @@ nnoremap <c-p><c-p> "+p
 ca p set paste
 ca np set nopaste
 
-"toggle paste option
-"nnoremap <C-P><C-P> :set invpaste paste?<cr>
-
 "automatically indent after pasting, use <leader>p to use regular paste
 "nnoremap <leader>p p
 "nnoremap <leader>P P
@@ -563,15 +561,22 @@ if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
 endif
 
 "Command-T
-let g:CommandTScanDotDirectories = 0
-" nnoremap <S-T> :exec 'CommandTFlush' <Bar> CommandT<CR>
-nnoremap <S-T> :CommandT<CR>
-nnoremap <silent> <leader>t :CommandT<CR>
-nnoremap <silent> <leader>b :CommandTBuffer<CR>
+" let g:CommandTScanDotDirectories = 0
+" nnoremap <S-T> :CommandT<CR>
+" nnoremap <silent> <leader>t :CommandT<CR>
+" nnoremap <silent> <leader>b :CommandTBuffer<CR>
 "change default behavior to open in new tab
-let g:CommandTAcceptSelectionTabMap = ['<CR>', '<C-t>']
-let g:CommandTAcceptSelectionSplitMap = ['<C-\>']
-let g:CommandTAcceptSelectionVSplitMap = ['<C-v>']
+" let g:CommandTAcceptSelectionTabMap = ['<CR>', '<C-t>']
+" let g:CommandTAcceptSelectionSplitMap = ['<C-\>']
+" let g:CommandTAcceptSelectionVSplitMap = ['<C-v>']
+
+" CtrlP
+let g:ctrlp_map = '<s-t>'
+" make tabs default behavior
+let g:ctrlp_prompt_mappings = {
+    \ 'AcceptSelection("e")': ['<c-t>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ }
 
 "CSApprox
 let g:CSApprox_verbose_level = 0
