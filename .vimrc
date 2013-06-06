@@ -155,8 +155,11 @@ set splitbelow
 " ca sb sb
 " Open a vertical split buffer by number
 ca vb vert sb
+ca tb tabnew | b
 
-"set winminheight=5
+ca nw set nowrap
+
+" set winminheight=5
 
 "automatically resize vertical splits.
 :au WinEnter * :set winfixheight
@@ -292,14 +295,15 @@ set tabstop=4
 set shiftwidth=4
 set shiftround 							"use multiples of shiftwidth when using < or >
 
-nnoremap <f1> :set sw=4 ts=4 sts=4 et wrap linebreak nolist tw=76 cc=80<CR>
-nnoremap <f2> :set sw=2 ts=2 sts=2 et<CR>
-nnoremap <f3> :set sw=2 ts=2 sts=2 noet<CR>
-nnoremap <f4> :set sw=4 ts=4 sts=4 et<CR>
-nnoremap <f5> :set sw=4 ts=4 sts=4 noet<CR>
-nnoremap <f6> :set fo=tcqbl<CR>
+nnoremap <f1> :set sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80<CR>
+" nnoremap <f1> :set sw=4 ts=4 sts=4 et<cr>
+nnoremap <f2> :set sw=2 ts=2 sts=2 et<cr>
+nnoremap <f3> :set sw=2 ts=2 sts=2 noet<cr>
+nnoremap <f4> :set sw=4 ts=4 sts=4 et<cr>
+nnoremap <f5> :set sw=4 ts=4 sts=4 noet<cr>
+nnoremap <f6> :set fo=tcqbl<cr>
 " http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
-nnoremap <f6> gg gqG<CR>
+nnoremap <f6> gg gqG<cr>
 
 ca t2s :%s/\t/    / | noh
 ca s2t :%s/    /\t/ | noh
@@ -606,6 +610,8 @@ let g:session_autosave = 0
 "Syntastic
 let g:syntastic_enable_signs = 1
 let g:syntastic_quiet_warnings = 1
+ca st SyntasticToggleMode
+ca sc SyntasticCheck
 
 "UltiSnips
 ca use UltiSnipsEdit
