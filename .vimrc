@@ -69,7 +69,7 @@ Bundle 'camelcasemotion'
 Bundle 'wting/nerdcommenter'
 " Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-Bundle 'wting/gitsessions.vim'
+" Bundle 'wting/gitsessions.vim'
 
 Bundle 'wincent/Command-T'
 Bundle 'sjl/gundo.vim'
@@ -596,6 +596,8 @@ ca nt NERDTreeToggle
 "Powerline
 set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 " let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'compatible'
+
 
 "Rainbow Parentheses, causes problems with markdown files
 ca rbt RainbowParenthesesToggle
