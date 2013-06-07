@@ -1,6 +1,6 @@
 .PHONY: all
 
-all: vundle command-t fonts
+all: vundle fonts
 	@-mv ~/.vimrc ~/.vimrc.bak
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
 
@@ -10,9 +10,6 @@ vundle:
 	@echo "Installing / updating vim plugins found in ~/.vimrc..."
 	vim -c ":execute 'BundleInstall!' | qa"
 
-command-t:
-	sh ./command-t.sh
-
-# required for powerline plugin
+# required for powerline
 fonts:
 	fc-cache -vf ~/.fonts
