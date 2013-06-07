@@ -582,11 +582,13 @@ let g:localvimrc_ask = 0
 let g:NERDSpaceDelims = 1
 
 " Powerline
-set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
-" let g:Powerline_symbols = 'compatible'
-let g:Powerline_symbols = 'fancy'
+if isdirectory('~/.vim/bundle/powerline/powerline/bindings/vim')
+    set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
+endif
+let g:Powerline_symbols = 'compatible'
+" let g:Powerline_symbols = 'fancy'
 
-"Rainbow Parentheses, causes problems with markdown files
+" Rainbow Parentheses
 ca rbt RainbowParenthesesToggle
 
 " Sessions
