@@ -71,8 +71,8 @@ Bundle 'wting/nerdcommenter'
 Bundle 'bufexplorer.zip'
 " Bundle 'wting/gitsessions.vim'
 Bundle 'kien/ctrlp.vim'
-
-" Bundle 'wincent/Command-T'
+Bundle 'maxbrunsfeld/vim-yankstack'
+Bundle 'AndrewRadev/switch.vim'
 Bundle 'sjl/gundo.vim'
 Bundle 'scrooloose/nerdtree'
 Bundle 'brookhong/cscope.vim'
@@ -162,14 +162,17 @@ ca nw set nowrap
 
 " set winminheight=5
 
+" YankStack must be called before other mappings
+call yankstack#setup()
+
 "automatically resize vertical splits.
 :au WinEnter * :set winfixheight
 :au WinEnter * :wincmd =
 
 "rebind to modify window heights
 if bufwinnr(1)
-  nnoremap + <C-W>+
-  nnoremap - <C-W>-
+    nnoremap + <c-w>+
+    nnoremap - <c-w>-
 endif
 
 "set folds, default open
@@ -295,7 +298,15 @@ endif
 set autoindent
 set tabstop=4
 set shiftwidth=4
-set shiftround 							"use multiples of shiftwidth when using < or >
+set shiftround 				" use multiples of shiftwidth when using < or >
+
+" jump to tabs directly
+" inoremap <a-1> 1gt
+" nnoremap <a-1> 1gt
+" inoremap <a-2> 2gt
+" nnoremap <a-2> 2gt
+" inoremap <a-3> 3gt
+" nnoremap <a-3> 3gt
 
 nnoremap <f1> :set sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80<CR>
 " nnoremap <f1> :set sw=4 ts=4 sts=4 et<cr>
@@ -421,7 +432,8 @@ inoremap kk <esc>k
 cnoremap kk <C-c>k
 nnoremap H ^
 nnoremap L $
-inoremap ZZ <esc>:wq<Cr>
+inoremap ZZ <esc>:wq<cr>
+nnoremap ZA :wqa<cr>
 
 "Use Q for formatting the current paragraph (or selection)
 vmap Q gq
@@ -442,21 +454,21 @@ nnoremap <c-y> :tabnew %<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Editing Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"manipulate text using alt + hjkl
-nnoremap <A-j> :m+<cr>==
-nnoremap <A-k> :m-2<cr>==
-nnoremap <A-h> <<
-nnoremap <A-l> >>
-inoremap <A-j> <Esc>:m+<cr>==gi
-inoremap <A-k> <Esc>:m-2<cr>==gi
-inoremap <A-h> <Esc><<`]a
-inoremap <A-l> <Esc>>>`]a
-vnoremap <A-j> :m'>+<cr>gv=gv
-vnoremap <A-k> :m-2<cr>gv=gv
-vnoremap <A-h> <gv
-vnoremap <A-l> >gv
+"jmanipulate text using alt + hjkl
+nnoremap <a-j> :m+<cr>==
+nnoremap <a-k> :m-2<cr>==
+nnoremap <a-h> <<
+nnoremap <a-l> >>
+inoremap <a-j> <esc>:m+<cr>==gi
+inoremap <a-k> <esc>:m-2<cr>==gi
+inoremap <a-h> <esc><<`]a
+inoremap <a-l> <esc>>>`]a
+vnoremap <a-j> :m'>+<cr>gv=gv
+vnoremap <a-k> :m-2<cr>gv=gv
+vnoremap <a-h> <gv
+vnoremap <a-l> >gv
 
-"adding / removing lines
+" adding / removing lines
 map <S-Enter> O<CR><Esc>
 map <CR> o<Esc>
 
@@ -466,15 +478,18 @@ nnoremap <c-p><c-p> "+p
 ca p set paste
 ca np set nopaste
 
-"automatically indent after pasting, use <leader>p to use regular paste
+" automatically indent after pasting, use <leader>p to use regular paste
 "nnoremap <leader>p p
 "nnoremap <leader>P P
 "nnoremap p p'[v']=
 "nnoremap P P'[v']=
 
-"make Y behave like other capitals
+" make Y behave like other capitals
 map Y y$
 
+ca vhe vert help
+
+" fix typos
 ca w' w
 ca w" w
 
@@ -623,13 +638,20 @@ ca rbt RainbowParenthesesToggle
 " Sessions
 let g:session_autosave = 0
 
-"Syntastic
+" Switch
+nnoremap 0 :Switch<cr>
+let g:switch_custom_definitions =
+    \ [
+    \   ['=', ' = ']
+    \ ]
+
+" Syntastic
 let g:syntastic_enable_signs = 1
 let g:syntastic_quiet_warnings = 1
 ca st SyntasticToggleMode
 ca sc SyntasticCheck
 
-"UltiSnips
+" UltiSnips
 ca use UltiSnipsEdit
 let g:UltiSnipsDontReverseSearchPath = "1"					"vundle messing up search order
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
@@ -639,7 +661,11 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
-let g:vim_markdown_folding_disabled=1
+let g:vim_markdown_folding_disabled = 1
+
+" YankStack
+nnoremap <leader>p <Plug>yankstack_substitute_older_paste
+nnoremap <leader>P <Plug>yankstack_substitute_newer_paste
 
 "make sign column same color as theme
 "highlight clear SignColumn
