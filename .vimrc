@@ -387,8 +387,8 @@ inoremap ZZ <esc>:wq<cr>
 nnoremap ZA :wqa<cr>
 
 "Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
+vnoremap Q gq
+nnoremap Q gqap
 
 "forgot sudo?
 cmap w!! w !sudo tee % >/dev/null
@@ -474,10 +474,10 @@ inoremap <c-u> <esc>gUiwi
 " Visual Mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Don't use Ex mode
-nnoremap Q gqG
+" nnoremap Q gqG
 
 "allow the . to execute once for each line of a visual selection
-vnoremap . :normal .<CR>
+vnoremap . :normal .<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -601,14 +601,14 @@ let g:Powerline_symbols = 'compatible'
 ca rbt RainbowParenthesesToggle
 ca rbta RainbowParenthesesToggleAll
 let g:rbpt_colorpairs = [
-    \ ['6',         'af0000'],
-    \ ['6',         'af0000'],
-    \ ['202',         'af0000'],
-    \ ['11',         'af0000'],
-    \ ['13',         'af0000'],
-    \ ['10',         'af0000'],
-    \ ['45',         'af0000'],
-    \ ['9',         'af0000'],
+    \ ['3',         '808000'],
+    \ ['6',         '008080'],
+    \ ['202',       'ff5f00'],
+    \ ['11',        'ffff00'],
+    \ ['13',        'ff00ff'],
+    \ ['10',        '00ff00'],
+    \ ['45',        '00dfff'],
+    \ ['9',         'ff0000'],
     \ ]
 
 augroup RainbowParentheses

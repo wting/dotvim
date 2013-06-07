@@ -1,0 +1,1 @@
+/nail/home/wting/code/gitsessions.vim/plugin/gitsessions.vim
