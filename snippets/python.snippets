@@ -106,6 +106,17 @@ def memoize(f):
 
 endsnippet
 
+snippet mem2 "memoize for Python 2" b!
+def memoize(f):
+    cache = {}
+    def aux(*x):
+        if x not in cache:
+            cache[x] = f(*x)
+        return cache[x]
+    return aux
+
+endsnippet
+
 snippet trace "trace" b!
 def trace(f):
     def aux(x):
@@ -124,4 +135,8 @@ snippet open "open file"
 with open(${1:file}, 'r') as f:
     ${2:lines} = f.readlines()
     $0
+endsnippet
+
+snippet trace "test trace" b!
+import ipdb; ipdb.set_trace()
 endsnippet

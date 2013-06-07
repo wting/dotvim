@@ -4,7 +4,7 @@ match OverLength /\%81v.\+/
 
 au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
 
-au VimEnter * RainbowParenthesesToggle
+au VimEnter * RainbowParenthesesActivate
 au Syntax * RainbowParenthesesLoadRound
 au Syntax * RainbowParenthesesLoadBraces
 au Syntax * RainbowParenthesesLoadSquare

@@ -1,1 +1,1 @@
-cc80.vim
+python.vim

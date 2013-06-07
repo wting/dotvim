@@ -1,1 +1,0 @@
-/home/ting/code/gitsessions.vim/plugin/gitsessions.vim

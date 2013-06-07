@@ -1,1 +1,0 @@
-/home/ting/code/rainbow_parentheses.vim
