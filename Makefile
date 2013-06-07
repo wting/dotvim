@@ -10,6 +10,6 @@ vundle:
 	@echo "Installing / updating vim plugins found in ~/.vimrc..."
 	vim -c ":execute 'BundleInstall!' | qa"
 
-# required for powerline plugin
+# required for powerline
 fonts:
 	fc-cache -vf ~/.fonts
