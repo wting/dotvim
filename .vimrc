@@ -258,15 +258,16 @@ set fenc=utf-8
 set nobackup
 set wildmenu
 set wildmode=list:longest
-set wildignore+=*.DS_Store							" OSX bullshit
-set wildignore+=.hg,.git,.svn						" Version control
-set wildignore+=*.sw?,*.un?							" vim
-set wildignore+=*.aux,*.out,*.toc					" LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg		" binary images
-set wildignore+=*.o,*.obj,*.exe,*.dll,*.manifest	" compiled object files
-set wildignore+=*.spl								" compiled spelling word lists
-set wildignore+=*.class								" Java
-set wildignore+=*.pyc								" Python
+set wildignore+=*.DS_Store							        " OSX bullshit
+set wildignore+=.hg,.git,.svn						        " Version control
+set wildignore+=*.sw?,*.un?							        " vim
+set wildignore+=*.aux,*.out,*.toc					        " LaTeX intermediate files
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg		        " binary images
+set wildignore+=*.o,*.obj,*.so,*.a,*.exe,*.dll,*.manifest	" compiled object files
+set wildignore+=*.spl								        " compiled spelling word lists
+set wildignore+=*.class								        " Java
+set wildignore+=*.pyc								        " Python
+set wildignore+=*/tmp/*,*.so,*.zip
 
 " Yelp
 set wildignore+=build/**
@@ -572,6 +573,14 @@ endif
 
 " CtrlP
 let g:ctrlp_map = '<s-t>'
+nnoremap <c-b> = :CtrlPBuffer<cr>
+let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_use_caching = 1
+let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
+let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_show_hidden = 0
+let g:ctrlp_max_files = 0
+let g:ctrlp_max_height = 20
 " make tabs default behavior
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
