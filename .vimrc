@@ -66,7 +66,8 @@ Bundle 'Lokaltog/vim-powerline'
 " Appearance
 Bundle 'vim-scripts/CSApprox'
 Bundle 'guns/xterm-color-table.vim'
-Bundle 'kien/rainbow_parentheses.vim'
+" Bundle 'kien/rainbow_parentheses.vim'
+" Bundle 'wting/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kshenoy/vim-signature'
 Bundle 'airblade/vim-gitgutter'
@@ -110,10 +111,10 @@ set formatoptions=qrn1
 set number
 if exists("&relativenumber")
     set relativenumber
-    silent! au InsertEnter * :set number
-    silent! au InsertLeave * :set relativenumber
-    silent! au FocusLost * :set number
-    silent! au FocusGained * :set relativenumber
+    silent! au InsertEnter * set number
+    silent! au InsertLeave * set relativenumber
+    silent! au FocusLost *   set number
+    silent! au FocusGained * set relativenumber
 endif
 
 " search options
@@ -215,7 +216,7 @@ autocmd ColorScheme * hi CursorLine term=underline ctermbg=darkblue
 
 set background=dark                     " dark tab display for indent guides
 
-"make sign column same color as theme
+" make sign column same color as theme
 "highlight clear SignColumn
 hi! link SignColumn LineNr
 
@@ -223,6 +224,7 @@ hi! link SignColumn LineNr
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" au BufWritePost .vimrc so $MYVIMRC
 set enc=utf-8
 set fenc=utf-8
 set nobackup
@@ -315,8 +317,8 @@ function! MyLoadSession()
     endif
 endfunction
 
-command MSS call MySaveSession()
-command MLS call MyLoadSession()
+command! MSS call MySaveSession()
+command! MLS call MyLoadSession()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -546,16 +548,23 @@ if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
     source ~/.vim/bundle/AutoTag/plugin/autotag.vim
 endif
 
+" BufExplorer
+nnoremap <leader>be :BufExplorerVerticalSplit<cr>
+
 " CtrlP
 let g:ctrlp_map = '<s-t>'
 nnoremap <c-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
+let g:ctrlp_follow_symlinks = 1
+let g:ctrlp_lazy_update = 1
 let g:ctrlp_use_caching = 1
 let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_max_files = 0
 let g:ctrlp_max_height = 20
+let g:ctrlp_open_multiple_files = 'tjr'
+let g:ctrlp_arg_map = 0
 " make tabs default behavior
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-t>'],
@@ -585,12 +594,30 @@ let g:NERDSpaceDelims = 1
 if isdirectory('~/.vim/bundle/powerline/powerline/bindings/vim')
     set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 endif
-" let g:Powerline_symbols = 'compatible'
-let g:Powerline_symbols = 'fancy'
+let g:Powerline_symbols = 'compatible'
+" let g:Powerline_symbols = 'fancy'
 
 " Rainbow Parentheses
-" FIXME: enable on enter (2013.06.06_2307, ting)
 ca rbt RainbowParenthesesToggle
+ca rbta RainbowParenthesesToggleAll
+let g:rbpt_colorpairs = [
+    \ ['6',         'af0000'],
+    \ ['6',         'af0000'],
+    \ ['202',         'af0000'],
+    \ ['11',         'af0000'],
+    \ ['13',         'af0000'],
+    \ ['10',         'af0000'],
+    \ ['45',         'af0000'],
+    \ ['9',         'af0000'],
+    \ ]
+
+augroup RainbowParentheses
+    au!
+    au VimEnter * RainbowParenthesesToggle
+    au Syntax * RainbowParenthesesLoadRound
+    au Syntax * RainbowParenthesesLoadSquare
+    au Syntax * RainbowParenthesesLoadBraces
+augroup END
 
 " Sessions
 let g:session_autosave = 0
