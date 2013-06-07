@@ -1,1 +1,0 @@
-/nail/home/wting/code/rainbow_parentheses.vim/autoload/rainbow_parentheses.vim

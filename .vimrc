@@ -50,7 +50,7 @@ Bundle 'scrooloose/nerdtree'
 Bundle 'wting/nerdcommenter'
 " Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
-" Bundle 'wting/gitsessions.vim'
+Bundle 'wting/gitsessions.vim'
 Bundle 'kien/ctrlp.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'AndrewRadev/switch.vim'
@@ -68,7 +68,7 @@ Bundle 'Lokaltog/vim-powerline'
 Bundle 'vim-scripts/CSApprox'
 Bundle 'guns/xterm-color-table.vim'
 " Bundle 'kien/rainbow_parentheses.vim'
-" Bundle 'wting/rainbow_parentheses.vim'
+Bundle 'wting/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kshenoy/vim-signature'
 Bundle 'airblade/vim-gitgutter'
@@ -667,4 +667,3 @@ function! YelpSettings()
     setlocal noexpandtab
 endfunction
 au BufNewFile,BufRead ~/pg/* call YelpSettings()
->>>>>>> yelp
