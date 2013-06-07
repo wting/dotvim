@@ -1,14 +1,25 @@
 .PHONY: all
 
-all: vundle fonts
+all: install fonts
+	@-[ -L ~/.vimrc ] && rm ~/.vimrc
 	@-mv ~/.vimrc ~/.vimrc.bak
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
 
 vundle:
 	@-rm -rf ~/.vim/bundle/vundle
 	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-	@echo "Installing / updating vim plugins found in ~/.vimrc..."
-	vim -c ":execute 'BundleInstall!' | qa"
+
+install: vundle
+	@echo "Installing vim plugins..."
+	vim +BundleInstall +qall
+
+update: clean
+	@echo "Updating vim plugins..."
+	vim +BundleInstall! +qall
+
+clean:
+	@echo "Removing unused vim plguins..."
+	vim +BundleClean! +qall
 
 # required for powerline
 fonts:

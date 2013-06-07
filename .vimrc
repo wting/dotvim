@@ -387,8 +387,8 @@ inoremap ZZ <esc>:wq<cr>
 nnoremap ZA :wqa<cr>
 
 "Use Q for formatting the current paragraph (or selection)
-vmap Q gq
-nmap Q gqap
+vnoremap Q gq
+nnoremap Q gqap
 
 "forgot sudo?
 cmap w!! w !sudo tee % >/dev/null
@@ -474,10 +474,10 @@ inoremap <c-u> <esc>gUiwi
 " Visual Mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Don't use Ex mode
-nnoremap Q gqG
+" nnoremap Q gqG
 
 "allow the . to execute once for each line of a visual selection
-vnoremap . :normal .<CR>
+vnoremap . :normal .<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
