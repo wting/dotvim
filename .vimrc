@@ -585,10 +585,11 @@ let g:NERDSpaceDelims = 1
 if isdirectory('~/.vim/bundle/powerline/powerline/bindings/vim')
     set rtp+=~/.vim/bundle/powerline/powerline/bindings/vim
 endif
-let g:Powerline_symbols = 'compatible'
-" let g:Powerline_symbols = 'fancy'
+" let g:Powerline_symbols = 'compatible'
+let g:Powerline_symbols = 'fancy'
 
 " Rainbow Parentheses
+" FIXME: enable on enter (2013.06.06_2307, ting)
 ca rbt RainbowParenthesesToggle
 
 " Sessions
