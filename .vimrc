@@ -45,6 +45,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-repeat'
 Bundle 'camelcasemotion'
+Bundle 'scrooloose/nerdtree'
 " Bundle 'scrooloose/nerdcommenter'
 Bundle 'wting/nerdcommenter'
 " Bundle 'embear/vim-localvimrc'
@@ -240,10 +241,6 @@ set wildignore+=*.spl                                       " compiled spelling 
 set wildignore+=*.class                                     " Java
 set wildignore+=*.pyc                                       " Python
 set wildignore+=*/tmp/*,*.so,*.zip
-
-" Yelp
-set wildignore+=build/**
-set wildignore+=htdocs/**
 
 set tags=./tags;/
 
@@ -587,8 +584,11 @@ let g:indent_guides_guide_size = 1
 " localvimrc
 let g:localvimrc_ask = 0
 
-" NERD commentor
+" NERD Commentor
 let g:NERDSpaceDelims = 1
+
+" NERD Tree
+ca nt NERDTreeToggle
 
 " Powerline
 if isdirectory('~/.vim/bundle/powerline/powerline/bindings/vim')
@@ -652,3 +652,17 @@ let g:vim_markdown_folding_disabled = 1
 let g:yankstack_map_keys = 0
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Yelp
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set wildignore+=build/**
+set wildignore+=htdocs/**
+function! YelpSettings()
+    setlocal tabstop=4
+    setlocal softtabstop=4
+    setlocal shiftwidth=4
+    setlocal noexpandtab
+endfunction
+au BufNewFile,BufRead ~/pg/* call YelpSettings()
