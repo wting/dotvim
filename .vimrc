@@ -391,7 +391,7 @@ nnoremap Q gqap
 cmap w!! w !sudo tee % >/dev/null
 
 "toggle line numbers
-nnoremap <C-N><C-N> :set invnumber<CR>
+nnoremap <c-n><c-n> :set invnumber<cr>
 
 nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
 nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
@@ -546,7 +546,10 @@ if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
 endif
 
 " BufExplorer
-nnoremap <leader>be :BufExplorerVerticalSplit<cr>
+" nnoremap <leader>be :BufExplorerVerticalSplit<cr>
+ca be BufExplorer
+ca bs BufExplorerHorizontalSplit
+ca bv BufExplorerVerticalSplit
 
 " CtrlP
 let g:ctrlp_map = '<s-t>'
