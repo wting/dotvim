@@ -560,7 +560,7 @@ let g:ctrlp_lazy_update = 1
 let g:ctrlp_use_caching = 1
 let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
 let g:ctrlp_clear_cache_on_exit = 0
-let g:ctrlp_show_hidden = 0
+let g:ctrlp_show_hidden = 1
 let g:ctrlp_max_files = 0
 let g:ctrlp_max_height = 20
 let g:ctrlp_open_multiple_files = 'tjr'
@@ -591,6 +591,7 @@ let g:localvimrc_ask = 0
 let g:NERDSpaceDelims = 1
 
 " NERD Tree
+let NERDTreeShowHidden = 1
 nnoremap <leader>nt :NERDTreeToggle
 ca nt NERDTreeToggle
 
