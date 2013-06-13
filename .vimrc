@@ -349,6 +349,7 @@ ca vhe vert help
 ca waq wqa
 ca nw set nowrap
 
+ca tv :tabe $MYVIMRC<cr>
 ca vv :vs $MYVIMRC<cr>
 ca va :vs ~/custom/aliases<cr>
 ca vg :vs ~/.gitconfig<cr>
@@ -661,6 +662,7 @@ let g:switch_custom_definitions =
 " Syntastic
 let g:syntastic_enable_signs = 1
 let g:syntastic_quiet_warnings = 1
+let g:syntastic_check_on_wq = 0
 ca st SyntasticToggleMode
 ca sc SyntasticCheck
 
@@ -686,12 +688,16 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Yelp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set wildignore+=build/**
-set wildignore+=htdocs/**
 function! YelpSettings()
-    setlocal tabstop=4
-    setlocal softtabstop=4
-    setlocal shiftwidth=4
-    setlocal noexpandtab
+    set wildignore+=build/**
+    set wildignore+=htdocs/**
+    setlocal sw=4 ts=4 sts=4 noet
 endfunction
+
+" FIXME: make it conditional for only YelpSettings (2013.06.13_1038, wting)
+let g:syntastic_mode_map = {
+                            \ 'mode': 'active',
+                            \ 'passive_filetypes': ['python']
+                            \ }
+
 au BufNewFile,BufRead ~/pg/* call YelpSettings()
