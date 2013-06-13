@@ -3,13 +3,13 @@
 "
 " Sections:
 "    -> Vundle Configuration
-"    -> Plugins
+"    -> Vundle Plugins
 "    -> General Settings
 "    -> GVIM
 "    -> Statusline
 "    -> Colors and Fonts
 "    -> Files
-"    -> Session Management
+"    -> General Functions
 "    -> General Abbrevs
 "    -> Mappings
 "    -> Text, Tab and Indent
@@ -40,6 +40,10 @@ set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Vundle Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Features
 Bundle 'SirVer/ultisnips'
 Bundle 'tpope/vim-surround'
@@ -260,9 +264,9 @@ endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Session Management
+" General Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
+" my session management
 function! Trim(string)
     return substitute(substitute(a:string, '^\s*\(.\{-}\)\s*$', '\1', ''), '\n', '', '')
 endfunction
@@ -318,6 +322,26 @@ command! MSS call MySaveSession()
 command! MLS call MyLoadSession()
 
 
+" open shell command in new scratch buffer
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+    echo a:cmdline
+    let expanded_cmdline = a:cmdline
+    for part in split(a:cmdline, ' ')
+        if part[0] =~ '\v[%#<]'
+            let expanded_part = fnameescape(expand(part))
+            let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+        endif
+    endfor
+    botright new
+    setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+    call setline(1, 'You entered:    ' . a:cmdline)
+    call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+    call setline(3,substitute(getline(2),'.','=','g'))
+    execute '$read !'. expanded_cmdline
+    setlocal nomodifiable
+    1
+endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Abbrevs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -552,7 +576,7 @@ ca bs BufExplorerHorizontalSplit
 ca bv BufExplorerVerticalSplit
 
 " CtrlP
-let g:ctrlp_map = '<s-t>'
+let g:ctrlp_map = '<c-p>'
 nnoremap <c-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_follow_symlinks = 1
@@ -563,12 +587,13 @@ let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_show_hidden = 0
 let g:ctrlp_max_files = 0
 let g:ctrlp_max_height = 20
-let g:ctrlp_open_multiple_files = 'tjr'
+let g:ctrlp_open_multiple_files = 'tj'
 let g:ctrlp_arg_map = 0
 " make tabs default behavior
 let g:ctrlp_prompt_mappings = {
-    \ 'AcceptSelection("e")': ['<c-t>'],
-    \ 'AcceptSelection("t")': ['<cr>', '<2-LeftMouse>'],
+    \ 'AcceptSelection("e")': ['<c-b>'],
+    \ 'AcceptSelection("t")': ['<cr>', '<c-t>', '<2-LeftMouse>'],
+    \ 'AcceptSelection("h")': ['<c-s>', '<c-x>'],
     \ }
 
 " CSApprox

@@ -125,7 +125,7 @@ def memoize(f):
 
 endsnippet
 
-snippet trace "trace" b!
+snippet trace_wrapper "trace" b!
 def trace(f):
     def aux(x):
         call_str = "{0}({1})".format(f.__name__, x)
@@ -146,5 +146,5 @@ with open(${1:file}, 'r') as f:
 endsnippet
 
 snippet trace "test trace" b!
-import ipdb; ipdb.set_trace()
+from pprint import pprint as pp; import ipdb; ipdb.set_trace()
 endsnippet
