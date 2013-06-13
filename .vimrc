@@ -509,9 +509,6 @@ vnoremap . :normal .<cr>
 inoremap ;w <esc>:w<cr>a
 nnoremap ; :
 
-" return cursor after using . command
-nmap . .`[
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
@@ -677,6 +674,12 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
+" vim-fugitive
+ca ge Gedit origin/master:%
+ca gt Gtabedit origin/master:%
+ca gs Gsplit origin/master:%
+ca gv Gvsplit origin/master:%
+
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
@@ -692,6 +695,10 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 function! YelpSettings()
     set wildignore+=build/**
     set wildignore+=htdocs/**
+    ca ge Gedit canon/master:%
+    ca gt Gtabedit canon/master:%
+    ca gs Gsplit canon/master:%
+    ca gv Gvsplit canon/master:%
     setlocal sw=4 ts=4 sts=4 noet
 endfunction
 
