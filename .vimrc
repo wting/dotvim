@@ -204,7 +204,7 @@ set guioptions-=T
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set laststatus=2
 set statusline=%<%y\ b%n\ %h%m%r%=%-14.(%l,%c%V%)\ %P
-
+set shortmess=a
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
@@ -217,7 +217,7 @@ set cursorline							"shows the current line in different color
 " let g:zenburn_unified_CursorColumn = 1
 colorscheme zenburn
 
-autocmd ColorScheme * hi CursorLine term=underline ctermbg=darkblue
+au ColorScheme * hi CursorLine term=underline ctermbg=darkblue
 
 set background=dark                     " dark tab display for indent guides
 
@@ -261,6 +261,15 @@ if has("persistent_undo")
     set undodir=~/.vim/tmp/undo
     set undofile
 endif
+
+" http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
+" Tell vim to remember certain things when we exit
+"  '50   :  marks will be remembered for up to  previously edited files
+"  "1000 :  will save up to 100 lines for each register
+"  :30   :  up to 20 lines of command-line history will be remembered
+"  %     :  saves and restores the buffer list
+"  n...  :  where to save the viminfo files
+set viminfo='50,\"1000,:30,%,n~/.vim/tmp/viminfo
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -321,7 +330,6 @@ endfunction
 command! MSS call MySaveSession()
 command! MLS call MyLoadSession()
 
-
 " open shell command in new scratch buffer
 command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
 function! s:RunShellCommand(cmdline)
@@ -342,6 +350,8 @@ function! s:RunShellCommand(cmdline)
     setlocal nomodifiable
     1
 endfunction
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Abbrevs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -509,6 +519,8 @@ vnoremap . :normal .<cr>
 inoremap ;w <esc>:w<cr>a
 nnoremap ; :
 
+" return cursor to previous position after dot command
+nnoremap . mz.`z
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
@@ -708,4 +720,5 @@ let g:syntastic_mode_map = {
                             \ 'passive_filetypes': ['python']
                             \ }
 
+" let g:syntastic_ignore_files=['^/nail/home/wting/pg/yelp-main/']
 au BufNewFile,BufRead ~/pg/* call YelpSettings()
