@@ -508,8 +508,11 @@ inoremap <c-u> <esc>gUiwi
 " Don't use Ex mode
 " nnoremap Q gqG
 
-"allow the . to execute once for each line of a visual selection
+" allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<cr>
+
+" default to line visual block selection
+nnoremap v V
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -521,6 +524,7 @@ nnoremap ; :
 
 " return cursor to previous position after dot command
 nnoremap . mz.`z
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
