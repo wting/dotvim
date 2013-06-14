@@ -119,10 +119,12 @@ endif
 set number
 if exists("&relativenumber")
     set relativenumber
-    silent! au InsertEnter * set number
-    silent! au InsertLeave * set relativenumber
-    silent! au FocusLost *   set number
-    silent! au FocusGained * set relativenumber
+    augroup vimrc-relative_number
+        silent! au InsertEnter * set number
+        silent! au InsertLeave * set relativenumber
+        silent! au FocusLost *   set number
+        silent! au FocusGained * set relativenumber
+    augroup END
 endif
 
 " search options
@@ -144,8 +146,10 @@ set grepprg=gp\ -n
 call yankstack#setup()
 
 " automatically resize vertical splits.
-au WinEnter * set winfixheight
-au WinEnter * wincmd =
+augroup vimrc-vertical_splits
+    au WinEnter * set winfixheight
+    au WinEnter * wincmd =
+augroup END
 
 " fix slight delay after pressing ESC then O: http://ksjoberg.com/vim-esckeys.html
 " set noesckeys
@@ -156,10 +160,6 @@ set foldmethod=indent
 set foldlevel=20
 set foldlevelstart=20
 set showtabline=2
-
-" auto save/load folds
-au BufWinLeave * silent! mkview
-au BufWinEnter * silent! loadview
 
 " remove trailing whitespace
 function! StripTrailingWhitespaces()
@@ -173,7 +173,9 @@ function! StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
-au BufWritePre * :call StripTrailingWhitespaces()
+augroup vimrc-strip_ws
+    au BufWritePre * :call StripTrailingWhitespaces()
+augroup END
 
 " TODO: check that it works (2013.06.06_2225, ting)
 " http://vim.wikia.com/wiki/Cscope
@@ -274,6 +276,15 @@ if has("persistent_undo")
     set undodir=~/.vim/tmp/undo
     set undofile
 endif
+
+" auto save/load folds
+silent !mkdir -p ~/.vim/tmp/view &>/dev/null
+set viewdir=~/.vim/tmp/view
+augroup vimrc-folds
+    au BufWinEnter * silent! loadview
+    au BufWinLeave * silent! mkview
+augroup END
+
 
 " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
 " Tell vim to remember certain things when we exit
@@ -735,4 +746,6 @@ let g:syntastic_mode_map = {
                             \ }
 
 " let g:syntastic_ignore_files=['^/nail/home/wting/pg/yelp-main/']
-au BufNewFile,BufRead ~/pg/* call WorkSettings()
+augroup vimrc-work
+    au BufNewFile,BufRead ~/pg/* call WorkSettings()
+augroup END
