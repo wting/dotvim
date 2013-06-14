@@ -212,17 +212,24 @@ set shortmess=a
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set t_Co=256							"force 256 color support even if terminal doesn't allow it
-set cursorline							"shows the current line in different color
+" force 256 color support even if terminal doesn't allow it
+set t_Co=256
+" shows the current line in different color
+set cursorline
 
 " let g:zenburn_high_Contrast = 1
 " let g:zenburn_force_dark_Background = 1
 " let g:zenburn_unified_CursorColumn = 1
 colorscheme zenburn
 
+" highlight current line
 au ColorScheme * hi CursorLine term=underline ctermbg=darkblue
 
-set background=dark                     " dark tab display for indent guides
+" dark tab display for indent guides
+set background=dark
+
+" hlsearch color
+hi! Search term=reverse ctermfg=255 ctermbg=130
 
 " make sign column same color as theme
 "highlight clear SignColumn
