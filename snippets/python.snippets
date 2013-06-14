@@ -148,3 +148,8 @@ endsnippet
 snippet trace "test trace" b!
 from pprint import pprint as pp; import ipdb; ipdb.set_trace()
 endsnippet
+
+snippet "deb(ug)?" "debug" br!
+print ${1/(.*).*/$1/}
+log.debug(${1:message})
+endsnippet
