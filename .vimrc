@@ -18,6 +18,7 @@
 "    -> Command Mode
 "    -> Moving Around
 "    -> Plugin Options
+"    -> Work
 
 set nocompatible
 filetype on				" disable OS X exit with non-zero error code
@@ -65,7 +66,8 @@ Bundle 'vim-scripts/AutoTag'
 
 " Powerline
 Bundle 'tpope/vim-fugitive'
-Bundle 'Lokaltog/vim-powerline'
+" Bundle 'Lokaltog/vim-powerline'
+Bundle 'wting/vim-powerline'
 " Bundle 'Lokaltog/powerline'
 
 " Appearance
@@ -612,7 +614,7 @@ ca bv BufExplorerVerticalSplit
 
 " CtrlP
 let g:ctrlp_map = '<s-t>'
-nnoremap <s-b> = :CtrlPBuffer<cr>
+nnoremap <c-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_lazy_update = 1
@@ -728,7 +730,7 @@ let g:vim_markdown_folding_disabled = 1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Yelp
+" Work
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! WorkSettings()
     set wildignore+=build/**
@@ -740,13 +742,13 @@ function! WorkSettings()
     setlocal sw=4 ts=4 sts=4 noet
 endfunction
 
-" FIXME: make it conditional for only YelpSettings (2013.06.13_1038, wting)
+" FIXME: make it conditional only for work (2013.06.13_1038, wting)
 let g:syntastic_mode_map = {
                             \ 'mode': 'active',
                             \ 'passive_filetypes': ['python']
                             \ }
 
-" let g:syntastic_ignore_files=['^/nail/home/wting/pg/yelp-main/']
+" let g:syntastic_ignore_files=['^/home/wting/work/']
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
 augroup END
