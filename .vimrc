@@ -591,7 +591,7 @@ if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
 endif
 
 " BufExplorer
-" nnoremap <leader>be :BufExplorerVerticalSplit<cr>
+nnoremap <leader>be :tabnew \| BufExplorer<cr>
 ca be tabnew \| BufExplorer
 ca bs BufExplorerHorizontalSplit
 ca bv BufExplorerVerticalSplit
