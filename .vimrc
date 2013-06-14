@@ -56,7 +56,7 @@ Bundle 'wting/nerdcommenter'
 Bundle 'bufexplorer.zip'
 Bundle 'wting/gitsessions.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'maxbrunsfeld/vim-yankstack'
+" Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'sjl/gundo.vim'
 
@@ -143,7 +143,7 @@ vnoremap / /\v
 set grepprg=gp\ -n
 
 " YankStack must be called before other mappings
-call yankstack#setup()
+" call yankstack#setup()
 
 " automatically resize vertical splits.
 augroup vimrc-vertical_splits
@@ -179,22 +179,23 @@ augroup END
 
 " TODO: check that it works (2013.06.06_2225, ting)
 " http://vim.wikia.com/wiki/Cscope
-" if has('cscope')
-    " set cscopetag cscopeverbose
+if has('cscope')
+    " prevents jumping to first tag
+    set cscopetag cscopeverbose
 
-    " if has('quickfix')
-        " set cscopequickfix=s-,c-,d-,i-,t-,e-
-    " endif
+    if has('quickfix')
+        set cscopequickfix=s-,c-,d-,i-,t-,e-
+    endif
 
-    " cnoreabbrev csa cs add
-    " cnoreabbrev csf cs find
-    " cnoreabbrev csk cs kill
-    " cnoreabbrev csr cs reset
-    " cnoreabbrev css cs show
-    " cnoreabbrev csh cs help
+    cnoreabbrev csa cs add
+    cnoreabbrev csf cs find
+    cnoreabbrev csk cs kill
+    cnoreabbrev csr cs reset
+    cnoreabbrev css cs show
+    cnoreabbrev csh cs help
 
-    " command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-" endif
+    command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+endif
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -280,10 +281,10 @@ endif
 " auto save/load folds
 silent !mkdir -p ~/.vim/tmp/view &>/dev/null
 set viewdir=~/.vim/tmp/view
-augroup vimrc-folds
-    au BufWinEnter * silent! loadview
-    au BufWinLeave * silent! mkview
-augroup END
+" augroup vimrc-folds
+    " au BufWinEnter * silent! loadview
+    " au BufWinLeave * silent! mkview
+" augroup END
 
 
 " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
@@ -610,8 +611,8 @@ ca bs BufExplorerHorizontalSplit
 ca bv BufExplorerVerticalSplit
 
 " CtrlP
-let g:ctrlp_map = '<c-p>'
-nnoremap <c-b> = :CtrlPBuffer<cr>
+let g:ctrlp_map = '<s-t>'
+nnoremap <s-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_lazy_update = 1
@@ -721,9 +722,9 @@ ca gv Gvsplit origin/master:%
 let g:vim_markdown_folding_disabled = 1
 
 " YankStack
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" let g:yankstack_map_keys = 0
+" nmap <leader>p <Plug>yankstack_substitute_older_paste
+" nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
