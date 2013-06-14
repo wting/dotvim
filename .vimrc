@@ -523,7 +523,7 @@ inoremap ;w <esc>:w<cr>a
 nnoremap ; :
 
 " return cursor to previous position after dot command
-nnoremap . mz.`z
+nnoremap . mz.`zmz
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -585,7 +585,7 @@ endif
 
 " BufExplorer
 " nnoremap <leader>be :BufExplorerVerticalSplit<cr>
-ca be BufExplorer
+ca be tabnew \| BufExplorer
 ca bs BufExplorerHorizontalSplit
 ca bv BufExplorerVerticalSplit
 
