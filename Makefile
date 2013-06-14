@@ -10,16 +10,22 @@ vundle:
 	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 install: vundle
-	@echo "Installing vim plugins..."
+	@echo "Installing plugins..."
 	vim +BundleInstall +qall
 
+reinstall: purge install
+
 update: clean
-	@echo "Updating vim plugins..."
+	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 
 clean:
-	@echo "Removing unused vim plguins..."
+	@echo "Removing unused plugins..."
 	vim +BundleClean! +qall
+
+purge:
+	@echo "Removing all plugins..."
+	@-rm -rf ~/.vim/bundle/
 
 # required for powerline
 fonts:
