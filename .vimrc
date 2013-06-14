@@ -112,6 +112,9 @@ set showcmd
 set scrolloff=4
 set nowrap
 set formatoptions=qrn1
+if v:version >= 703 && has('patch541')
+    set fo+=j
+endif
 
 set number
 if exists("&relativenumber")
@@ -247,6 +250,9 @@ set wildignore+=*.pyc                                       " Python
 set wildignore+=*/tmp/*,*.so,*.zip
 
 set tags=./tags;/
+
+" forgot sudo?
+cnoremap w!! w !sudo tee % >/dev/null
 
 silent !mkdir -p ~/.vim/tmp/backup &>/dev/null
 set backupdir=~/.vim/tmp/backup
@@ -402,13 +408,13 @@ ca sub_op_space s/\v ([+-/*=]) /\1/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","
 
-"rebind to modify window heights
+" rebind to modify window heights
 if bufwinnr(1)
     nnoremap + <c-w>+
     nnoremap - <c-w>-
 endif
 
-"exit insert mode alternatives
+" exit insert mode alternatives
 inoremap jj <esc>j
 cnoremap jj <C-c>j
 inoremap kk <esc>k
@@ -418,14 +424,11 @@ nnoremap L $
 inoremap ZZ <esc>:wq<cr>
 nnoremap ZA :wqa<cr>
 
-"Use Q for formatting the current paragraph (or selection)
+" Use Q for formatting the current paragraph (or selection)
 vnoremap Q gq
 nnoremap Q gqap
 
-"forgot sudo?
-cmap w!! w !sudo tee % >/dev/null
-
-"toggle line numbers
+" toggle line numbers
 nnoremap <c-n><c-n> :set invnumber<cr>
 
 nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
@@ -505,9 +508,6 @@ inoremap <c-u> <esc>gUiwi
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Visual Mode
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Don't use Ex mode
-" nnoremap Q gqG
-
 " allow the . to execute once for each line of a visual selection
 vnoremap . :normal .<cr>
 
@@ -676,6 +676,7 @@ let g:switch_custom_definitions =
 " Syntastic
 let g:syntastic_enable_signs = 1
 let g:syntastic_quiet_warnings = 1
+" let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 ca st SyntasticToggleMode
 ca sc SyntasticCheck
@@ -708,7 +709,7 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Yelp
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! YelpSettings()
+function! WorkSettings()
     set wildignore+=build/**
     set wildignore+=htdocs/**
     ca ge Gedit canon/master:%
@@ -725,4 +726,4 @@ let g:syntastic_mode_map = {
                             \ }
 
 " let g:syntastic_ignore_files=['^/nail/home/wting/pg/yelp-main/']
-au BufNewFile,BufRead ~/pg/* call YelpSettings()
+au BufNewFile,BufRead ~/pg/* call WorkSettings()
