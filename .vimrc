@@ -281,10 +281,10 @@ endif
 " auto save/load folds
 silent !mkdir -p ~/.vim/tmp/view &>/dev/null
 set viewdir=~/.vim/tmp/view
-" augroup vimrc-folds
-    " au BufWinEnter * silent! loadview
-    " au BufWinLeave * silent! mkview
-" augroup END
+augroup vimrc-folds
+    au BufWinEnter * silent! loadview
+    au BufWinLeave * silent! mkview
+augroup END
 
 
 " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
