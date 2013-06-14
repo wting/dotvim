@@ -382,12 +382,6 @@ ca rfv so $MYVIMRC
 ca p set paste
 ca np set nopaste
 
-" indent
-ca 2et setlocal ts=2 sts=2 sw=2 et
-ca 2noet setlocal ts=2 sts=2 sw=2 noet
-ca 4et setlocal ts=4 sts=4 sw=4 et
-ca 4noet setlocal ts=4 sts=4 sw=4 noet
-
 " buffers
 " ca sb sb
 ca vb vert sb
@@ -490,13 +484,21 @@ set shiftround 				" use multiples of shiftwidth when using < or >
 " inoremap <a-3> 3gt
 " nnoremap <a-3> 3gt
 
-nnoremap <f1> :set sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80<CR>
-" nnoremap <f1> :set sw=4 ts=4 sts=4 et<cr>
-nnoremap <f2> :set sw=2 ts=2 sts=2 et<cr>
-nnoremap <f3> :set sw=2 ts=2 sts=2 noet<cr>
-nnoremap <f4> :set sw=4 ts=4 sts=4 et<cr>
-nnoremap <f5> :set sw=4 ts=4 sts=4 noet<cr>
-nnoremap <f6> :set fo=tcqbl<cr>
+" indent
+ca 2et setlocal ts=2 sts=2 sw=2 et
+ca 2noet setlocal ts=2 sts=2 sw=2 noet
+ca 4et setlocal ts=4 sts=4 sw=4 et
+ca 4noet setlocal ts=4 sts=4 sw=4 noet
+ca cc80 sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80
+
+" nnoremap <f1> :set sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80<CR>
+" " nnoremap <f1> :set sw=4 ts=4 sts=4 et<cr>
+" nnoremap <f2> :set sw=2 ts=2 sts=2 et<cr>
+" nnoremap <f3> :set sw=2 ts=2 sts=2 noet<cr>
+" nnoremap <f4> :set sw=4 ts=4 sts=4 et<cr>
+" nnoremap <f5> :set sw=4 ts=4 sts=4 noet<cr>
+" nnoremap <f6> :set fo=tcqbl<cr>
+
 " http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
 nnoremap <f6> gg gqG<cr>
 
