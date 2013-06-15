@@ -6,9 +6,14 @@ all: install fonts
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
 
 vundle:
-	[ ! -d ~/.vim/bundle/vundle ] && git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+	@-rm -rf ~/.vim/bundle/vundle
+	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
 
 install: vundle
+	@echo "Installing plugins..."
+	vim +BundleInstall +qall
+
+qinstall:
 	@echo "Installing plugins..."
 	vim +BundleInstall +qall
 
