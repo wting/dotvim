@@ -723,6 +723,9 @@ ca gv Gvsplit origin/master:%
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
+" vim-signature
+au BufEnter * call signature#BufferMaps(1)
+
 " YankStack
 " let g:yankstack_map_keys = 0
 " nmap <leader>p <Plug>yankstack_substitute_older_paste
