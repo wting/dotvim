@@ -76,8 +76,8 @@ Bundle 'guns/xterm-color-table.vim'
 " Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'wting/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
-" Bundle 'kshenoy/vim-signature'
-Bundle 'wting/vim-signature'
+Bundle 'kshenoy/vim-signature'
+" Bundle 'wting/vim-signature'
 Bundle 'airblade/vim-gitgutter'
 
 " Syntax
