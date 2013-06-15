@@ -57,7 +57,7 @@ Bundle 'wting/nerdcommenter'
 Bundle 'bufexplorer.zip'
 Bundle 'wting/gitsessions.vim'
 Bundle 'kien/ctrlp.vim'
-" Bundle 'maxbrunsfeld/vim-yankstack'
+Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'sjl/gundo.vim'
 
@@ -76,7 +76,8 @@ Bundle 'guns/xterm-color-table.vim'
 " Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'wting/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'kshenoy/vim-signature'
+" Bundle 'kshenoy/vim-signature'
+Bundle 'wting/vim-signature'
 Bundle 'airblade/vim-gitgutter'
 
 " Syntax
@@ -145,7 +146,7 @@ vnoremap / /\v
 set grepprg=gp\ -n
 
 " YankStack must be called before other mappings
-" call yankstack#setup()
+call yankstack#setup()
 
 " automatically resize vertical splits.
 augroup vimrc-vertical_splits
@@ -723,13 +724,10 @@ ca gv Gvsplit origin/master:%
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
 
-" vim-signature
-au BufEnter * call signature#BufferMaps(1)
-
 " YankStack
-" let g:yankstack_map_keys = 0
-" nmap <leader>p <Plug>yankstack_substitute_older_paste
-" nmap <leader>P <Plug>yankstack_substitute_newer_paste
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
