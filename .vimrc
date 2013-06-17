@@ -612,7 +612,7 @@ let g:ctrlp_prompt_mappings = {
 let g:CSApprox_verbose_level = 0
 
 " EasyMotion
-let g:EasyMotion_keys = 'sadfjklewcmpgh'
+let g:EasyMotion_keys = 'sadfjklewcmpghSADFJKLEWCMPGH'
 nnoremap f H:call EasyMotion#WB(0, 0)<cr>
 
 " gitsessions.vim
