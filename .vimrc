@@ -479,9 +479,10 @@ nnoremap Q gqap
 inoremap <c-d> <esc>ddi
 inoremap <c-u> <esc>gUiwi
 
-" open tag as (vertical) split
-nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
+" open tag as split / vertical split / tab
 nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
+nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
+nnoremap <c-\><c-\><c-\> :tab split<cr>:exec("tag ".expand("<cword>"))<cr>
 
 " manipulate text using alt + hjkl
 " FIXME: use alt key mappings (2013.06.06_2218, ting)
