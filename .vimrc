@@ -11,12 +11,9 @@
 "    -> Files
 "    -> General Functions
 "    -> General Abbrevs
+"    -> Moving Around
 "    -> Mappings
 "    -> Text, Tab and Indent
-"    -> Insert Mode
-"    -> Visual Mode
-"    -> Command Mode
-"    -> Moving Around
 "    -> Plugin Options
 "    -> Work
 
@@ -389,9 +386,71 @@ ca sub_op_space s/\v ([+-/*=]) /\1/
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Moving Around
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" arrow keys move between buffers / tabs
+inoremap <silent> <up> <esc>:bprev<cr>
+inoremap <silent> <down> <esc>:bnext<cr>
+inoremap <silent> <left> <esc>:tabprev<cr>
+inoremap <silent> <right> <esc>:tabnext<cr>
+noremap <silent> <up> :bprev<cr>
+noremap <silent> <down> :bnext<cr>
+noremap <silent> <left> :tabprev<cr>
+noremap <silent> <right> :tabnext<cr>
+
+" easy window navigation
+noremap <c-h> <c-w>h
+noremap <c-j> <c-w>j
+noremap <c-k> <c-w>k
+noremap <c-l> <c-w>l
+
+" redraw screen and remove search highlights
+nnoremap <silent> = :noh<cr>
+
+" navigate wrapped lines
+nnoremap k gk
+nnoremap j gj
+nnoremap gk k
+nnoremap gj j
+
+noremap H ^
+nnoremap L $
+
+nmap <s-k> <pageup>
+nmap <space> <pagedown>
+nmap n nzz
+nmap N Nzz
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let mapleader=","
+
+" exit insert mode
+inoremap jj <esc>j
+cnoremap jj <C-c>j
+inoremap kk <esc>k
+cnoremap kk <C-c>k
+
+" save and quit
+inoremap ZZ <esc>:wq<cr>
+nnoremap ZA :wqa<cr>
+
+" reduce keystrokes for command mode
+inoremap ;w <esc>:w<cr>a
+nnoremap ; :
+
+" return cursor to previous position after dot command
+nnoremap . mz.`zmz
+" toggle line numbers
+nnoremap <c-n><c-n> :set invnumber<cr>
+
+" default to line visual block selection
+nnoremap v V
+
+" allow the . to execute once for each line of a visual selection
+vnoremap . :normal .<cr>
 
 " rebind to modify window heights
 if bufwinnr(1)
@@ -399,26 +458,17 @@ if bufwinnr(1)
     nnoremap - <c-w>-
 endif
 
-" exit insert mode alternatives
-inoremap jj <esc>j
-cnoremap jj <C-c>j
-inoremap kk <esc>k
-cnoremap kk <C-c>k
-nnoremap H ^
-nnoremap L $
-inoremap ZZ <esc>:wq<cr>
-nnoremap ZA :wqa<cr>
-
-" Use Q for formatting the current paragraph (or selection)
+" formatting current paragraph / selection
 vnoremap Q gq
 nnoremap Q gqap
 
-" toggle line numbers
-nnoremap <c-n><c-n> :set invnumber<cr>
+" lower / upper case words
+inoremap <c-d> <esc>ddi
+inoremap <c-u> <esc>gUiwi
 
+" open tag as (vertical) split
 nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
 nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
-nnoremap <c-y> :tabnew %<cr>
 
 " manipulate text using alt + hjkl
 " FIXME: use alt key mappings (2013.06.06_2218, ting)
@@ -490,67 +540,8 @@ nnoremap <f6> gg gqG<cr>
 nnoremap <silent> <s-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
 nnoremap <silent> <s-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Insert Mode
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-inoremap <c-d> <esc>ddi
-inoremap <c-u> <esc>gUiwi
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Visual Mode
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" allow the . to execute once for each line of a visual selection
-vnoremap . :normal .<cr>
-
-" default to line visual block selection
-nnoremap v V
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Command Mode
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" reduce keystrokes for command mode
-inoremap ;w <esc>:w<cr>a
-nnoremap ; :
-
-" return cursor to previous position after dot command
-nnoremap . mz.`zmz
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Moving Around
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" arrow keys move between buffers / tabs
-inoremap <silent> <up> <esc>:bprev<cr>
-inoremap <silent> <down> <esc>:bnext<cr>
-inoremap <silent> <left> <esc>:tabprev<cr>
-inoremap <silent> <right> <esc>:tabnext<cr>
-noremap <silent> <up> :bprev<cr>
-noremap <silent> <down> :bnext<cr>
-noremap <silent> <left> :tabprev<cr>
-noremap <silent> <right> :tabnext<cr>
-
-" easy window navigation
-noremap <c-h> <c-w>h
-noremap <c-j> <c-w>j
-noremap <c-k> <c-w>k
-noremap <c-l> <c-w>l
-
-" redraw screen and remove search highlights
-nnoremap <silent> = :noh<cr>
-
-" navigate wrapped lines
-nnoremap k gk
-nnoremap j gj
-nnoremap gk k
-nnoremap gj j
-
-nmap <s-k> <pageup>
-nmap <space> <pagedown>
-nmap n nzz
-nmap N Nzz
+" duplicate current tab
+nnoremap <c-y> :tabnew %<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
