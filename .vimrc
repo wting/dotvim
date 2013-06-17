@@ -57,6 +57,9 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'sjl/gundo.vim'
+" Bundle 'Lokaltog/vim-easymotion'
+" skwp's version supports two character targets
+Bundle 'skwp/vim-easymotion'
 
 Bundle 'brookhong/cscope.vim'
 Bundle 'vim-scripts/AutoTag'
@@ -418,8 +421,8 @@ nmap <s-k> <pageup>
 nmap <space> <pagedown>
 nmap n nzz
 nmap N Nzz
-noremap H ^
-noremap M zz
+nnoremap H ^
+nnoremap M zz
 nnoremap L $
 
 " # FIXME: fix sections with K&R braces (2013.06.17_1207, wting)
@@ -606,6 +609,10 @@ let g:ctrlp_prompt_mappings = {
 
 " CSApprox
 let g:CSApprox_verbose_level = 0
+
+" EasyMotion
+let g:EasyMotion_keys = 'sadfjklewcmpgh'
+nnoremap f H:call EasyMotion#WB(0, 0)<cr>
 
 " gitsessions.vim
 let g:gitsessions_dir = 'tmp/sessions'
