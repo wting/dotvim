@@ -413,13 +413,22 @@ nnoremap j gj
 nnoremap gk k
 nnoremap gj j
 
-noremap H ^
-nnoremap L $
-
+" general movement
 nmap <s-k> <pageup>
 nmap <space> <pagedown>
 nmap n nzz
 nmap N Nzz
+noremap H ^
+noremap M zz
+nnoremap L $
+
+" # FIXME: fix sections with K&R braces (2013.06.17_1207, wting)
+" http://vimdoc.sourceforge.net/htmldoc/motion.html#section
+" nnoremap [[ ?{<cr>w99[{
+" " nnoremap ]] j0[[%/{<cr>
+" nnoremap ]] ?{<cr>w99[{%
+" nnoremap ][ /}<cr>b99]}
+" nnoremap [] k$][%?}<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -442,7 +451,8 @@ inoremap ;w <esc>:w<cr>a
 nnoremap ; :
 
 " return cursor to previous position after dot command
-nnoremap . mz.`zmz
+" nnoremap . mz.`zmz
+
 " toggle line numbers
 nnoremap <c-n><c-n> :set invnumber<cr>
 
