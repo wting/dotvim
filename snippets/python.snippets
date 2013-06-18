@@ -152,3 +152,16 @@ endsnippet
 snippet "deb(ug)?" "debug" br!
 log.debug(${1:message}); print ${1/(.*).*/$1/}
 endsnippet
+
+snippet "cp(def|rint)" "color print definition" br!
+def cprint(color, *args):
+	colors = dict(bw = '\033[1;37m', r = '\033[91m', g = '\033[92m', b = '\033[94m', y = '\033[93m', p = '\033[95m', end = '\033[0m',)
+	print colors[color],
+	for a in args: print a
+	print colors['end']
+
+endsnippet
+
+snippet cp "color print" b!
+cprint('bw', "${1:message}")
+endsnippet
