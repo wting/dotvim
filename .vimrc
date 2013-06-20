@@ -612,7 +612,8 @@ let g:ctrlp_prompt_mappings = {
 let g:CSApprox_verbose_level = 0
 
 " EasyMotion
-let g:EasyMotion_keys = 'sadfjklewcmpghSADFJKLEWCMPGH'
+" let g:EasyMotion_keys = 'sadfjklewcmpghSADFJKLEWCMPGH'
+let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 nnoremap f H:call EasyMotion#WB(0, 0)<cr>
 
 " gitsessions.vim
@@ -719,6 +720,9 @@ function! WorkSettings()
     ca gs Gsplit canon/master:%
     ca gv Gvsplit canon/master:%
     setlocal sw=4 ts=4 sts=4 noet
+
+    " let g:ctrlp_user_command = 'yelp_finder -type f -name "*.py"'
+    " let g:ctrlp_user_command = 'find %s -type f -name "*.py"'
 endfunction
 
 " FIXME: make it conditional only for work (2013.06.13_1038, wting)

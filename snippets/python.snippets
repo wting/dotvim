@@ -156,13 +156,13 @@ endsnippet
 snippet "cp(def|rint)" "color print definition" br!
 def cprint(color, *args):
 	from pprint import pprint as pp
-	colors = dict(bw='\033[1;37m',r='\033[91m',g='\033[92m',b='\033[94m',y='\033[93m',p='\033[95m',end='\033[0m',)
+	colors = dict(bw='\033[1;37m',r='\033[91m',g='\033[92m',b='\033[94m',y='\033[93m',p='\033[95m',n='\033[0m',)
 	print colors[color],
 	map(pp, args)
-	print colors['end']
+	print colors['n']
 
 endsnippet
 
 snippet cp "color print" b!
-cprint('bw', "${1:message}")
+cprint('${2:bw}', ${1:message})
 endsnippet
