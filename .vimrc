@@ -359,7 +359,11 @@ ca nw set nowrap
 ca tv :tabe $MYVIMRC<cr>
 ca vv :vs $MYVIMRC<cr>
 ca va :vs ~/custom/aliases<cr>
+ca ta :tabe ~/custom/aliases<cr>
 ca vg :vs ~/.gitconfig<cr>
+ca tg :tabe ~/.gitconfig<cr>
+ca vc :vs ~/pg/yelp-main/config/custom.py<cr>
+ca tc :tabe ~/pg/yelp-main/config/custom.py<cr>
 ca rfv so $MYVIMRC
 
 " paste
