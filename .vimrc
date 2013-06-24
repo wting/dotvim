@@ -119,7 +119,8 @@ if v:version >= 703 && has('patch541')
     set fo+=j
 endif
 
-set number
+" set number
+set relativenumber
 if exists("&relativenumber")
     set relativenumber
     augroup vimrc-relative_number
@@ -674,7 +675,7 @@ augroup END
 let g:session_autosave = 0
 
 " Switch
-nnoremap 0 :Switch<cr>
+" nnoremap 0 :Switch<cr>
 let g:switch_custom_definitions =
     \ [
     \   ['True', 'False']
