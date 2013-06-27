@@ -81,6 +81,7 @@ Bundle 'kshenoy/vim-signature'
 Bundle 'airblade/vim-gitgutter'
 
 " Syntax
+" Bundle 'Soares/python.vim'
 Bundle 'wting/rust.vim'
 Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
