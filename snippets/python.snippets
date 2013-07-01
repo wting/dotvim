@@ -117,7 +117,7 @@ endsnippet
 snippet mem2 "memoize for Python 2" b!
 def memoize(f):
     cache = {}
-    def aux(*x):
+    def g(*x):
         if x not in cache:
             cache[x] = f(*x)
         return cache[x]
