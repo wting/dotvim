@@ -121,7 +121,6 @@ if v:version >= 703 && has('patch541')
 endif
 
 " set number
-set relativenumber
 if exists("&relativenumber")
     set relativenumber
     augroup vimrc-relative_number
