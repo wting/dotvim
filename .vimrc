@@ -54,7 +54,7 @@ Bundle 'wting/nerdcommenter'
 Bundle 'bufexplorer.zip'
 Bundle 'wting/gitsessions.vim'
 Bundle 'kien/ctrlp.vim'
-Bundle 'maxbrunsfeld/vim-yankstack'
+" Bundle 'maxbrunsfeld/vim-yankstack'
 Bundle 'AndrewRadev/switch.vim'
 Bundle 'sjl/gundo.vim'
 " Bundle 'Lokaltog/vim-easymotion'
@@ -147,7 +147,7 @@ vnoremap / /\v
 set grepprg=gp\ -n
 
 " YankStack must be called before other mappings
-call yankstack#setup()
+" call yankstack#setup()
 
 " automatically resize vertical splits.
 augroup vimrc-vertical_splits
@@ -709,9 +709,9 @@ ca gv Gvsplit origin/master:%
 let g:vim_markdown_folding_disabled = 1
 
 " YankStack
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" let g:yankstack_map_keys = 0
+" nmap <leader>p <Plug>yankstack_substitute_older_paste
+" nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
