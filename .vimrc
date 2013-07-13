@@ -724,10 +724,7 @@ function! WorkSettings()
     ca gt Gtabedit canon/master:%
     ca gs Gsplit canon/master:%
     ca gv Gvsplit canon/master:%
-    setlocal sw=4 ts=4 sts=4 noet
-
-    " let g:ctrlp_user_command = 'yelp_finder -type f -name "*.py"'
-    " let g:ctrlp_user_command = 'find %s -type f -name "*.py"'
+    " setlocal sw=4 ts=4 sts=4 noet
 endfunction
 
 " FIXME: make it conditional only for work (2013.06.13_1038, wting)
