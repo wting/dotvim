@@ -1,13 +1,13 @@
 # header
 snippet #!2 "Shebang header for python2 scripts" b
 #!/usr/bin/env python2
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 $0
 endsnippet
 
 snippet #!3 "Shebang header for python3 scripts" b
 #!/usr/bin/env python3
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 $0
 endsnippet
 
@@ -169,4 +169,14 @@ endsnippet
 
 snippet pp "import pprint" b!
 from pprint import pprint as pp
+endsnippet
+
+snippet setup "TestCase setup" b!
+	@T.setup
+	def setup(self):
+		self.biz_id = self.BusinessFactory.create(country='US')
+		self.advertizer_id, self.biz_user_id = \
+			self.AdvertiserFactory.create_with_biz_user(self.biz_id)
+		self.biz_user = self.logic.BizUser.load_by_id(self.biz_user_id)
+		self.biz_client.login(self.biz_user)
 endsnippet
