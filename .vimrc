@@ -438,6 +438,29 @@ nnoremap L $
 " nnoremap ][ /}<cr>b99]}
 " nnoremap [] k$][%?}<cr>
 
+" Buffer Specific ^o and ^i
+" http://stackoverflow.com/questions/7066456/vim-how-to-prevent-jumps-out-of-current-buffer
+" http://stackoverflow.com/a/7075070/195139
+
+" function! JumpInFile(back, forw)
+    " let [n, i] = [bufnr('%'), 1]
+    " let p = [n] + getpos('.')[1:]
+    " sil! exe 'norm!1' . a:forw
+    " while 1
+        " let p1 = [bufnr('%')] + getpos('.')[1:]
+        " if n == p1[0] | break | endif
+        " if p == p1
+            " sil! exe 'norm!' . (i-1) . a:back
+            " break
+        " endif
+        " let [p, i] = [p1, i+1]
+        " sil! exe 'norm!1' . a:forw
+    " endwhile
+" endfunction
+
+" nnoremap <silent> <c-k> :call JumpInFile("\<c-i>", "\<c-o>")<cr>
+" nnoremap <silent> <c-j> :call JumpInFile("\<c-o>", "\<c-i>")<cr>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
