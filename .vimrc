@@ -747,7 +747,6 @@ function! WorkSettings()
     ca gt Gtabedit canon/master:%
     ca gs Gsplit canon/master:%
     ca gv Gvsplit canon/master:%
-    " setlocal sw=4 ts=4 sts=4 noet
 endfunction
 
 " FIXME: make it conditional only for work (2013.06.13_1038, wting)
@@ -759,4 +758,6 @@ let g:syntastic_mode_map = {
 " let g:syntastic_ignore_files=['^/home/wting/work/']
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
+    au BufNewFile,BufRead ~/pg/*.py setlocal sw=4 ts=4 sts=4 noet
+    au BufNewFile,BufRead ~/pg/*.tmpl setlocal sw=2 ts=2 sts=2 noet
 augroup END
