@@ -621,7 +621,7 @@ nnoremap <c-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_lazy_update = 1
-let g:ctrlp_use_caching = 1
+let g:ctrlp_use_caching = 0
 let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_show_hidden = 1
@@ -741,6 +741,7 @@ let g:vim_markdown_folding_disabled = 1
 " Work
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! WorkSettings()
+    let g:ctrlp_use_caching = 1
     set wildignore+=build/**
     set wildignore+=htdocs/**
     ca ge Gedit canon/master:%
