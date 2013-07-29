@@ -260,7 +260,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg              " binary images
 set wildignore+=*.o,*.obj,*.so,*.a,*.exe,*.dll,*.manifest   " compiled object files
 set wildignore+=*.spl                                       " compiled spelling word lists
 set wildignore+=*.class                                     " Java
-set wildignore+=*.pyc,*/venv/*                              " Python
+set wildignore+=*/venv/*,*.pyc                              " Python
 set wildignore+=*/tmp/*,*.so,*.zip
 
 set tags=./tags;/
