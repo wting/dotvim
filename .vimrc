@@ -231,6 +231,9 @@ colorscheme zenburn
 
 " highlight current line
 au ColorScheme * hi CursorLine term=underline ctermbg=darkblue
+if has("unix") && system("uname") == "Darwin\n"
+    au ColorScheme * hi CursorLine term=underline ctermbg=27
+endif
 
 " dark tab display for indent guides
 set background=dark
