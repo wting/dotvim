@@ -19,7 +19,7 @@ qinstall:
 
 reinstall: purge install
 
-update: clean
+upgrade: clean
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 

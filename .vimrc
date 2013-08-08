@@ -50,7 +50,6 @@ Bundle 'camelcasemotion'
 Bundle 'scrooloose/nerdtree'
 " Bundle 'scrooloose/nerdcommenter'
 Bundle 'wting/nerdcommenter'
-" Bundle 'embear/vim-localvimrc'
 Bundle 'bufexplorer.zip'
 Bundle 'wting/gitsessions.vim'
 Bundle 'kien/ctrlp.vim'
@@ -263,7 +262,7 @@ set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg              " binary images
 set wildignore+=*.o,*.obj,*.so,*.a,*.exe,*.dll,*.manifest   " compiled object files
 set wildignore+=*.spl                                       " compiled spelling word lists
 set wildignore+=*.class                                     " Java
-set wildignore+=*.pyc                                       " Python
+set wildignore+=*/venv/*,*.pyc                              " Python
 set wildignore+=*/tmp/*,*.so,*.zip
 
 set tags=./tags;/
@@ -624,7 +623,7 @@ nnoremap <c-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_lazy_update = 1
-let g:ctrlp_use_caching = 1
+let g:ctrlp_use_caching = 0
 let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
 let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_show_hidden = 1
@@ -656,9 +655,6 @@ ca gdt GundoToggle
 " Indent Guides
 let g:indent_guides_enable_on_vim_startup = 1
 let g:indent_guides_guide_size = 1
-
-" localvimrc
-let g:localvimrc_ask = 0
 
 " NERD Commentor
 let g:NERDSpaceDelims = 1
@@ -744,13 +740,13 @@ let g:vim_markdown_folding_disabled = 1
 " Work
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! WorkSettings()
+    let g:ctrlp_use_caching = 1
     set wildignore+=build/**
     set wildignore+=htdocs/**
     ca ge Gedit canon/master:%
     ca gt Gtabedit canon/master:%
     ca gs Gsplit canon/master:%
     ca gv Gvsplit canon/master:%
-    " setlocal sw=4 ts=4 sts=4 noet
 endfunction
 
 " FIXME: make it conditional only for work (2013.06.13_1038, wting)
@@ -762,4 +758,6 @@ let g:syntastic_mode_map = {
 " let g:syntastic_ignore_files=['^/home/wting/work/']
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
+    au BufNewFile,BufRead ~/pg/*.py setlocal sw=4 ts=4 sts=4 noet
+    au BufNewFile,BufRead ~/pg/*.tmpl setlocal sw=2 ts=2 sts=2 noet
 augroup END
