@@ -12,16 +12,24 @@ function! s:remove_test_suffix(string)
     return substitute(a:string, '_test.py$', '.py', '')
 endfunction
 
-function! s:remove_test_dir(string)
-    return substitute(a:string, 'yelp\/tests\/', '', '')
+function! s:remove_test_dir(path)
+    if a:path =~ '_cmds\/'
+        return substitute(a:path, 'yelp\/tests\/', '', '')
+    else
+        return substitute(a:path, 'yelp\/tests\/', 'yelp\/', '')
+    endif
 endfunction
 
 function! s:add_test_suffix(string)
     return substitute(a:string, '.py$', '_test.py', '')
 endfunction
 
-function! s:add_test_dir(string)
-    return substitute(a:string, 'yelp-main', 'yelp-main\/yelp\/tests', '')
+function! s:add_test_dir(path)
+    if a:path =~ 'yelp\/'
+        return substitute(a:path, 'yelp\/', 'yelp\/tests\/', '')
+    else
+        return substitute(a:path, 'yelp-main', 'yelp-main\/yelp\/tests', '')
+    endif
 endfunction
 
 " logic functions
