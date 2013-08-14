@@ -49,15 +49,16 @@ endfunction
 " public functions
 
 function! g:EditPairFile(open_style)
-    let l:file = s:get_pair_file(expand('%:p'))
-    if l:file != expand('%:p') && filereadable(l:file)
-        execute a:open_style . " " . l:file
+    let l:current_file = expand('%:p')
+    let l:pair_file = s:get_pair_file(l:current_file)
+    if l:pair_file != l:current_file && filereadable(l:pair_file)
+        execute a:open_style . " " . l:pair_file
     else
-        echom "could not find pair file: " . l:file
+        echom "could not find pair file: " . l:pair_file
     endif
 endfunction
 
-command! EditPairFile call g:EditPairFile('edit')
-command! TabEditPairFile call g:EditPairFile('tabedit')
-command! SplitEditPairFile call g:EditPairFile('split')
-command! VSplitEditPairFile call g:EditPairFile('vsplit')
+command! PairFileEdit call g:EditPairFile('edit')
+command! PairFileTabEdit call g:EditPairFile('tabedit')
+command! PairFileSplitEdit call g:EditPairFile('split')
+command! PairFileVSplitEdit call g:EditPairFile('vsplit')
