@@ -23,6 +23,8 @@ upgrade: clean
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 
+update: upgrade
+
 clean:
 	@echo "Removing unused plugins..."
 	vim +BundleClean! +qall

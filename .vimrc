@@ -646,6 +646,9 @@ nnoremap f H:call EasyMotion#WB(0, 0)<cr>
 
 " gitsessions.vim
 let g:gitsessions_dir = 'tmp/sessions'
+nnoremap <leader>ss :GitSessionSave<cr>
+nnoremap <leader>ls :GitSessionLoad<cr>
+nnoremap <leader>ds :GitSessionDelete<cr>
 
 " Gundo
 ca gdt GundoToggle
@@ -690,9 +693,6 @@ augroup RainbowParentheses
     au Syntax * RainbowParenthesesLoadSquare
     au Syntax * RainbowParenthesesLoadBraces
 augroup END
-
-" Sessions
-let g:session_autosave = 0
 
 " Switch
 " nnoremap 0 :Switch<cr>
