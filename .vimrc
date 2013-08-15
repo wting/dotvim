@@ -396,21 +396,17 @@ ca sub_op_space s/\v ([+-/*=]) /\1/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" arrow keys move between buffers / tabs
-inoremap <silent> <up> <esc>:bprev<cr>
-inoremap <silent> <down> <esc>:bnext<cr>
-inoremap <silent> <left> <esc>:tabprev<cr>
-inoremap <silent> <right> <esc>:tabnext<cr>
-noremap <silent> <up> :bprev<cr>
-noremap <silent> <down> :bnext<cr>
-noremap <silent> <left> :tabprev<cr>
-noremap <silent> <right> :tabnext<cr>
+" move between tabs
+inoremap <silent> <c-h> <esc>:tabprev<cr>
+inoremap <silent> <c-l> <esc>:tabnext<cr>
+noremap <silent> <c-h> :tabprev<cr>
+noremap <silent> <c-l> :tabnext<cr>
 
-" easy window navigation
-noremap <c-h> <c-w>h
-noremap <c-j> <c-w>j
-noremap <c-k> <c-w>k
-noremap <c-l> <c-w>l
+" no arrow keys allowed
+noremap <up> <nop>
+noremap <down> <nop>
+noremap <left> <nop>
+noremap <right> <nop>
 
 " redraw screen and remove search highlights
 nnoremap <silent> = :noh<cr>
@@ -427,7 +423,6 @@ nmap <space> <pagedown>
 nmap n nzz
 nmap N Nzz
 nnoremap H ^
-nnoremap M zz
 nnoremap L $
 
 " # FIXME: fix sections with K&R braces (2013.06.17_1207, wting)
