@@ -615,21 +615,22 @@ let g:ctrlp_map = '<s-t>'
 nnoremap <c-b> = :CtrlPBuffer<cr>
 let g:ctrlp_match_window_reversed = 1
 let g:ctrlp_follow_symlinks = 1
-let g:ctrlp_lazy_update = 1
-let g:ctrlp_use_caching = 0
+let g:ctrlp_lazy_update = 0
+let g:ctrlp_use_caching = 1000
 let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
-let g:ctrlp_clear_cache_on_exit = 0
+let g:ctrlp_clear_cache_on_exit = 1
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_max_files = 0
+let g:ctrlp_max_files = 50000
 let g:ctrlp_max_height = 20
 let g:ctrlp_open_multiple_files = 'tj'
-let g:ctrlp_arg_map = 0
 " make tabs default behavior
 let g:ctrlp_prompt_mappings = {
     \ 'AcceptSelection("e")': ['<c-b>'],
     \ 'AcceptSelection("t")': ['<cr>', '<c-t>', '<2-LeftMouse>'],
     \ 'AcceptSelection("h")': ['<c-s>', '<c-x>'],
     \ }
+set wildignore+=build/**
+set wildignore+=htdocs/**
 
 " CSApprox
 let g:CSApprox_verbose_level = 0
@@ -733,7 +734,6 @@ let g:vim_markdown_folding_disabled = 1
 " Work
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! WorkSettings()
-    let g:ctrlp_use_caching = 1
     set wildignore+=build/**
     set wildignore+=htdocs/**
     ca ge Gedit canon/master:%
