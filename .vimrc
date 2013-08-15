@@ -618,7 +618,7 @@ let g:ctrlp_follow_symlinks = 1
 let g:ctrlp_lazy_update = 0
 let g:ctrlp_use_caching = 1000
 let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
-let g:ctrlp_clear_cache_on_exit = 1
+let g:ctrlp_clear_cache_on_exit = 0
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_max_files = 50000
 let g:ctrlp_max_height = 20
@@ -641,7 +641,7 @@ let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
 nnoremap f H:call EasyMotion#WB(0, 0)<cr>
 
 " gitsessions.vim
-let g:gitsessions_dir = 'tmp/sessions'
+let g:gitsessions_dir = 'tmp/gitsessions'
 nnoremap <leader>ss :GitSessionSave<cr>
 nnoremap <leader>ls :GitSessionLoad<cr>
 nnoremap <leader>ds :GitSessionDelete<cr>
