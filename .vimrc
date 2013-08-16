@@ -396,17 +396,23 @@ ca sub_op_space s/\v ([+-/*=]) /\1/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" move between tabs
-inoremap <silent> <c-h> <esc>:tabprev<cr>
-inoremap <silent> <c-l> <esc>:tabnext<cr>
-noremap <silent> <c-h> :tabprev<cr>
-noremap <silent> <c-l> :tabnext<cr>
-
 " no arrow keys allowed
 noremap <up> <nop>
 noremap <down> <nop>
 noremap <left> <nop>
 noremap <right> <nop>
+
+" move between tabs
+inoremap <silent> <c-h> <esc>:tabprev<cr>
+noremap <silent> <c-h> :tabprev<cr>
+inoremap <silent> <c-l> <esc>:tabnext<cr>
+noremap <silent> <c-l> :tabnext<cr>
+
+" move between windows
+imap <c-n> <c-w>w
+nmap <c-n> <c-w>w
+imap <c-p> <c-w>W
+nmap <c-p> <c-w>W
 
 " redraw screen and remove search highlights
 nnoremap <silent> = :noh<cr>
@@ -480,7 +486,7 @@ nnoremap ; :
 " nnoremap . mz.`zmz
 
 " toggle line numbers
-nnoremap <c-n><c-n> :set invnumber<cr>
+" nnoremap <c-n><c-n> :set invnumber<cr>
 
 " default to line visual block selection
 nnoremap v V
@@ -531,8 +537,13 @@ nnoremap <cr> o<esc>
 map Y y$
 
 " yank and paste from system register / clipboard
-vnoremap <c-y><c-y> "+y
-nnoremap <c-p><c-p> "+p
+" vnoremap <c-y><c-y> "+y
+" nnoremap <c-p><c-p> "+p
+
+" YankStack
+" let g:yankstack_map_keys = 0
+" nmap <leader>p <Plug>yankstack_substitute_older_paste
+" nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -723,11 +734,6 @@ ca gv Gvsplit origin/master:%
 
 " vim-markdown
 let g:vim_markdown_folding_disabled = 1
-
-" YankStack
-" let g:yankstack_map_keys = 0
-" nmap <leader>p <Plug>yankstack_substitute_older_paste
-" nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
