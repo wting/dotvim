@@ -585,8 +585,10 @@ ca cc80 sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80
 nnoremap <f6> gg gqG<cr>
 
 " Move tabs left/right http://stackoverflow.com/a/7192324/195139
-nnoremap <silent> <s-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
-nnoremap <silent> <s-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
+" nnoremap <silent> <s-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
+" nnoremap <silent> <s-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
+nnoremap <silent> <c-s-h> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
+nnoremap <silent> <c-s-l> :execute 'silent! tabmove ' . tabpagenr()<cr>
 
 " duplicate current tab
 nnoremap <c-y> :tabnew %<cr>
