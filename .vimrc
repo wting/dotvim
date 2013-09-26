@@ -753,10 +753,10 @@ function! WorkSettings()
 endfunction
 
 " FIXME: make it conditional only for work (2013.06.13_1038, wting)
-let g:syntastic_mode_map = {
-                            \ 'mode': 'active',
-                            \ 'passive_filetypes': ['python']
-                            \ }
+" let g:syntastic_mode_map = {
+                            " \ 'mode': 'active',
+                            " \ 'passive_filetypes': ['python']
+                            " \ }
 
 " let g:syntastic_ignore_files=['^/home/wting/work/']
 augroup vimrc-work
