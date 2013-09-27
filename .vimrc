@@ -506,7 +506,7 @@ nnoremap Q gqap
 
 " lower / upper case words
 inoremap <c-d> <esc>ddi
-inoremap <c-u> <esc>gUiwi
+inoremap <c-u> <esc>gUiwi<esc>
 
 " open tag as split / vertical split / tab
 nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
