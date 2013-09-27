@@ -61,7 +61,7 @@ Bundle 'sjl/gundo.vim'
 Bundle 'skwp/vim-easymotion'
 
 Bundle 'brookhong/cscope.vim'
-Bundle 'vim-scripts/AutoTag'
+" Bundle 'vim-scripts/AutoTag'
 
 " Powerline
 Bundle 'tpope/vim-fugitive'
