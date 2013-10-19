@@ -1,3 +1,15 @@
+snippet fixme "fixme reminder" b!
+# FIXME(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
+endsnippet
+
+snippet note "note reminder" b!
+# NOTE(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
+endsnippet
+
+snippet todo "todo reminder" b!
+# TODO(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
+endsnippet
+
 # header
 snippet #!2 "Shebang header for python2 scripts" b
 #!/usr/bin/env python2
@@ -9,29 +21,6 @@ snippet #!3 "Shebang header for python3 scripts" b
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 $0
-endsnippet
-
-snippet todo "todo reminder" b!
-# TODO(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
-endsnippet
-
-snippet fixme "fixme reminder" b!
-# FIXME(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
-endsnippet
-
-snippet note "note reminder" b!
-# NOTE(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
-endsnippet
-
-# imports
-snippet __f "__future__ future imports for Python 3" b
-from __future__ import division
-from __future__ import print_function
-$0
-endsnippet
-
-snippet fr "import functions" b
-from ${1:package} import ${2:function}
 endsnippet
 
 # imports
@@ -47,6 +36,14 @@ endsnippet
 
 snippet ft "import functools" b
 import functools
+endsnippet
+
+snippet imap "import imap" b
+from itertools import imap
+endsnippet
+
+snippet izip "import izip" b
+from itertools import izip
 endsnippet
 
 snippet sys "import sys" b
@@ -102,27 +99,13 @@ if __name__ == "__main__":
     sys.exit(main())
 endsnippet
 
-snippet def "function" b!
-def ${1:function}(${2:arg1, arg2}):
-    ${0:pass}
-
-endsnippet
-
-snippet compose "function composition" b!
-def compose(*funcs, **kfuncs):
-    """
-    usage: compose(f, g, h)(10)
-    """
-    return reduce(lambda f, g: lambda *args, **kaargs: f(g(*args, **kaargs)), funcs)
-
-endsnippet
-
 snippet memoize "memoize" b!
+from functools import wraps
+
+
 def memoize(f):
     cache = {}
-    @functools.wraps(f)
-    def aux(*x):
-        nonlocal cache
+    def g(*x):
         if x not in cache:
             cache[x] = f(*x)
         return cache[x]
@@ -130,10 +113,15 @@ def memoize(f):
 
 endsnippet
 
-snippet mem2 "memoize for Python 2" b!
+snippet memoize3 "memoize for Python 3" b!
+from functools import wraps
+
+
 def memoize(f):
     cache = {}
-    def g(*x):
+    wraps(f)
+    def aux(*x):
+        nonlocal cache
         if x not in cache:
             cache[x] = f(*x)
         return cache[x]

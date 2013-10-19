@@ -1,16 +1,13 @@
-snippet todo "todo reminder" b!
-// TODO: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
-endsnippet
-
 snippet fixme "fixme reminder" b!
-// FIXME: ${1:desc} (`!v strftime("%Y.%m.%d_%H%M")`, `echo $USER`)
+// FIXME(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
 endsnippet
 
-snippet func "function" b!
-function ${1:name}(${2:arg1, arg2}) {
-  ${0:pass}
-}
+snippet note "note reminder" b!
+// NOTE(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
+endsnippet
 
+snippet todo "todo reminder" b!
+// TODO(`echo $USER`${2}|`!v strftime("%Y-%m-%d")`): ${1:desc}
 endsnippet
 
 snippet cons "console.log()" b!
