@@ -201,6 +201,10 @@ if has('cscope')
 endif
 
 
+" reduce timeout to 5ms (from default 60ms) for large file support
+let g:matchparen_insert_timeout=5
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
