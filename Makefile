@@ -20,6 +20,8 @@ qinstall:
 reinstall: purge install
 
 upgrade: clean
+	@echo "Updating branch..."
+	git pull
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 
