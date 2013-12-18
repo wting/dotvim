@@ -400,11 +400,15 @@ ca sub_op_space s/\v ([+-/*=]) /\1/
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" no arrow keys allowed
-noremap <up> <nop>
-noremap <down> <nop>
-noremap <left> <nop>
-noremap <right> <nop>
+" arrow keys allowed
+inoremap <silent> <up> <esc>:bprev<cr>
+inoremap <silent> <down> <esc>:bnext<cr>
+inoremap <silent> <left> <esc>:tabprev<cr>
+inoremap <silent> <right> <esc>:tabnext<cr>
+noremap <silent> <up> :bprev<cr>
+noremap <silent> <down> :bnext<cr>
+noremap <silent> <left> :tabprev<cr>
+noremap <silent> <right> :tabnext<cr>
 
 " move between tabs
 inoremap <silent> <c-h> <esc>:tabprev<cr>
