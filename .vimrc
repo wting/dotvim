@@ -87,6 +87,7 @@ Bundle 'plasticboy/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'vim-scripts/haskell.vim'
 Bundle 'kchmck/vim-coffee-script'
+Bundle 'honza/dockerfile.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -401,12 +402,12 @@ ca sub_op_space s/\v ([+-/*=]) /\1/
 " Moving Around
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " arrow keys allowed
-inoremap <silent> <up> <esc>:bprev<cr>
-inoremap <silent> <down> <esc>:bnext<cr>
+" inoremap <silent> <up> <esc>:bprev<cr>
+" inoremap <silent> <down> <esc>:bnext<cr>
 inoremap <silent> <left> <esc>:tabprev<cr>
 inoremap <silent> <right> <esc>:tabnext<cr>
-noremap <silent> <up> :bprev<cr>
-noremap <silent> <down> :bnext<cr>
+" noremap <silent> <up> :bprev<cr>
+" noremap <silent> <down> :bnext<cr>
 noremap <silent> <left> :tabprev<cr>
 noremap <silent> <right> :tabnext<cr>
 
