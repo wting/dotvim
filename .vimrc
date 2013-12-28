@@ -723,15 +723,20 @@ let g:switch_custom_definitions =
 
 " Syntastic
 let g:syntastic_enable_signs = 1
-let g:syntastic_quiet_warnings = 1
-" let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 0
+let g:syntastic_quiet_warnings = 0
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 1
+let g:syntastic_warning_symbol="⚠"
+let g:syntastic_error_symbol="✗"
+let g:syntastic_python_checkers = ["flake8"]
+let g:syntastic_python_flake8_args = "--config=$HOME/.config/flake8"
 ca st SyntasticToggleMode
 ca sc SyntasticCheck
 
 " UltiSnips
 ca use UltiSnipsEdit
-let g:UltiSnipsDontReverseSearchPath = "1"        " workaround Vundle
+" workaround Vundle
+let g:UltiSnipsDontReverseSearchPath = "1"
 let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
 let g:UltiSnipsEditSplit = "horizontal"
 let g:UltiSnipsListSnippets = "<c-l>"
@@ -767,9 +772,8 @@ endfunction
                             " \ 'passive_filetypes': ['python']
                             " \ }
 
-" let g:syntastic_ignore_files=['^/home/wting/work/']
+let g:syntastic_ignore_files=['^/home/wting/work/']
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
-    au BufNewFile,BufRead ~/pg/*.py setlocal sw=4 ts=4 sts=4 noet
     au BufNewFile,BufRead ~/pg/*.tmpl setlocal sw=2 ts=2 sts=2 noet
 augroup END
