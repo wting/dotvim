@@ -1,5 +1,5 @@
 #!/bin/bash
-# Requires nurses-dev package on Ubuntu
+# Requires ncurses-dev package on Ubuntu
 src=$HOME/.vim/tmp/vim_source
 dst=$HOME/bin/vim7.4
 
