@@ -27,3 +27,5 @@ make -j$(nproc) && make install || exit 1
 
 ln -sfv $dst/bin/vim     $HOME/bin
 ln -sfv $dst/bin/vimdiff $HOME/bin
+
+$dst/bin/vim --version | head
