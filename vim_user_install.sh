@@ -1,13 +1,13 @@
 #!/bin/bash
 # Requires nurses-dev package on Ubuntu
-src=$HOME/.vim/tmp/vim
+src=$HOME/.vim/tmp/vim_source
 dst=$HOME/bin/vim7.4
 
 if [ -d "$src" ]; then
     cd $src
-    hg pull
+    hg pull || exit 1
 else
-    hg clone https://vim.googlecode.com/hg/ $src
+    hg clone https://vim.googlecode.com/hg/ $src || exit 1
     cd $src
 fi
 
@@ -19,12 +19,11 @@ fi
     --enable-pythoninterp \
     --enable-python3interp \
     --prefix="$dst" \
-    --with-compiledby=io@williamting.com
+    --with-compiledby=io@williamting.com || exit 1
 
 [ -d "$dst" ] || mkdir -vp $dst
 
-make -j$(nproc) && make install
+make -j$(nproc) && make install || exit 1
 
-echo $dst
 ln -sfv $dst/bin/vim     $HOME/bin
 ln -sfv $dst/bin/vimdiff $HOME/bin
