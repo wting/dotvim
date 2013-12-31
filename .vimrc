@@ -88,6 +88,7 @@ Bundle 'groenewege/vim-less'
 Bundle 'vim-scripts/haskell.vim'
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'honza/dockerfile.vim'
+Bundle 'dag/vim-fish'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
