@@ -1,5 +1,5 @@
 #!/bin/bash
-# Ubuntu package requirements: mercurial, ncurses-dev, python2.7-dev
+# Ubuntu requirements: mercurial ncurses-dev python-dev
 email="io@williamting.com"
 src=$HOME/.vim/tmp/vim_source
 dst=$HOME/bin/vim7.4
