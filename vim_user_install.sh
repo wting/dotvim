@@ -6,7 +6,7 @@ dst=$HOME/bin/vim7.4
 
 if [ -d "$src" ]; then
     cd $src
-    hg pull || exit 1
+    hg pull && hg update || exit 1
 else
     hg clone https://vim.googlecode.com/hg/ $src || exit 1
     cd $src
