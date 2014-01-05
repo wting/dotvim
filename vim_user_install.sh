@@ -32,5 +32,4 @@ ln -sfv $dst/bin/vimdiff $HOME/bin
 $dst/bin/vim --version | head | grep "VIM - Vi IMproved 7.4"
 $dst/bin/vim --version | head | grep "Included patches"
 $dst/bin/vim --version | head | grep "Compiled by ${email}"
-$dst/bin/vim --version | grep "-python"
-$dst/bin/vim --version | grep "+python"
+$dst/bin/vim --version | grep "[-+]python"

@@ -19,6 +19,9 @@ qinstall:
 
 reinstall: purge install
 
+full-upgrade: upgrade
+	./vim_user_install.sh
+
 upgrade: clean
 	@echo "Updating branch..."
 	git pull
