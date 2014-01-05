@@ -1,5 +1,5 @@
 #!/bin/bash
-# Requires ncurses-dev package on Ubuntu
+# Ubuntu package requirements: mercurial, ncurses-dev, python2.7-dev, python3-dev
 src=$HOME/.vim/tmp/vim_source
 dst=$HOME/bin/vim7.4
 
