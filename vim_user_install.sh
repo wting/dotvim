@@ -14,7 +14,7 @@ fi
 
 ./configure \
     --with-features=huge \
-    --enable-gui=gtk2 \
+    --enable-gui=no \
     --enable-multibyte \
     --enable-cscope \
     --enable-pythoninterp \
