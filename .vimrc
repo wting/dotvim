@@ -738,6 +738,7 @@ let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 " vim-fugitive
+ca gb Gblame -w
 ca ge Gedit origin/master:%
 ca gt Gtabedit origin/master:%
 ca gs Gsplit origin/master:%
