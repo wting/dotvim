@@ -2,7 +2,7 @@
 
 all: install fonts
 	@-[ -L ~/.vimrc ] && rm ~/.vimrc
-	@-mv ~/.vimrc ~/.vimrc.bak
+	@-[ -f ~/.vimrc ] && mv -v ~/.vimrc ~/.vimrc.bak.${RANDOM}
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
 
 vundle:
