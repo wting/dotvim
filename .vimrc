@@ -399,6 +399,8 @@ nnoremap <leader>sos :s/\v ([+-/*=]) /\1/<cr> :noh<cr>
 ca add_op_space s/\v([+-/*=])/ \1 /
 ca sub_op_space s/\v ([+-/*=]) /\1/
 
+" misc
+ca ln lnext
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
