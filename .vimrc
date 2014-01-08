@@ -584,14 +584,6 @@ ca 4et setlocal ts=4 sts=4 sw=4 et
 ca 4noet setlocal ts=4 sts=4 sw=4 noet
 ca cc80 sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80
 
-" nnoremap <f1> :set sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80<CR>
-" " nnoremap <f1> :set sw=4 ts=4 sts=4 et<cr>
-" nnoremap <f2> :set sw=2 ts=2 sts=2 et<cr>
-" nnoremap <f3> :set sw=2 ts=2 sts=2 noet<cr>
-" nnoremap <f4> :set sw=4 ts=4 sts=4 et<cr>
-" nnoremap <f5> :set sw=4 ts=4 sts=4 noet<cr>
-" nnoremap <f6> :set fo=tcqbl<cr>
-
 " http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
 nnoremap <f6> gg gqG<cr>
 
@@ -768,13 +760,6 @@ function! WorkSettings()
     ca gv Gvsplit canon/master:%
 endfunction
 
-" FIXME: make it conditional only for work (2013.06.13_1038, wting)
-" let g:syntastic_mode_map = {
-                            " \ 'mode': 'active',
-                            " \ 'passive_filetypes': ['python']
-                            " \ }
-
-let g:syntastic_ignore_files=['^/home/wting/work/']
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
     au BufNewFile,BufRead ~/pg/*.tmpl setlocal sw=2 ts=2 sts=2 noet
