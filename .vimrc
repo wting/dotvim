@@ -761,6 +761,10 @@ function! WorkSettings()
     ca gt Gtabedit canon/master:%
     ca gs Gsplit canon/master:%
     ca gv Gvsplit canon/master:%
+    ca pfe PairFileEdit
+    ca pfte PairFileTabEdit
+    ca pfse PairFileSplitEdit
+    ca pfve PairFileVSplitEdit
 endfunction
 
 augroup vimrc-work
