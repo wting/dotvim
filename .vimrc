@@ -71,13 +71,14 @@ Bundle 'wting/vim-powerline'
 
 " Appearance
 Bundle 'vim-scripts/CSApprox'
-Bundle 'guns/xterm-color-table.vim'
 " Bundle 'kien/rainbow_parentheses.vim'
 Bundle 'wting/rainbow_parentheses.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'kshenoy/vim-signature'
 " Bundle 'wting/vim-signature'
 Bundle 'airblade/vim-gitgutter'
+Bundle 'ap/vim-css-color'
+Bundle 'guns/xterm-color-table.vim'
 
 " Syntax
 " Bundle 'Soares/python.vim'
