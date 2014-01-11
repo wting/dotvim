@@ -3,7 +3,8 @@
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
 src="$tmp/vim_source"
-dst=$HOME/bin/vim7.4
+old_dst=$HOME/bin/vim7.4
+dst=$HOME/bin/vim-7.4
 python27_config=/usr/lib/python2.7/config
 python26_config=/usr/lib/python2.6/config
 python_config=
@@ -50,3 +51,7 @@ $dst/bin/vim --version | head | grep --color "Included patches"
 $dst/bin/vim --version | head | grep --color "Compiled by $email"
 $dst/bin/vim --version | grep -E --color "[-+]python"
 echo -e "\ninstalled to: $dst\n"
+
+if [[ -d ${old_dst} ]]; then
+    rm -fr ${old_dst}
+fi
