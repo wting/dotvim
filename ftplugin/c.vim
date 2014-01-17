@@ -1,10 +1,8 @@
 set colorcolumn=80
-highlight OverLength ctermbg=darkblue ctermfg=white guibg=#000087
+highlight OverLength ctermbg=238
 match OverLength /\%81v.\+/
 
-au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
+noremap <silent> <buffer> [[ ?{<CR>w99[{
+noremap <silent> <buffer> ]] j0?{<CR>w99[{%/{<CR>
 
-au VimEnter * RainbowParenthesesActivate
-au Syntax * RainbowParenthesesLoadRound
-au Syntax * RainbowParenthesesLoadBraces
-au Syntax * RainbowParenthesesLoadSquare
+au BufWritePost *.c,*.cpp,*.h silent! !ctags -R &
