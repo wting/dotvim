@@ -769,5 +769,4 @@ endfunction
 
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
-    au BufNewFile,BufRead ~/pg/*.tmpl setlocal sw=2 ts=2 sts=2 noet
 augroup END
