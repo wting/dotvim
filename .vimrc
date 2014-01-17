@@ -761,9 +761,12 @@ function! WorkSettings()
     ca gt Gtabedit canon/master:%
     ca gs Gsplit canon/master:%
     ca gv Gvsplit canon/master:%
+    ca pfe PairFileEdit
+    ca pfte PairFileTabEdit
+    ca pfse PairFileSplitEdit
+    ca pfve PairFileVSplitEdit
 endfunction
 
 augroup vimrc-work
     au BufNewFile,BufRead ~/pg/* call WorkSettings()
-    au BufNewFile,BufRead ~/pg/*.tmpl setlocal sw=2 ts=2 sts=2 noet
 augroup END
