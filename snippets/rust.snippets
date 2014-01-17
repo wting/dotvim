@@ -65,12 +65,8 @@ enum ${1} {
 endsnippet
 
 # common statements
-snippet pr "println"
-io::println("${0}");
-endsnippet
-
-snippet fmt "print fmt?"
-io::println(fmt!("$1: %?", ${1}));
+snippet pln "println"
+println!("${0}");
 endsnippet
 
 snippet match "pattern match" b
