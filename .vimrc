@@ -254,22 +254,36 @@ hi! link SignColumn LineNr
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" autoreload vimrc on write
 " au BufWritePost .vimrc so $MYVIMRC
 set enc=utf-8
 set fenc=utf-8
 set nobackup
 set wildmenu
 set wildmode=list:longest
-set wildignore+=*.DS_Store                                  " OSX bullshit
-set wildignore+=.hg,.git,.svn                               " Version control
-set wildignore+=*.sw?,*.un?                                 " vim
-set wildignore+=*.aux,*.out,*.toc                           " LaTeX intermediate files
-set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg              " binary images
-set wildignore+=*.o,*.obj,*.so,*.a,*.exe,*.dll,*.manifest   " compiled object files
-set wildignore+=*.spl                                       " compiled spelling word lists
-set wildignore+=*.class                                     " Java
-set wildignore+=*/venv/*,*.pyc                              " Python
-set wildignore+=*/tmp/*,*.so,*.zip
+
+" OSX bullshit
+set wildignore+=*.DS_Store
+" Version control
+set wildignore+=.hg,.git,.svn
+" vim
+set wildignore+=*.sw?,*.un?
+" images
+set wildignore+=*.jpg,*.bmp,*.gif,*.png,*.jpeg
+" object files
+set wildignore+=*.o,*.obj,*.so,*.a
+" Haskell
+set wildignore+=*.hi
+" Java
+set wildignore+=*.class
+" LaTeX
+set wildignore+=*.aux,*.out,*.toc
+" Python
+set wildignore+=*/venv/*,*.pyc,*.pyo
+" Windows
+set wildignore+=*.exe,*.dll,*.manifest,*.spl
+" misc
+set wildignore+=*/tmp/*,*.zip
 
 set tags=./tags;/
 
@@ -713,10 +727,8 @@ augroup END
 
 " Switch
 " nnoremap 0 :Switch<cr>
-let g:switch_custom_definitions =
-    \ [
-    \   ['True', 'False']
-    \ ]
+let g:switch_custom_definitions = [
+    \ ['True', 'False'] ]
 
 " Syntastic
 let g:syntastic_always_populate_loc_list = 1
@@ -727,8 +739,9 @@ let g:syntastic_error_symbol='⚠'
 let g:syntastic_warning_symbol = '∆'
 let g:syntastic_style_error_symbol = '✗'
 let g:syntastic_style_warning_symbol = '✗'
-let g:syntastic_haskell_ghc_mod_quiet_messages = { 'level': 'warnings',
-                                                 \ 'regex': 'Defined by not used', }
+let g:syntastic_haskell_ghc_mod_quiet_messages = {
+    \ 'level': 'warnings',
+    \ 'regex': 'Defined by not used', }
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
 ca st SyntasticToggleMode
