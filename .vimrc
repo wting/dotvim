@@ -87,7 +87,7 @@ Bundle 'scrooloose/syntastic'
 Bundle 'plasticboy/vim-markdown'
 Bundle 'groenewege/vim-less'
 Bundle 'vim-scripts/haskell.vim'
-Bundle 'eagletmt/ghcmod-vim'
+" Bundle 'eagletmt/ghcmod-vim' TODO: broken
 Bundle 'kchmck/vim-coffee-script'
 Bundle 'honza/dockerfile.vim'
 Bundle 'dag/vim-fish'
