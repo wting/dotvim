@@ -723,23 +723,23 @@ let g:syntastic_enable_signs = 1
 let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
-let g:syntastic_warning_symbol="⚠"
-let g:syntastic_error_symbol="✗"
-let g:syntastic_python_checkers = ["flake8"]
-let g:syntastic_python_flake8_args = "--config=$HOME/.config/flake8"
+let g:syntastic_warning_symbol='⚠'
+let g:syntastic_error_symbol='✗'
+let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
 ca st SyntasticToggleMode
 ca sc SyntasticCheck
 
 " UltiSnips
 ca use UltiSnipsEdit
 " workaround Vundle
-let g:UltiSnipsDontReverseSearchPath = "1"
-let g:UltiSnipsSnippetDirectories = ["UltiSnips", "snippets"]
-let g:UltiSnipsEditSplit = "horizontal"
-let g:UltiSnipsListSnippets = "<c-l>"
-let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
+let g:UltiSnipsDontReverseSearchPath = '1'
+let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
+let g:UltiSnipsEditSplit = 'horizontal'
+let g:UltiSnipsListSnippets = '<c-l>'
+let g:UltiSnipsExpandTrigger = '<tab>'
+let g:UltiSnipsJumpForwardTrigger = '<tab>'
+let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
 " vim-fugitive
 ca gb Gblame -w
