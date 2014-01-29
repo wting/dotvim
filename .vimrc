@@ -18,8 +18,10 @@
 "    -> Work
 
 set nocompatible
-filetype on				" disable OS X exit with non-zero error code
-filetype off			" disabled to work around vundle ftdetect bug
+" disable OS X exit with non-zero error code
+filetype on
+" disabled to work around vundle ftdetect bug
+filetype off
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -87,7 +89,8 @@ filetype off			" disabled to work around vundle ftdetect bug
     Bundle 'plasticboy/vim-markdown'
     Bundle 'groenewege/vim-less'
     Bundle 'vim-scripts/haskell.vim'
-    " Bundle 'eagletmt/ghcmod-vim' TODO: broken
+    " TODO(ting|2014-01-28): broken
+    " Bundle 'eagletmt/ghcmod-vim'
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'honza/dockerfile.vim'
     Bundle 'dag/vim-fish'
@@ -103,10 +106,13 @@ filetype off			" disabled to work around vundle ftdetect bug
     set ofu=syntaxcomplete#Complete
     set history=1000
     set undolevels=1000
-    set title                				"change the terminal's title
-    set backspace=indent,eol,start 			"allow backspace over everything
+    " change the terminal's title
+    set title
+    " allow backspace over everything
+    set backspace=indent,eol,start
     set iskeyword=@,48-57,_,192-255
-    set modelines=0							"remove modelines, prevents a few security exploits
+    " remove modelines, prevents a few security exploits
+    set modelines=0
     set hidden
     set splitright
     set splitbelow
@@ -136,13 +142,14 @@ filetype off			" disabled to work around vundle ftdetect bug
 
     " search options
     set ignorecase
-    set smartcase							"disable ignore case if uppercase present
+    " disable ignore case if uppercase present
+    set smartcase
     set gdefault
     set incsearch
     set hlsearch
     set showmatch
 
-    " disable vim regex, use Perl/Python regex instead
+    " use Perl/Python regex instead
     nnoremap / /\v
     vnoremap / /\v
 
