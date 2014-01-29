@@ -719,12 +719,16 @@ let g:switch_custom_definitions =
     \ ]
 
 " Syntastic
+let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_enable_signs = 1
-let g:syntastic_quiet_messages = {'level': 'warnings'}
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 1
-let g:syntastic_warning_symbol='⚠'
-let g:syntastic_error_symbol='✗'
+let g:syntastic_error_symbol='⚠'
+let g:syntastic_warning_symbol = '∆'
+let g:syntastic_style_error_symbol = '✗'
+let g:syntastic_style_warning_symbol = '✗'
+let g:syntastic_haskell_ghc_mod_quiet_messages = { 'level': 'warnings',
+                                                 \ 'regex': 'Defined by not used', }
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
 ca st SyntasticToggleMode
