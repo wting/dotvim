@@ -84,6 +84,8 @@ filetype off
 
     " Syntax
     " Bundle 'Soares/python.vim'
+    " NOTE(ting|2014-01-31): broken
+    " Bundle 'wting/lhaskell.vim'
     Bundle 'wting/rust.vim'
     Bundle 'scrooloose/syntastic'
     Bundle 'plasticboy/vim-markdown'
