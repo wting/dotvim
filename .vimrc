@@ -58,10 +58,7 @@ filetype off
     " Bundle 'maxbrunsfeld/vim-yankstack'
     Bundle 'AndrewRadev/switch.vim'
     Bundle 'sjl/gundo.vim'
-    " Bundle 'Lokaltog/vim-easymotion'
-    " skwp's version supports two character targets
-    Bundle 'skwp/vim-easymotion'
-
+    Bundle 'Lokaltog/vim-easymotion'
     Bundle 'brookhong/cscope.vim'
     " Bundle 'vim-scripts/AutoTag'
 
