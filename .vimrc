@@ -44,7 +44,7 @@ filetype off
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " Features
+    " Utilities
     Bundle 'SirVer/ultisnips'
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-repeat'
@@ -88,8 +88,6 @@ filetype off
     Bundle 'plasticboy/vim-markdown'
     Bundle 'groenewege/vim-less'
     Bundle 'vim-scripts/haskell.vim'
-    " TODO(ting|2014-01-28): broken
-    " Bundle 'eagletmt/ghcmod-vim'
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'honza/dockerfile.vim'
     Bundle 'dag/vim-fish'
