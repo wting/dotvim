@@ -1,32 +1,30 @@
 .PHONY: all
 
-all: install fonts
-	@-[ -L ~/.vimrc ] && rm ~/.vimrc
-	@-[ -f ~/.vimrc ] && mv -v ~/.vimrc ~/.vimrc.bak.${RANDOM}
-	ln -sfv ~/.vim/.vimrc ~/.vimrc
-
-vundle:
-	@-rm -rf ~/.vim/bundle/vundle
-	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-install: vundle
-	@echo "Installing plugins..."
-	vim +BundleInstall +qall
-
-qinstall:
-	@echo "Installing plugins..."
-	vim +BundleInstall +qall
-
-reinstall: purge install
-
-full-upgrade: upgrade
-	./vim_user_install.sh
+full-upgrade: vim upgrade
 
 upgrade: clean
 	@echo "Updating branch..."
 	git pull
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
+
+upgrade-plugins:
+	@echo "Installing plugins..."
+	vim +BundleInstall +qall
+
+install: vundle fonts
+	@-[ -L ~/.vimrc ] && rm ~/.vimrc
+	@-[ -f ~/.vimrc ] && mv -v ~/.vimrc ~/.vimrc.bak.${RANDOM}
+	ln -sfv ~/.vim/.vimrc ~/.vimrc
+
+reinstall: purge install
+
+vundle:
+	@-rm -rf ~/.vim/bundle/vundle
+	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
+vim:
+	./vim_user_install.sh
 
 clean:
 	@echo "Removing unused plugins..."
