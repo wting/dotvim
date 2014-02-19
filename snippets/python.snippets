@@ -116,10 +116,12 @@ from functools import wraps
 
 def memoize(f):
     cache = {}
-    def g(*x):
+
+    def aux(*x):
         if x not in cache:
             cache[x] = f(*x)
         return cache[x]
+
     return aux
 
 endsnippet
