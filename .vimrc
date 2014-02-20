@@ -45,8 +45,7 @@ filetype off
 " Vundle Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " Utilities
-    " Bundle 'SirVer/ultisnips'
-    Bundle 'wting/ultisnips'
+    Bundle 'SirVer/ultisnips'
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-repeat'
     Bundle 'camelcasemotion'
