@@ -91,6 +91,7 @@ filetype off
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'honza/dockerfile.vim'
     Bundle 'dag/vim-fish'
+    Bundle 'jnwhiteh/vim-golang'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
