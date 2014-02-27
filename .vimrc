@@ -109,6 +109,7 @@ filetype off
     " allow backspace over everything
     set backspace=indent,eol,start
     set iskeyword=@,48-57,_,192-255
+    set lazyredraw
     " remove modelines, prevents a few security exploits
     set modelines=0
     set hidden
