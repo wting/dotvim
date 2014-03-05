@@ -757,7 +757,7 @@ filetype off
     ca use UltiSnipsEdit
     " workaround Vundle
     let g:UltiSnipsDontReverseSearchPath = '1'
-    let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
+    let g:UltiSnipsSnippetDirectories = ['UltiSnips']
     let g:UltiSnipsEditSplit = 'horizontal'
     let g:UltiSnipsListSnippets = '<c-l>'
     let g:UltiSnipsExpandTrigger = '<tab>'
