@@ -787,8 +787,8 @@ filetype off
         ca gv Gvsplit canon/master:%
         ca pfe PairFileEdit
         ca pfte PairFileTabEdit
-        ca pfse PairFileSplitEdit
-        ca pfve PairFileVSplitEdit
+        ca pfspe PairFileSplitEdit
+        ca pfvse PairFileVSplitEdit
     endfunction
 
     augroup vimrc-work
