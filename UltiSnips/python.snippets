@@ -29,12 +29,8 @@ from __future__ import print_function
 $0
 endsnippet
 
-snippet fr "import functions" b
-from ${1:package} import ${2:function}
-endsnippet
-
-snippet ft "import functools" b
-import functools
+snippet partial "import partial" b
+from functools import partial
 endsnippet
 
 snippet ifilter "import ifilter" b
@@ -49,12 +45,24 @@ snippet izip "import izip" b
 from itertools import izip
 endsnippet
 
-snippet partial "import partial" b
-from functools import partial
-endsnippet
-
 snippet starmap "import starmap" b
 from itertools import starmap
+endsnippet
+
+snippet imap "import imap" b
+from itertools import imap
+endsnippet
+
+snippet attr "import attrgetter" b
+from operator import attrgetter
+endsnippet
+
+snippet item "import itemgetter" b
+from operator import itemgetter
+endsnippet
+
+snippet method "import methodcaller" b
+from operator import methodcaller
 endsnippet
 
 snippet sys "import sys" b
