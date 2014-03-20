@@ -194,19 +194,28 @@ filetype off
     " TODO: check that it works (2013.06.06_2225, ting)
     " http://vim.wikia.com/wiki/Cscope
     if has('cscope')
+        " always search cscope database in addition to tag files
+        set cscopetag
+
         " prevents jumping to first tag
-        set cscopetag cscopeverbose
+        set cscopeverbose
 
         if has('quickfix')
             set cscopequickfix=s-,c-,d-,i-,t-,e-
         endif
 
-        cnoreabbrev csa cs add
-        cnoreabbrev csf cs find
-        cnoreabbrev csk cs kill
-        cnoreabbrev csr cs reset
-        cnoreabbrev css cs show
-        cnoreabbrev csh cs help
+        cnoreabbrev <expr> csa
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add'  : 'csa')
+        cnoreabbrev <expr> csf
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+        cnoreabbrev <expr> csk
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+        cnoreabbrev <expr> csr
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+        cnoreabbrev <expr> css
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+        cnoreabbrev <expr> csh
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
 
         command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
     endif
