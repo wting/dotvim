@@ -59,8 +59,9 @@ filetype off
     Bundle 'AndrewRadev/switch.vim'
     Bundle 'sjl/gundo.vim'
     Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'brookhong/cscope.vim'
+    " Bundle 'brookhong/cscope.vim'
     " Bundle 'vim-scripts/AutoTag'
+    Bundle "majutsushi/tagbar"
 
     " Powerline
     Bundle 'tpope/vim-fugitive'
