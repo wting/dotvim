@@ -2,15 +2,15 @@
 
 full-upgrade: vim upgrade
 
+plugins-upgrade:
+	@echo "Installing plugins..."
+	vim +BundleInstall +qall
+
 upgrade: clean
 	@echo "Updating branch..."
 	git pull
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
-
-upgrade-plugins:
-	@echo "Installing plugins..."
-	vim +BundleInstall +qall
 
 install: vundle fonts
 	@-[ -L ~/.vimrc ] && rm ~/.vimrc
