@@ -406,10 +406,6 @@ filetype off
     ca tc :tabe ~/pg/yelp-main/config/custom.py<cr>
     ca rfv so $MYVIMRC
 
-    " paste
-    ca p set paste
-    ca np set nopaste
-
     " buffers
     " ca sb sb
     ca vb vert sb
@@ -582,13 +578,12 @@ filetype off
     map Y y$
 
     " yank and paste from system register / clipboard
-    " vnoremap <c-y><c-y> "+y
-    " nnoremap <c-p><c-p> "+p
-
-    " YankStack
-    " let g:yankstack_map_keys = 0
-    " nmap <leader>p <Plug>yankstack_substitute_older_paste
-    " nmap <leader>P <Plug>yankstack_substitute_newer_paste
+    vnoremap <Leader>y "+y
+    vnoremap <Leader>d "+d
+    nnoremap <Leader>p "+p
+    nnoremap <Leader>P "+P
+    vnoremap <Leader>p "+p
+    vnoremap <Leader>P "+P
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
