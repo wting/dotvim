@@ -764,6 +764,9 @@ filetype off
     ca st SyntasticToggleMode
     ca sc SyntasticCheck
 
+    " TagBar
+    nnoremap <leader>tt :TagbarToggle<cr>
+
     " UltiSnips
     ca use UltiSnipsEdit
     " workaround Vundle
