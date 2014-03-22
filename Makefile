@@ -1,12 +1,20 @@
 .PHONY: all
 
-upgrade: clean
+upgrade: plugins-clean
 	@echo "Updating branch..."
 	git pull
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 
 full-upgrade: vim upgrade
+
+plugins-clean:
+	@echo "Removing unused plugins..."
+	vim +BundleClean! +qall
+
+plugins-purge:
+	@echo "Removing all plugins..."
+	@-rm -rf ~/.vim/bundle/
 
 plugins-upgrade:
 	@echo "Installing plugins..."
@@ -17,7 +25,7 @@ install: vundle fonts
 	@-[ -f ~/.vimrc ] && mv -v ~/.vimrc ~/.vimrc.bak.${RANDOM}
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
 
-reinstall: purge install
+reinstall: plugins-purge install
 
 vundle:
 	@-rm -rf ~/.vim/bundle/vundle
@@ -25,14 +33,6 @@ vundle:
 
 vim:
 	./vim_user_install.sh
-
-clean:
-	@echo "Removing unused plugins..."
-	vim +BundleClean! +qall
-
-purge:
-	@echo "Removing all plugins..."
-	@-rm -rf ~/.vim/bundle/
 
 # required for powerline
 fonts:
