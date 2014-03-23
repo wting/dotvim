@@ -14,6 +14,7 @@
 "    -> Moving Around
 "    -> Mappings
 "    -> Text, Tab and Indent
+"    -> ctags and cscope
 "    -> Plugin Options
 "    -> Work
 
@@ -48,6 +49,7 @@ filetype off
     Bundle 'SirVer/ultisnips'
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-repeat'
+    Bundle 'tpope/vim-unimpaired'
     Bundle 'camelcasemotion'
     Bundle 'scrooloose/nerdtree'
     " Bundle 'scrooloose/nerdcommenter'
@@ -59,8 +61,7 @@ filetype off
     Bundle 'AndrewRadev/switch.vim'
     Bundle 'sjl/gundo.vim'
     Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'brookhong/cscope.vim'
-    " Bundle 'vim-scripts/AutoTag'
+    Bundle "majutsushi/tagbar"
 
     " Powerline
     Bundle 'tpope/vim-fugitive'
@@ -85,7 +86,8 @@ filetype off
     " Bundle 'wting/lhaskell.vim'
     Bundle 'wting/rust.vim'
     Bundle 'scrooloose/syntastic'
-    Bundle 'plasticboy/vim-markdown'
+    " Bundle 'plasticboy/vim-markdown'
+    Bundle 'tpope/vim-markdown'
     Bundle 'groenewege/vim-less'
     Bundle 'vim-scripts/haskell.vim'
     Bundle 'kchmck/vim-coffee-script'
@@ -164,7 +166,8 @@ filetype off
         au WinEnter * wincmd =
     augroup END
 
-    " fix slight delay after pressing ESC then O: http://ksjoberg.com/vim-esckeys.html
+    " fix slight delay after pressing ESC then O:
+    " http://ksjoberg.com/vim-esckeys.html
     " set noesckeys
     set timeout timeoutlen=1000 ttimeoutlen=100
 
@@ -189,27 +192,6 @@ filetype off
     augroup vimrc-strip_ws
         au BufWritePre * :call StripTrailingWhitespaces()
     augroup END
-
-    " TODO: check that it works (2013.06.06_2225, ting)
-    " http://vim.wikia.com/wiki/Cscope
-    if has('cscope')
-        " prevents jumping to first tag
-        set cscopetag cscopeverbose
-
-        if has('quickfix')
-            set cscopequickfix=s-,c-,d-,i-,t-,e-
-        endif
-
-        cnoreabbrev csa cs add
-        cnoreabbrev csf cs find
-        cnoreabbrev csk cs kill
-        cnoreabbrev csr cs reset
-        cnoreabbrev css cs show
-        cnoreabbrev csh cs help
-
-        command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-    endif
-
 
     " reduce timeout to 5ms (from default 60ms) for large file support
     let g:matchparen_insert_timeout=5
@@ -395,10 +377,6 @@ filetype off
     ca tc :tabe ~/pg/yelp-main/config/custom.py<cr>
     ca rfv so $MYVIMRC
 
-    " paste
-    ca p set paste
-    ca np set nopaste
-
     " buffers
     " ca sb sb
     ca vb vert sb
@@ -542,11 +520,6 @@ filetype off
     inoremap <c-d> <esc>ddi
     inoremap <c-u> <esc>gUiwi<esc>
 
-    " open tag as split / vertical split / tab
-    nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
-    nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
-    nnoremap <c-\><c-\><c-\> :tab split<cr>:exec("tag ".expand("<cword>"))<cr>
-
     " manipulate text using alt + hjkl
     " FIXME: use alt key mappings (2013.06.06_2218, ting)
     nnoremap <a-j> :m+<cr>==
@@ -571,13 +544,12 @@ filetype off
     map Y y$
 
     " yank and paste from system register / clipboard
-    " vnoremap <c-y><c-y> "+y
-    " nnoremap <c-p><c-p> "+p
-
-    " YankStack
-    " let g:yankstack_map_keys = 0
-    " nmap <leader>p <Plug>yankstack_substitute_older_paste
-    " nmap <leader>P <Plug>yankstack_substitute_newer_paste
+    vnoremap <Leader>y "+y
+    vnoremap <Leader>d "+d
+    nnoremap <Leader>p "+p
+    nnoremap <Leader>P "+P
+    vnoremap <Leader>p "+p
+    vnoremap <Leader>P "+P
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -621,6 +593,75 @@ filetype off
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ctags and cscope
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " open tag as split / vertical split / tab
+    nnoremap <c-\> :sp <cr>:exec("tag ".expand("<cword>"))<cr>
+    nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
+    nnoremap <c-\><c-\><c-\> :tab split<cr>:exec("tag ".expand("<cword>"))<cr>
+
+    " TODO: check that it works (2013.06.06_2225, ting)
+    " http://vim.wikia.com/wiki/Cscope
+    " http://cscope.sourceforge.net/cscope_maps.vim
+    " https://github.com/brookhong/cscope.vim/blob/master/plugin/cscope.vim
+    if has('cscope')
+        " always search cscope database in addition to tag files
+        set cscopetag
+
+        " prevents jumping to first tag
+        set cscopeverbose
+
+        " search cscope before ctags
+        set csto=0
+
+        if has('quickfix')
+            set cscopequickfix=s-,c-,d-,i-,t-,e-
+        endif
+
+        cnoreabbrev <expr> csa
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add ./cscope.out'  : 'csa')
+        cnoreabbrev <expr> csf
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
+        cnoreabbrev <expr> csk
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
+        cnoreabbrev <expr> csr
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
+        cnoreabbrev <expr> css
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
+        cnoreabbrev <expr> csh
+            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
+
+        command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
+
+        " open cscope results as split / vertical split / tab
+        nnoremap <c-\>s :sp <cr>:exec("cs find s ".expand("<cword>"))<cr>
+        nnoremap <c-\>g :sp <cr>:exec("cs find g ".expand("<cword>"))<cr>
+        nnoremap <c-\>c :sp <cr>:exec("cs find c ".expand("<cword>"))<cr>
+        nnoremap <c-\>t :sp <cr>:exec("cs find t ".expand("<cword>"))<cr>
+        nnoremap <c-\>e :sp <cr>:exec("cs find e ".expand("<cword>"))<cr>
+        nnoremap <c-\>f :sp <cr>:exec("cs find f ".expand("<cfile>"))<cr>
+        nnoremap <c-\>i :sp <cr>:exec("cs find i ".expand("<cfile>"))<cr>
+        nnoremap <c-\>d :sp <cr>:exec("cs find d ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\>s :vs <cr>:exec("cs find s ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\>g :vs <cr>:exec("cs find g ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\>c :vs <cr>:exec("cs find c ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\>t :vs <cr>:exec("cs find t ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\>e :vs <cr>:exec("cs find e ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\>f :vs <cr>:exec("cs find f ".expand("<cfile>"))<cr>
+        nnoremap <c-\><c-\>i :vs <cr>:exec("cs find i ".expand("<cfile>"))<cr>
+        nnoremap <c-\><c-\>d :vs <cr>:exec("cs find d ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\><c-\>s :tab <cr>:exec("cs find s ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\><c-\>g :tab <cr>:exec("cs find g ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\><c-\>c :tab <cr>:exec("cs find c ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\><c-\>t :tab <cr>:exec("cs find t ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\><c-\>e :tab <cr>:exec("cs find e ".expand("<cword>"))<cr>
+        nnoremap <c-\><c-\><c-\>f :tab <cr>:exec("cs find f ".expand("<cfile>"))<cr>
+        nnoremap <c-\><c-\><c-\>i :tab <cr>:exec("cs find i ".expand("<cfile>"))<cr>
+        nnoremap <c-\><c-\><c-\>d :tab <cr>:exec("cs find d ".expand("<cword>"))<cr>
+    endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Plugin Options
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " CamelCaseMotion
@@ -637,11 +678,6 @@ filetype off
     xmap ib <Plug>CamelCaseMotion_ib
     omap ie <Plug>CamelCaseMotion_ie
     xmap ie <Plug>CamelCaseMotion_ie
-
-    " AutoTag
-    if filereadable("~/.vim/bundle/AutoTag/plugin/autotag.vim")
-        source ~/.vim/bundle/AutoTag/plugin/autotag.vim
-    endif
 
     " BufExplorer
     nnoremap <leader>be :tabnew \| BufExplorer<cr>
@@ -752,6 +788,9 @@ filetype off
     let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
     ca st SyntasticToggleMode
     ca sc SyntasticCheck
+
+    " TagBar
+    nnoremap <leader>tt :TagbarToggle<cr>
 
     " UltiSnips
     ca use UltiSnipsEdit
