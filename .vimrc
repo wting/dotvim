@@ -61,7 +61,7 @@ filetype off
     Bundle 'AndrewRadev/switch.vim'
     Bundle 'sjl/gundo.vim'
     Bundle 'Lokaltog/vim-easymotion'
-    Bundle "majutsushi/tagbar"
+    Bundle 'majutsushi/tagbar'
 
     " Powerline
     Bundle 'tpope/vim-fugitive'
