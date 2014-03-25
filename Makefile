@@ -1,8 +1,10 @@
 .PHONY: all
 
-upgrade: plugins-clean
+upgrade:
 	@echo "Updating branch..."
 	git pull
+	@echo "Removing unused plugins..."
+	vim +BundleClean! +qall
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 
