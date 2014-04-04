@@ -39,7 +39,7 @@ fi
     --prefix="$dst" \
     --with-compiledby=$email || exit 1
 
-[ -d "$dst" ] || mkdir -vp $dst
+[[ -d "$dst" ]] || mkdir -vp $dst
 
 make -j$(nproc) && make install || exit 1
 
@@ -53,6 +53,4 @@ $dst/bin/vim --version | head | grep --color "Compiled by $email"
 $dst/bin/vim --version | grep -E --color "[-+]python"
 echo -e "\ninstalled to: $dst\n"
 
-if [[ -d ${old_dst} ]]; then
-    rm -fr ${old_dst}
-fi
+[[ -d ${old_dst} ]] && rm -fr ${old_dst}
