@@ -1,12 +1,15 @@
 .PHONY: all
 
-upgrade: plugins-clean
+upgrade:
 	@echo "Updating branch..."
 	git pull
+	@echo "Removing unused plugins..."
+	vim +BundleClean! +qall
 	@echo "Updating plugins..."
 	vim +BundleInstall! +qall
 
-full-upgrade: vim upgrade
+full-upgrade: upgrade
+	./vim_user_install.sh
 
 plugins-clean:
 	@echo "Removing unused plugins..."
@@ -30,9 +33,6 @@ reinstall: plugins-purge install
 vundle:
 	@-rm -rf ~/.vim/bundle/vundle
 	git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-vim:
-	./vim_user_install.sh
 
 # required for powerline
 fonts:

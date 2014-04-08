@@ -2,7 +2,7 @@
 # Ubuntu requirements: mercurial ncurses-dev python-dev
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
-src="$tmp/vim_source"
+src="$tmp/src"
 old_dst=$HOME/bin/vim7.4
 dst=$HOME/bin/vim-7.4
 python27_config=/usr/lib/python2.7/config
@@ -18,9 +18,10 @@ else
     exit 1
 fi
 
-[ -d "$tmp" ] || mkdir -vp $tmp
+[[ -d "$tmp" ]] || mkdir -vp $tmp
+[[ -d "$tmp/vim_source" ]] && rm -fr "$tmp/vim_source"
 
-if [ -d "$src" ]; then
+if [[ -d "$src" ]]; then
     cd $src
     hg pull && hg update || exit 1
 else
@@ -38,7 +39,7 @@ fi
     --prefix="$dst" \
     --with-compiledby=$email || exit 1
 
-[ -d "$dst" ] || mkdir -vp $dst
+[[ -d "$dst" ]] || mkdir -vp $dst
 
 make -j$(nproc) && make install || exit 1
 
@@ -52,6 +53,4 @@ $dst/bin/vim --version | head | grep --color "Compiled by $email"
 $dst/bin/vim --version | grep -E --color "[-+]python"
 echo -e "\ninstalled to: $dst\n"
 
-if [[ -d ${old_dst} ]]; then
-    rm -fr ${old_dst}
-fi
+[[ -d ${old_dst} ]] && rm -fr ${old_dst}

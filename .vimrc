@@ -50,24 +50,21 @@ filetype off
     Bundle 'tpope/vim-surround'
     Bundle 'tpope/vim-repeat'
     Bundle 'tpope/vim-unimpaired'
+    Bundle 'wellle/targets.vim'
     Bundle 'camelcasemotion'
     Bundle 'scrooloose/nerdtree'
-    " Bundle 'scrooloose/nerdcommenter'
     Bundle 'wting/nerdcommenter'
     Bundle 'bufexplorer.zip'
     Bundle 'wting/gitsessions.vim'
     Bundle 'kien/ctrlp.vim'
-    " Bundle 'maxbrunsfeld/vim-yankstack'
     Bundle 'AndrewRadev/switch.vim'
     Bundle 'sjl/gundo.vim'
     Bundle 'Lokaltog/vim-easymotion'
-    Bundle "majutsushi/tagbar"
+    Bundle 'majutsushi/tagbar'
 
     " Powerline
     Bundle 'tpope/vim-fugitive'
-    " Bundle 'Lokaltog/vim-powerline'
     Bundle 'wting/vim-powerline'
-    " Bundle 'Lokaltog/powerline'
 
     " Appearance
     Bundle 'vim-scripts/CSApprox'
