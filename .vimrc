@@ -52,12 +52,10 @@ filetype off
     Bundle 'tpope/vim-unimpaired'
     Bundle 'wellle/targets.vim'
     Bundle 'camelcasemotion'
-    Bundle 'scrooloose/nerdtree'
     Bundle 'wting/nerdcommenter'
     Bundle 'bufexplorer.zip'
     Bundle 'wting/gitsessions.vim'
     Bundle 'kien/ctrlp.vim'
-    Bundle 'AndrewRadev/switch.vim'
     Bundle 'sjl/gundo.vim'
     Bundle 'Lokaltog/vim-easymotion'
     Bundle 'majutsushi/tagbar'
@@ -68,29 +66,23 @@ filetype off
 
     " Appearance
     Bundle 'vim-scripts/CSApprox'
-    " Bundle 'kien/rainbow_parentheses.vim'
     Bundle 'wting/rainbow_parentheses.vim'
     Bundle 'nathanaelkane/vim-indent-guides'
     Bundle 'kshenoy/vim-signature'
-    " Bundle 'wting/vim-signature'
     Bundle 'airblade/vim-gitgutter'
     Bundle 'ap/vim-css-color'
     Bundle 'guns/xterm-color-table.vim'
 
     " Syntax
-    " Bundle 'Soares/python.vim'
-    " NOTE(ting|2014-01-31): broken
-    " Bundle 'wting/lhaskell.vim'
-    Bundle 'wting/rust.vim'
     Bundle 'scrooloose/syntastic'
-    " Bundle 'plasticboy/vim-markdown'
+    Bundle 'wting/rust.vim'
     Bundle 'tpope/vim-markdown'
     Bundle 'groenewege/vim-less'
     Bundle 'vim-scripts/haskell.vim'
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'honza/dockerfile.vim'
     Bundle 'dag/vim-fish'
-    Bundle 'jnwhiteh/vim-golang'
+    " Bundle 'jnwhiteh/vim-golang'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
