@@ -29,6 +29,10 @@ from __future__ import print_function
 $0
 endsnippet
 
+snippet ddict "import defaultdict" b
+from collections import defaultdict
+endsnippet
+
 snippet partial "import partial" b
 from functools import partial
 endsnippet
@@ -47,10 +51,6 @@ endsnippet
 
 snippet starmap "import starmap" b
 from itertools import starmap
-endsnippet
-
-snippet imap "import imap" b
-from itertools import imap
 endsnippet
 
 snippet attr "import attrgetter" b
@@ -167,7 +167,7 @@ with open(${1:file}, 'r') as f:
 endsnippet
 
 snippet trace "test trace" b!
-import ipdb; ipdb.set_trace()
+from pprint import pprint as pp; import ipdb; ipdb.set_trace()
 endsnippet
 
 snippet "deb(ug)?" "debug" br!
@@ -176,11 +176,11 @@ endsnippet
 
 snippet "cp(def|rint)" "color print definition" br!
 def cprint(color, *args):
-	from pprint import pprint as pp
-	colors = dict(bw='\033[1;37m',r='\033[91m',g='\033[92m',b='\033[94m',y='\033[93m',p='\033[95m',n='\033[0m',)
-	print colors[color],
-	map(pp, args)
-	print colors['n']
+    from pprint import pprint as pp
+    colors = dict(bw='\033[1;37m',r='\033[91m',g='\033[92m',b='\033[94m',y='\033[93m',p='\033[95m',n='\033[0m',)
+    print colors[color],
+    map(pp, args)
+    print colors['n']
 
 endsnippet
 
@@ -197,11 +197,11 @@ print($0)
 endsnippet
 
 snippet setup "TestCase setup" b!
-	@T.setup
-	def setup(self):
-		self.biz_id = self.BusinessFactory.create(country='US')
-		self.advertizer_id, self.biz_user_id = \
-			self.AdvertiserFactory.create_with_biz_user(self.biz_id)
-		self.biz_user = self.logic.BizUser.load_by_id(self.biz_user_id)
-		self.biz_client.login(self.biz_user)
+    @T.setup
+    def setup(self):
+        self.biz_id = self.BusinessFactory.create(country='US')
+        self.advertizer_id, self.biz_user_id = \
+            self.AdvertiserFactory.create_with_biz_user(self.biz_id)
+        self.biz_user = self.logic.BizUser.load_by_id(self.biz_user_id)
+        self.biz_client.login(self.biz_user)
 endsnippet
