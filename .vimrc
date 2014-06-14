@@ -76,6 +76,7 @@ filetype off
     " Syntax
     Bundle 'scrooloose/syntastic'
     Bundle 'wting/rust.vim'
+    Bundle 'wting/cheetah.vim'
     Bundle 'tpope/vim-markdown'
     Bundle 'groenewege/vim-less'
     Bundle 'vim-scripts/haskell.vim'
