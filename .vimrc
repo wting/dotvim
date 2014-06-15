@@ -185,6 +185,8 @@ filetype off
     " reduce timeout to 5ms (from default 60ms) for large file support
     let g:matchparen_insert_timeout=5
 
+    " don't make backup for certain directories, allows crontab -e on osx
+    set backupskip=/tmp/*,/private/tmp/*
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM
