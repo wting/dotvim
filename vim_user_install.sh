@@ -1,5 +1,6 @@
 #!/bin/bash
 # Ubuntu requirements: mercurial ncurses-dev python-dev
+# Cygwin requirements: mercurial libncurses-devel python-dev
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
 src="$tmp/src"
