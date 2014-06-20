@@ -816,7 +816,7 @@ filetype off
         ca pfe PairFileEdit
         ca pfte PairFileTabEdit
         ca pfspe PairFileSplitEdit
-        ca pfvse PairFileVSplitEdit
+        ca pfve PairFileVSplitEdit
     endfunction
 
     augroup vimrc-work
