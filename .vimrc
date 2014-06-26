@@ -29,61 +29,61 @@ filetype off
 " Vundle Configuration
 "
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+" :PluginList          - list configured bundles
+" :PluginInstall(!)    - install(update) bundles
+" :PluginSearch(!) foo - search(or refresh cache first) for foo
+" :PluginClean(!)      - confirm(or auto-approve) removal of unused bundles
 "
 " see :h vundle for more details or wiki for FAQ
-" NOTE: comments after Bundle command are not allowed.
+" NOTE: comments after Plugin command are not allowed.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set rtp+=~/.vim/bundle/vundle/
     call vundle#rc()
-    Bundle 'gmarik/vundle'
+    Plugin 'gmarik/vundle'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Vundle Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " Utilities
-    Bundle 'SirVer/ultisnips'
-    Bundle 'tpope/vim-surround'
-    Bundle 'tpope/vim-repeat'
-    Bundle 'tpope/vim-unimpaired'
-    Bundle 'wellle/targets.vim'
-    Bundle 'camelcasemotion'
-    Bundle 'wting/nerdcommenter'
-    Bundle 'bufexplorer.zip'
-    Bundle 'wting/gitsessions.vim'
-    Bundle 'kien/ctrlp.vim'
-    Bundle 'sjl/gundo.vim'
-    Bundle 'Lokaltog/vim-easymotion'
-    Bundle 'majutsushi/tagbar'
+    Plugin 'SirVer/ultisnips'
+    Plugin 'tpope/vim-surround'
+    Plugin 'tpope/vim-repeat'
+    Plugin 'tpope/vim-unimpaired'
+    Plugin 'wellle/targets.vim'
+    Plugin 'camelcasemotion'
+    Plugin 'wting/nerdcommenter'
+    Plugin 'bufexplorer.zip'
+    Plugin 'wting/gitsessions.vim'
+    Plugin 'kien/ctrlp.vim'
+    Plugin 'sjl/gundo.vim'
+    Plugin 'Lokaltog/vim-easymotion'
+    Plugin 'majutsushi/tagbar'
 
     " Powerline
-    Bundle 'tpope/vim-fugitive'
-    Bundle 'wting/vim-powerline'
+    Plugin 'tpope/vim-fugitive'
+    Plugin 'wting/vim-powerline'
 
     " Appearance
-    Bundle 'vim-scripts/CSApprox'
-    Bundle 'wting/rainbow_parentheses.vim'
-    Bundle 'nathanaelkane/vim-indent-guides'
-    Bundle 'kshenoy/vim-signature'
-    Bundle 'airblade/vim-gitgutter'
-    Bundle 'ap/vim-css-color'
-    Bundle 'guns/xterm-color-table.vim'
+    Plugin 'vim-scripts/CSApprox'
+    Plugin 'wting/rainbow_parentheses.vim'
+    Plugin 'nathanaelkane/vim-indent-guides'
+    Plugin 'kshenoy/vim-signature'
+    Plugin 'airblade/vim-gitgutter'
+    Plugin 'ap/vim-css-color'
+    Plugin 'guns/xterm-color-table.vim'
 
     " Syntax
-    Bundle 'scrooloose/syntastic'
-    Bundle 'wting/rust.vim'
-    Bundle 'wting/cheetah.vim'
-    Bundle 'tpope/vim-markdown'
-    Bundle 'groenewege/vim-less'
-    Bundle 'vim-scripts/haskell.vim'
-    Bundle 'kchmck/vim-coffee-script'
-    Bundle 'honza/dockerfile.vim'
-    Bundle 'dag/vim-fish'
-    " Bundle 'jnwhiteh/vim-golang'
+    Plugin 'scrooloose/syntastic'
+    Plugin 'wting/rust.vim'
+    Plugin 'wting/cheetah.vim'
+    Plugin 'tpope/vim-markdown'
+    Plugin 'groenewege/vim-less'
+    Plugin 'vim-scripts/haskell.vim'
+    Plugin 'kchmck/vim-coffee-script'
+    Plugin 'honza/dockerfile.vim'
+    Plugin 'dag/vim-fish'
+    " Plugin 'jnwhiteh/vim-golang'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
