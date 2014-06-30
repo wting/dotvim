@@ -260,7 +260,7 @@ filetype off
     " LaTeX
     set wildignore+=*.aux,*.out,*.toc
     " Python
-    set wildignore+=*/venv/*,*.pyc,*.pyo
+    set wildignore+=.tox,*/virtualenv_run/*,*/venv/*,*.pyc,*.pyo
     " Windows
     set wildignore+=*.exe,*.dll,*.manifest,*.spl
     " misc
