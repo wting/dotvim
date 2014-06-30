@@ -818,7 +818,7 @@ filetype off
         ca gv Gvsplit canon/master:%
         ca pfe PairFileEdit
         ca pfte PairFileTabEdit
-        ca pfspe PairFileSplitEdit
+        ca pfse PairFileSplitEdit
         ca pfve PairFileVSplitEdit
     endfunction
 
