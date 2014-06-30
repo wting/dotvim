@@ -79,6 +79,7 @@ filetype off
     Bundle 'wting/cheetah.vim'
     Bundle 'tpope/vim-markdown'
     Bundle 'groenewege/vim-less'
+    Bundle 'elzr/vim-json'
     Bundle 'vim-scripts/haskell.vim'
     Bundle 'kchmck/vim-coffee-script'
     Bundle 'honza/dockerfile.vim'
