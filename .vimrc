@@ -74,16 +74,17 @@ filetype off
     Plugin 'guns/xterm-color-table.vim'
 
     " Syntax
-    Plugin 'scrooloose/syntastic'
-    Plugin 'wting/rust.vim'
-    Plugin 'wting/cheetah.vim'
-    Plugin 'tpope/vim-markdown'
-    Plugin 'groenewege/vim-less'
-    Plugin 'vim-scripts/haskell.vim'
-    Plugin 'kchmck/vim-coffee-script'
-    Plugin 'honza/dockerfile.vim'
-    Plugin 'dag/vim-fish'
-    " Plugin 'jnwhiteh/vim-golang'
+    Bundle 'scrooloose/syntastic'
+    Bundle 'wting/rust.vim'
+    Bundle 'wting/cheetah.vim'
+    Bundle 'tpope/vim-markdown'
+    Bundle 'groenewege/vim-less'
+    Bundle 'elzr/vim-json'
+    Bundle 'vim-scripts/haskell.vim'
+    Bundle 'kchmck/vim-coffee-script'
+    Bundle 'honza/dockerfile.vim'
+    Bundle 'dag/vim-fish'
+    " Bundle 'jnwhiteh/vim-golang'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -259,7 +260,7 @@ filetype off
     " LaTeX
     set wildignore+=*.aux,*.out,*.toc
     " Python
-    set wildignore+=*/venv/*,*.pyc,*.pyo
+    set wildignore+=.tox,*/virtualenv_run/*,*/venv/*,*.pyc,*.pyo
     " Windows
     set wildignore+=*.exe,*.dll,*.manifest,*.spl
     " misc
@@ -818,7 +819,7 @@ filetype off
         ca gv Gvsplit canon/master:%
         ca pfe PairFileEdit
         ca pfte PairFileTabEdit
-        ca pfspe PairFileSplitEdit
+        ca pfse PairFileSplitEdit
         ca pfve PairFileVSplitEdit
     endfunction
 
