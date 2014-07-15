@@ -544,6 +544,8 @@ filetype off
     vnoremap <Leader>p "+p
     vnoremap <Leader>P "+P
 
+    nnoremap <c-a> GVgg
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Text, Tab and Indent
