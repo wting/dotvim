@@ -74,17 +74,17 @@ filetype off
     Plugin 'guns/xterm-color-table.vim'
 
     " Syntax
-    Bundle 'scrooloose/syntastic'
-    Bundle 'wting/rust.vim'
-    Bundle 'wting/cheetah.vim'
-    Bundle 'tpope/vim-markdown'
-    Bundle 'groenewege/vim-less'
-    Bundle 'elzr/vim-json'
-    Bundle 'vim-scripts/haskell.vim'
-    Bundle 'kchmck/vim-coffee-script'
-    Bundle 'honza/dockerfile.vim'
-    Bundle 'dag/vim-fish'
-    " Bundle 'jnwhiteh/vim-golang'
+    Plugin 'scrooloose/syntastic'
+    Plugin 'wting/rust.vim'
+    Plugin 'wting/cheetah.vim'
+    Plugin 'tpope/vim-markdown'
+    Plugin 'groenewege/vim-less'
+    Plugin 'elzr/vim-json'
+    Plugin 'vim-scripts/haskell.vim'
+    Plugin 'kchmck/vim-coffee-script'
+    Plugin 'honza/dockerfile.vim'
+    Plugin 'dag/vim-fish'
+    " Plugin 'jnwhiteh/vim-golang'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
