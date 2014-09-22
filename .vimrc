@@ -776,7 +776,8 @@ filetype off
         \ 'level': 'warnings',
         \ 'regex': 'Defined by not used', }
     let g:syntastic_python_checkers = ['flake8']
-    let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
+    " let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
+    let g:syntastic_python_flake8_args = '--max-line-length=131 --max-complexity=10'
     ca st SyntasticToggleMode
     ca sc SyntasticCheck
 
