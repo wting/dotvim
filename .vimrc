@@ -414,9 +414,7 @@ filetype off
     noremap <silent> <c-l> :tabnext<cr>
 
     " move between windows
-    imap <c-n> <c-w>w
     nmap <c-n> <c-w>w
-    imap <c-p> <c-w>W
     nmap <c-p> <c-w>W
 
     " redraw screen and remove search highlights
