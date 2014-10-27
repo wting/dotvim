@@ -53,7 +53,7 @@ filetype off
     Plugin 'wellle/targets.vim'
     Plugin 'camelcasemotion'
     Plugin 'wting/nerdcommenter'
-    Plugin 'bufexplorer.zip'
+    Plugin 'wting/bufexplorer.vim'
     Plugin 'wting/gitsessions.vim'
     Plugin 'kien/ctrlp.vim'
     Plugin 'sjl/gundo.vim'
