@@ -261,11 +261,11 @@ filetype off
     " LaTeX
     set wildignore+=*.aux,*.out,*.toc
     " Python
-    set wildignore+=.tox,*/appengine/*,*/virtualenv_run/*,*/venv/*,*.pyc,*.pyo
+    set wildignore+=.tox,*/appengine/**,*/virtualenv_run/**,*/venv/**,*.pyc,*.pyo
     " Windows
     set wildignore+=*.exe,*.dll,*.manifest,*.spl
     " misc
-    set wildignore+=*/tmp/*,*.zip
+    set wildignore+=*/tmp/**,*.zip
 
     set tags=./tags;/
 
