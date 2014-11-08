@@ -59,6 +59,7 @@ filetype off
     Plugin 'sjl/gundo.vim'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'majutsushi/tagbar'
+    Plugin 'Konfekt/FastFold'
 
     " Powerline
     Plugin 'tpope/vim-fugitive'
