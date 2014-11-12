@@ -262,7 +262,7 @@ filetype off
     " LaTeX
     set wildignore+=*.aux,*.out,*.toc
     " Python
-    set wildignore+=.tox,*/google_appengine/**,*/virtualenv_run/**,*/venv/**,*.pyc,*.pyo
+    set wildignore+=.tox,*.pyc,*.pyo
     " Windows
     set wildignore+=*.exe,*.dll,*.manifest,*.spl
     " misc
@@ -686,7 +686,8 @@ filetype off
     let g:ctrlp_match_window_reversed = 1
     let g:ctrlp_follow_symlinks = 1
     let g:ctrlp_lazy_update = 0
-    let g:ctrlp_use_caching = 1000
+    let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_use_caching = 5000
     let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
     let g:ctrlp_clear_cache_on_exit = 0
     let g:ctrlp_show_hidden = 1
@@ -699,10 +700,24 @@ filetype off
         \ 'AcceptSelection("t")': ['<cr>', '<c-t>', '<2-LeftMouse>'],
         \ 'AcceptSelection("h")': ['<c-s>', '<c-x>'],
         \ }
-    set wildignore+=build/**
-    set wildignore+=htdocs/**
-    set wildignore+=*/build/*
-    set wildignore+=*/htdocs/*
+    " use external tools for finding files, faster for large directories
+    let g:ctrlp_user_command = {
+        \ 'types': {
+            \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+            \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
+        \ },
+        \ 'fallback': "find %s " .
+            \ "-type f" .
+            \ "-regextype posix-egrep" .
+            \ "! -path './.hg/*'" .
+            \ "! -path './.git/*'" .
+            \ "! -path './.svn/*'" .
+            \ "! -path './.tox/*'" .
+            \ "! -path '*.egg-info*/*'" .
+            \ "! -path '*.build.*'" .
+            \ "! -path './venv*/*'" .
+            \ "! -path './virtualenv*/*'"
+        \ }
 
     " CSApprox
     let g:CSApprox_verbose_level = 0
@@ -814,12 +829,10 @@ filetype off
 " Work
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     function! WorkSettings()
-        set wildignore+=build/**
-        set wildignore+=htdocs/**
-        ca ge Gedit canon/master:%
-        ca gt Gtabedit canon/master:%
-        ca gs Gsplit canon/master:%
-        ca gv Gvsplit canon/master:%
+        " ca ge Gedit canon/master:%
+        " ca gt Gtabedit canon/master:%
+        " ca gs Gsplit canon/master:%
+        " ca gv Gvsplit canon/master:%
         ca pfe PairFileEdit
         ca pfte PairFileTabEdit
         ca pfse PairFileSplitEdit
