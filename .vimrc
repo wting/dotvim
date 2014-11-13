@@ -686,7 +686,7 @@ filetype off
     let g:ctrlp_match_window_reversed = 1
     let g:ctrlp_follow_symlinks = 1
     let g:ctrlp_lazy_update = 0
-    let g:ctrlp_working_path_mode = 0
+    let g:ctrlp_working_path_mode = 'ra'
     let g:ctrlp_use_caching = 5000
     let g:ctrlp_cache_dir = '~/.vim/tmp/ctrlp'
     let g:ctrlp_clear_cache_on_exit = 0
