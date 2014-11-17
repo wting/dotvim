@@ -842,3 +842,6 @@ filetype off
     augroup vimrc-work
         au BufNewFile,BufRead ~/pg/* call WorkSettings()
     augroup END
+
+    " indent lines with single argument per line
+    let @i = 't,llli'
