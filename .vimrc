@@ -515,18 +515,18 @@ filetype off
 
     " manipulate text using alt + hjkl
     " FIXME: use alt key mappings (2013.06.06_2218, ting)
-    nnoremap <a-j> :m+<cr>==
-    nnoremap <a-k> :m-2<cr>==
-    nnoremap <a-h> <<
-    nnoremap <a-l> >>
-    inoremap <a-j> <esc>:m+<cr>==gi
-    inoremap <a-k> <esc>:m-2<cr>==gi
-    inoremap <a-h> <esc><<`]a
-    inoremap <a-l> <esc>>>`]a
-    vnoremap <a-j> :m'>+<cr>gv=gv
-    vnoremap <a-k> :m-2<cr>gv=gv
-    vnoremap <a-h> <gv
-    vnoremap <a-l> >gv
+    " nnoremap <a-j> :m+<cr>==
+    " nnoremap <a-k> :m-2<cr>==
+    " nnoremap <a-h> <<
+    " nnoremap <a-l> >>
+    " inoremap <a-j> <esc>:m+<cr>==gi
+    " inoremap <a-k> <esc>:m-2<cr>==gi
+    " inoremap <a-h> <esc><<`]a
+    " inoremap <a-l> <esc>>>`]a
+    " vnoremap <a-j> :m'>+<cr>gv=gv
+    " vnoremap <a-k> :m-2<cr>gv=gv
+    " vnoremap <a-h> <gv
+    " vnoremap <a-l> >gv
 
     " insert lines above/below
     " FIXME: create mapping for insert line above (2013.06.06_2219, ting)
@@ -560,6 +560,17 @@ filetype off
     " listchars=tab:▸\ ,eol:¬
 
     " jump to tabs directly
+    nnoremap <leader>1 :tabnext 1<cr>
+    nnoremap <leader>2 :tabnext 2<cr>
+    nnoremap <leader>3 :tabnext 3<cr>
+    nnoremap <leader>4 :tabnext 4<cr>
+    nnoremap <leader>5 :tabnext 5<cr>
+    nnoremap <leader>6 :tabnext 6<cr>
+    nnoremap <leader>7 :tabnext 7<cr>
+    nnoremap <leader>8 :tabnext 8<cr>
+    nnoremap <leader>9 :tabnext 9<cr>
+    nnoremap <leader>0 :tabnext 10<cr>
+    " There are a lot of problems with binding meta keys in terminal / OSX
     " inoremap <a-1> 1gt
     " nnoremap <a-1> 1gt
     " inoremap <a-2> 2gt
