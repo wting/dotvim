@@ -422,11 +422,15 @@ filetype off
     " redraw screen and remove search highlights
     nnoremap <silent> = :noh<cr>
 
-    " navigate wrapped lines
+    " navigate wrapped lines as if they're real lines
     nnoremap k gk
     nnoremap j gj
     nnoremap gk k
     nnoremap gj j
+
+    " use real lines instead of wrapped lines when jumping vertically
+    nnoremap <expr> k (v:count ? 'k' : 'gk')
+    nnoremap <expr> j (v:count ? 'j' : 'gj')
 
     " general movement
     nmap <s-k> <pageup>
