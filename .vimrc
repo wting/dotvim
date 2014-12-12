@@ -60,6 +60,8 @@ filetype off
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'majutsushi/tagbar'
     Plugin 'Konfekt/FastFold'
+    " Plugin 'xolox/vim-easytags'
+    " Plugin 'xolox/vim-misc'
 
     " Powerline
     Plugin 'tpope/vim-fugitive'
@@ -737,6 +739,16 @@ filetype off
     " let g:EasyMotion_keys = 'sadfjklewcmpghSADFJKLEWCMPGH'
     let g:EasyMotion_keys = 'abcdefghijklmnopqrstuvwxyz'
     nnoremap f H:call EasyMotion#WB(0, 0)<cr>
+
+    " EasyTags
+    let g:easytags_async = 1
+    " use or create project specific tags file
+    let g:easytags_dynamic_files = 2
+    let g:easytags_file = '$HOME/.vim/tags'
+    let g:easytags_events = ['BufWritePost']
+    " very slow in large repos
+    let g:easytags_autorecurse = 1
+    let g:easytags_opts = ['--fields=+iaS --python-kinds=-i --sort=yes --extra=+q']
 
     " gitsessions.vim
     let g:gitsessions_dir = 'tmp/gitsessions'
