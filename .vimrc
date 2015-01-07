@@ -725,15 +725,15 @@ filetype off
             \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
         \ },
         \ 'fallback': "find %s " .
-            \ "-type f" .
-            \ "-regextype posix-egrep" .
-            \ "! -path './.hg/*'" .
-            \ "! -path './.git/*'" .
-            \ "! -path './.svn/*'" .
-            \ "! -path './.tox/*'" .
-            \ "! -path '*.egg-info*/*'" .
-            \ "! -path '*.build.*'" .
-            \ "! -path './venv*/*'" .
+            \ "-type f " .
+            \ "-regextype posix-egrep " .
+            \ "! -path './.hg/*' " .
+            \ "! -path './.git/*' " .
+            \ "! -path './.svn/*' " .
+            \ "! -path './.tox/*' " .
+            \ "! -path '*.egg-info*/*' " .
+            \ "! -path '*.build.*' " .
+            \ "! -path './venv*/*' " .
             \ "! -path './virtualenv*/*'"
         \ }
 
