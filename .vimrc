@@ -59,7 +59,8 @@ filetype off
     Plugin 'sjl/gundo.vim'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'majutsushi/tagbar'
-    Plugin 'Konfekt/FastFold'
+    " currently broken
+    " Plugin 'Konfekt/FastFold'
     " Plugin 'xolox/vim-easytags'
     " Plugin 'xolox/vim-misc'
 
