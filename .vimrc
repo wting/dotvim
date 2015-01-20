@@ -235,6 +235,9 @@ filetype off
     "highlight clear SignColumn
     hi! link SignColumn LineNr
 
+    " highlight current word under cursor
+    autocmd CursorMoved * silent! exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    " autocmd CursorMoved * silent! exe printf('match DiffText /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
