@@ -229,6 +229,10 @@ filetype off
     " dark tab display for indent guides
     set background=dark
 
+    " see highlighted colors
+    " :hi
+    " :so $VIMRUNTIME/syntax/hitest.vim
+
     " hlsearch color
     hi! Search term=reverse ctermfg=255 ctermbg=130
 
@@ -237,8 +241,8 @@ filetype off
     hi! link SignColumn LineNr
 
     " highlight current word under cursor
-    autocmd CursorMoved * silent! exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
-    " autocmd CursorMoved * silent! exe printf('match DiffText /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    " autocmd CursorMoved * silent! exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+    autocmd CursorMoved * silent! exe printf('match CursorLine  /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
