@@ -774,6 +774,12 @@ filetype off
     " Gundo
     ca gdt GundoToggle
 
+    " mergetool notes
+    " http://www.rosipov.com/blog/use-vimdiff-as-git-mergetool/
+    " diffg RE " get from REMOTE
+    " diffg BA " get from BASE
+    " diffg LO " get from LOCAL
+
     " Indent Guides
     let g:indent_guides_enable_on_vim_startup = 1
     let g:indent_guides_guide_size = 1
