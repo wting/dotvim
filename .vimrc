@@ -55,6 +55,7 @@ filetype off
     Plugin 'wting/nerdcommenter'
     Plugin 'wting/bufexplorer.vim'
     Plugin 'wting/gitsessions.vim'
+    Plugin 'wting/pair_files.vim'
     Plugin 'kien/ctrlp.vim'
     Plugin 'sjl/gundo.vim'
     Plugin 'Lokaltog/vim-easymotion'
