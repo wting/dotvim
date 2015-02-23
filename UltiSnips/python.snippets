@@ -17,8 +17,16 @@ from __future__ import print_function
 $0
 endsnippet
 
+snippet flatten "import flatten" b
+from compiler.ast import flatten
+endsnippet
+
 snippet chain "import chain" b
 from itertools import chain
+endsnippet
+
+snippet cycle "import cycle" b
+from itertools import cycle
 endsnippet
 
 snippet ddict "import defaultdict" b
@@ -27,6 +35,10 @@ endsnippet
 
 snippet defaultdict "import defaultdict" b
 from collections import defaultdict
+endsnippet
+
+snippet nested "import nested" b
+from contextlib import nested
 endsnippet
 
 snippet partial "import partial" b
