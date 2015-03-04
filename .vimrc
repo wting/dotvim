@@ -174,6 +174,7 @@ filetype off
     set foldlevel=20
     set foldlevelstart=20
     set showtabline=2
+    au BufRead * normal zR
 
     " remove trailing whitespace
     function! StripTrailingWhitespaces()
