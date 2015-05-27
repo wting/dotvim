@@ -555,14 +555,17 @@ filetype off
     map Y y$
 
     " yank and paste from system register / clipboard
-    vnoremap <Leader>y "+y
-    vnoremap <Leader>d "+d
-    nnoremap <Leader>p "+p
-    nnoremap <Leader>P "+P
-    vnoremap <Leader>p "+p
-    vnoremap <Leader>P "+P
+    vnoremap <leader>y "+y
+    vnoremap <leader>d "+d
+    nnoremap <leader>p "+p
+    nnoremap <leader>P "+P
+    vnoremap <leader>p "+p
+    vnoremap <leader>P "+P
 
     nnoremap <c-a> GVgg
+
+    " Use space instead of C-y for tab suggestion completion
+    inoremap <expr> <space> pumvisible() ? "\<c-y>" : " "
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
