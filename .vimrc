@@ -281,7 +281,8 @@ filetype off
     " misc
     set wildignore+=*/tmp/**,*.zip
 
-    set tags=./tags;/
+    " This results in duplicate tag entries when searching.
+    " set tags=./tags;/
 
     " forgot sudo?
     cnoremap w!! w !sudo tee % >/dev/null
