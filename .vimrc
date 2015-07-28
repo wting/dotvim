@@ -46,7 +46,8 @@ filetype off
 " Vundle Plugins
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " Utilities
-    Plugin 'SirVer/ultisnips'
+    " Plugin 'SirVer/ultisnips'
+    Plugin 'wting/ultisnips'
     Plugin 'tpope/vim-surround'
     Plugin 'tpope/vim-repeat'
     Plugin 'tpope/vim-unimpaired'
