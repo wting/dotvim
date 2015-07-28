@@ -775,6 +775,7 @@ filetype off
 
     " gitsessions.vim
     let g:gitsessions_dir = 'tmp/gitsessions'
+    let g:gitsessions_use_cache = 1
     nnoremap <leader>ss :GitSessionSave<cr>
     nnoremap <leader>ls :GitSessionLoad<cr>
     nnoremap <leader>ds :GitSessionDelete<cr>
