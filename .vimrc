@@ -611,11 +611,9 @@ filetype off
     " http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
     nnoremap <f6> gg gqG<cr>
 
-    " Move tabs left/right http://stackoverflow.com/a/7192324/195139
-    nnoremap <silent> <s-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
-    nnoremap <silent> <s-right> :execute 'silent! tabmove ' . tabpagenr()<cr>
-    " nnoremap <silent> <c-s-h> :execute 'silent! tabmove ' . (tabpagenr()-2)<cr>
-    " nnoremap <silent> <c-s-l> :execute 'silent! tabmove ' . tabpagenr()<cr>
+    " Move tabs left/right
+    nnoremap <silent> <s-left> :-tabmove<cr>
+    nnoremap <silent> <s-right> :+tabmove<cr>
 
     " duplicate current tab
     nnoremap <c-y> :tabnew %<cr>
