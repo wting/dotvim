@@ -897,4 +897,4 @@ filetype off
     " indent lines with single argument per line
     let @i = 't,llli'
     " indent lines with single argument per line for piped commands
-    let @p = ':%s:\v\|:\r\t\|:'
+    let @p = ':%s:\v\|:\r\|:'
