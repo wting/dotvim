@@ -4,9 +4,9 @@ upgrade:
 	@echo "Updating branch..."
 	git pull
 	@echo "Removing unused plugins..."
-	vim +PluginClean! +qall
+	vim +BundleClean! +qall
 	@echo "Updating plugins..."
-	vim +PluginInstall! +qall
+	vim +BundleInstall! +qall
 
 full-upgrade: upgrade
 	./vim_user_install.sh
@@ -25,7 +25,7 @@ plugins-purge:
 
 plugins-upgrade:
 	@echo "Installing plugins..."
-	vim +PluginInstall +qall
+	vim +BundleUpdate +qall
 
 install: vundle fonts
 	@-[ -L ~/.vimrc ] && rm ~/.vimrc
