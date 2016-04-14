@@ -58,6 +58,7 @@ filetype off
     Plugin 'wting/gitsessions.vim'
     Plugin 'wting/pair_files.vim'
     Plugin 'kien/ctrlp.vim'
+    Plugin 'FelikZ/ctrlp-py-matcher'
     Plugin 'sjl/gundo.vim'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'majutsushi/tagbar'
@@ -726,6 +727,7 @@ filetype off
     let g:ctrlp_max_files = 50000
     let g:ctrlp_max_height = 20
     let g:ctrlp_open_multiple_files = 'tj'
+    let g:ctrlp_match_func = { 'match': 'pymatcher#PyMatch' }
     " make tabs default behavior
     let g:ctrlp_prompt_mappings = {
         \ 'AcceptSelection("e")': ['<c-b>'],
