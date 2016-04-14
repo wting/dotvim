@@ -13,7 +13,11 @@ full-upgrade: upgrade
 
 plugins-clean:
 	@echo "Removing unused plugins..."
-	vim +PluginClean! +qall
+	vim +BundleClean! +qall
+
+plugins-install:
+	@echo "Installing plugins..."
+	vim +BundleInstall +qall
 
 plugins-purge:
 	@echo "Removing all plugins..."
