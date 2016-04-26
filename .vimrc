@@ -411,7 +411,7 @@ filetype off
 
     " misc
     ca ln lnext
-    command! PrettyJSON :%!python -m json.tool
+    command! PrettyJSON set ft=json | :%!python -m json.tool
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
