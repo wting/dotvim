@@ -810,14 +810,14 @@ filetype off
     ca rbt RainbowParenthesesToggle
     ca rbta RainbowParenthesesToggleAll
     let g:rbpt_colorpairs = [
-        \ ['3',         '808000'],
-        \ ['6',         '008080'],
-        \ ['202',       'ff5f00'],
-        \ ['11',        'ffff00'],
-        \ ['13',        'ff00ff'],
-        \ ['10',        '00ff00'],
-        \ ['45',        '00dfff'],
-        \ ['9',         'ff0000'],
+        \ ['3',         '#808000'],
+        \ ['6',         '#008080'],
+        \ ['202',       '#ff5f00'],
+        \ ['11',        '#ffff00'],
+        \ ['13',        '#ff00ff'],
+        \ ['10',        '#00ff00'],
+        \ ['45',        '#00dfff'],
+        \ ['9',         '#ff0000'],
         \ ]
 
     augroup RainbowParentheses
