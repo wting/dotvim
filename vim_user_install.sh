@@ -1,6 +1,6 @@
 #!/bin/bash
-# Ubuntu requirements: mercurial ncurses-dev python-dev
-# Cygwin requirements: mercurial libncurses-devel python-dev
+# Ubuntu requirements: ncurses-dev python-dev
+# Cygwin requirements: libncurses-devel python-dev
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
 src="$tmp/src"
@@ -24,9 +24,9 @@ fi
 
 if [[ -d "$src" ]]; then
     cd $src
-    hg pull && hg update || exit 1
+    git fetch origin --prune && git reset --hard origin/master || exit 1
 else
-    hg clone https://vim.googlecode.com/hg/ $src || exit 1
+    git clone https://github.com/vim/vim.git $src || exit 1
     cd $src
 fi
 
