@@ -83,7 +83,7 @@ filetype off
 
     " Syntax
     Plugin 'scrooloose/syntastic'
-    Plugin 'wting/rust.vim'
+    Plugin 'rust-lang/rust.vim'
     Plugin 'wting/cheetah.vim'
     Plugin 'tpope/vim-markdown'
     Plugin 'groenewege/vim-less'
