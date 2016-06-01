@@ -157,9 +157,6 @@ filetype off
     "change default grep behavior
     set grepprg=gp\ -n
 
-    " YankStack must be called before other mappings
-    " call yankstack#setup()
-
     " automatically resize vertical splits.
     augroup vimrc-vertical_splits
         au WinEnter * set winfixheight
@@ -224,13 +221,10 @@ filetype off
     " shows the current line in different color
     set cursorline
 
-    " let g:zenburn_high_Contrast = 1
-    " let g:zenburn_force_dark_Background = 1
-    " let g:zenburn_unified_CursorColumn = 1
-    colorscheme zenburn
-
     " highlight current line
     au ColorScheme * hi CursorLine term=underline ctermbg=darkblue
+
+    colorscheme zenburn
 
     " dark tab display for indent guides
     set background=dark
@@ -243,11 +237,9 @@ filetype off
     hi! Search term=reverse ctermfg=255 ctermbg=130
 
     " make sign column same color as theme
-    "highlight clear SignColumn
     hi! link SignColumn LineNr
 
     " highlight current word under cursor
-    " autocmd CursorMoved * silent! exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
     autocmd CursorMoved * silent! exe printf('match CursorLine  /\V\<%s\>/', escape(expand('<cword>'), '/\'))
 
 
@@ -313,7 +305,6 @@ filetype off
         au BufWinLeave * silent! mkview
     augroup END
 
-
     " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
     " Tell vim to remember certain things when we exit
     "  '50   :  marks will be remembered for up to  previously edited files
@@ -327,30 +318,6 @@ filetype off
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " General Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " my session management
-    function! MySessionFile()
-        return $HOME . '/.vim/tmp/mysession.vim'
-    endfunction
-
-    function! MySaveSession()
-        let l:sessionfile = MySessionFile()
-        exe "mksession! " . l:sessionfile
-        echom "session created: " . l:sessionfile
-    endfunction
-
-    function! MyLoadSession()
-        let l:sessionfile = MySessionFile()
-        if (filereadable(l:sessionfile))
-            echom "session loaded: " . l:sessionfile
-            exe 'source ' l:sessionfile
-        else
-            echom "session not found: " . l:sessionfile
-        endif
-    endfunction
-
-    command! MSS call MySaveSession()
-    command! MLS call MyLoadSession()
-
     " open shell command in new scratch buffer
     command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
     function! s:RunShellCommand(cmdline)
@@ -419,12 +386,8 @@ filetype off
 " Moving Around
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " arrow keys allowed
-    " inoremap <silent> <up> <esc>:bprev<cr>
-    " inoremap <silent> <down> <esc>:bnext<cr>
     inoremap <silent> <left> <esc>:tabprev<cr>
     inoremap <silent> <right> <esc>:tabnext<cr>
-    " noremap <silent> <up> :bprev<cr>
-    " noremap <silent> <down> :bnext<cr>
     noremap <silent> <left> :tabprev<cr>
     noremap <silent> <right> :tabnext<cr>
 
@@ -459,37 +422,6 @@ filetype off
     nnoremap H ^
     nnoremap L $
 
-    " # FIXME: fix sections with K&R braces (2013.06.17_1207, wting)
-    " http://vimdoc.sourceforge.net/htmldoc/motion.html#section
-    " nnoremap [[ ?{<cr>w99[{
-    " " nnoremap ]] j0[[%/{<cr>
-    " nnoremap ]] ?{<cr>w99[{%
-    " nnoremap ][ /}<cr>b99]}
-    " nnoremap [] k$][%?}<cr>
-
-    " Buffer Specific ^o and ^i
-    " http://stackoverflow.com/questions/7066456/vim-how-to-prevent-jumps-out-of-current-buffer
-    " http://stackoverflow.com/a/7075070/195139
-
-    " function! JumpInFile(back, forw)
-        " let [n, i] = [bufnr('%'), 1]
-        " let p = [n] + getpos('.')[1:]
-        " sil! exe 'norm!1' . a:forw
-        " while 1
-            " let p1 = [bufnr('%')] + getpos('.')[1:]
-            " if n == p1[0] | break | endif
-            " if p == p1
-                " sil! exe 'norm!' . (i-1) . a:back
-                " break
-            " endif
-            " let [p, i] = [p1, i+1]
-            " sil! exe 'norm!1' . a:forw
-        " endwhile
-    " endfunction
-
-    " nnoremap <silent> <c-k> :call JumpInFile("\<c-i>", "\<c-o>")<cr>
-    " nnoremap <silent> <c-j> :call JumpInFile("\<c-o>", "\<c-i>")<cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Mappings
@@ -509,12 +441,6 @@ filetype off
     " reduce keystrokes for command mode
     inoremap ;w <esc>:w<cr>a
     nnoremap ; :
-
-    " return cursor to previous position after dot command
-    " nnoremap . mz.`zmz
-
-    " toggle line numbers
-    " nnoremap <c-n><c-n> :set invnumber<cr>
 
     " default to line visual block selection
     nnoremap v V
@@ -536,24 +462,7 @@ filetype off
     inoremap <c-d> <esc>ddi
     inoremap <c-u> <esc>gUiwi<esc>
 
-    " manipulate text using alt + hjkl
-    " FIXME: use alt key mappings (2013.06.06_2218, ting)
-    " nnoremap <a-j> :m+<cr>==
-    " nnoremap <a-k> :m-2<cr>==
-    " nnoremap <a-h> <<
-    " nnoremap <a-l> >>
-    " inoremap <a-j> <esc>:m+<cr>==gi
-    " inoremap <a-k> <esc>:m-2<cr>==gi
-    " inoremap <a-h> <esc><<`]a
-    " inoremap <a-l> <esc>>>`]a
-    " vnoremap <a-j> :m'>+<cr>gv=gv
-    " vnoremap <a-k> :m-2<cr>gv=gv
-    " vnoremap <a-h> <gv
-    " vnoremap <a-l> >gv
-
     " insert lines above/below
-    " FIXME: create mapping for insert line above (2013.06.06_2219, ting)
-    " nnoremap <s-enter> O<cr><esc>
     nnoremap <cr> o<esc>
 
     " make Y behave like other capitals
@@ -579,7 +488,8 @@ filetype off
     set autoindent
     set tabstop=4
     set shiftwidth=4
-    set shiftround 				" use multiples of shiftwidth when using < or >
+    " use multiples of shiftwidth when using < or >
+    set shiftround
 
     " show tab symbols
     " set list
@@ -596,13 +506,6 @@ filetype off
     nnoremap <leader>8 :tabnext 8<cr>
     nnoremap <leader>9 :tabnext 9<cr>
     nnoremap <leader>0 :tabnext 10<cr>
-    " There are a lot of problems with binding meta keys in terminal / OSX
-    " inoremap <a-1> 1gt
-    " nnoremap <a-1> 1gt
-    " inoremap <a-2> 2gt
-    " nnoremap <a-2> 2gt
-    " inoremap <a-3> 3gt
-    " nnoremap <a-3> 3gt
 
     " indent
     ca 2et setlocal ts=2 sts=2 sw=2 et
@@ -610,9 +513,6 @@ filetype off
     ca 4et setlocal ts=4 sts=4 sw=4 et
     ca 4noet setlocal ts=4 sts=4 sw=4 noet
     ca cc80 sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80
-
-    " http://stackoverflow.com/questions/3033423/vim-command-to-restructure-force-text-to-80-columns
-    nnoremap <f6> gg gqG<cr>
 
     " Move tabs left/right
     nnoremap <silent> <s-left> :-tabmove<cr>
@@ -630,64 +530,17 @@ filetype off
     nnoremap <c-\><c-\> :vs <cr>:exec("tag ".expand("<cword>"))<cr>
     nnoremap <c-\><c-\><c-\> :tab split<cr>:exec("tag ".expand("<cword>"))<cr>
 
-    " TODO: check that it works (2013.06.06_2225, ting)
+    " FIXME(wting|2013-06-06): setup cscope support
     " http://vim.wikia.com/wiki/Cscope
     " http://cscope.sourceforge.net/cscope_maps.vim
     " https://github.com/brookhong/cscope.vim/blob/master/plugin/cscope.vim
     if has('cscope')
         " always search cscope database in addition to tag files
         set cscopetag
-
         " prevents jumping to first tag
         set cscopeverbose
-
         " search cscope before ctags
         set csto=0
-
-        if has('quickfix')
-            set cscopequickfix=s-,c-,d-,i-,t-,e-
-        endif
-
-        cnoreabbrev <expr> csa
-            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs add ./cscope.out'  : 'csa')
-        cnoreabbrev <expr> csf
-            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs find' : 'csf')
-        cnoreabbrev <expr> csk
-            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs kill' : 'csk')
-        cnoreabbrev <expr> csr
-            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs reset' : 'csr')
-        cnoreabbrev <expr> css
-            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs show' : 'css')
-        cnoreabbrev <expr> csh
-            \ ((getcmdtype() == ':' && getcmdpos() <= 4)? 'cs help' : 'csh')
-
-        command -nargs=0 Cscope cs add $VIMSRC/src/cscope.out $VIMSRC/src
-
-        " open cscope results as split / vertical split / tab
-        nnoremap <c-\>s :sp <cr>:exec("cs find s ".expand("<cword>"))<cr>
-        nnoremap <c-\>g :sp <cr>:exec("cs find g ".expand("<cword>"))<cr>
-        nnoremap <c-\>c :sp <cr>:exec("cs find c ".expand("<cword>"))<cr>
-        nnoremap <c-\>t :sp <cr>:exec("cs find t ".expand("<cword>"))<cr>
-        nnoremap <c-\>e :sp <cr>:exec("cs find e ".expand("<cword>"))<cr>
-        nnoremap <c-\>f :sp <cr>:exec("cs find f ".expand("<cfile>"))<cr>
-        nnoremap <c-\>i :sp <cr>:exec("cs find i ".expand("<cfile>"))<cr>
-        nnoremap <c-\>d :sp <cr>:exec("cs find d ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\>s :vs <cr>:exec("cs find s ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\>g :vs <cr>:exec("cs find g ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\>c :vs <cr>:exec("cs find c ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\>t :vs <cr>:exec("cs find t ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\>e :vs <cr>:exec("cs find e ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\>f :vs <cr>:exec("cs find f ".expand("<cfile>"))<cr>
-        nnoremap <c-\><c-\>i :vs <cr>:exec("cs find i ".expand("<cfile>"))<cr>
-        nnoremap <c-\><c-\>d :vs <cr>:exec("cs find d ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\><c-\>s :tab <cr>:exec("cs find s ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\><c-\>g :tab <cr>:exec("cs find g ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\><c-\>c :tab <cr>:exec("cs find c ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\><c-\>t :tab <cr>:exec("cs find t ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\><c-\>e :tab <cr>:exec("cs find e ".expand("<cword>"))<cr>
-        nnoremap <c-\><c-\><c-\>f :tab <cr>:exec("cs find f ".expand("<cfile>"))<cr>
-        nnoremap <c-\><c-\><c-\>i :tab <cr>:exec("cs find i ".expand("<cfile>"))<cr>
-        nnoremap <c-\><c-\><c-\>d :tab <cr>:exec("cs find d ".expand("<cword>"))<cr>
     endif
 
 
@@ -882,10 +735,6 @@ filetype off
 " Work
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     function! WorkSettings()
-        " ca ge Gedit canon/master:%
-        " ca gt Gtabedit canon/master:%
-        " ca gs Gsplit canon/master:%
-        " ca gv Gvsplit canon/master:%
         ca pfe PairFileEdit
         ca pfte PairFileTabEdit
         ca pfse PairFileSplitEdit
