@@ -197,6 +197,10 @@ filetype off
     " don't make backup for certain directories, allows crontab -e on osx
     set backupskip=/tmp/*,/private/tmp/*
 
+    if v:version < 704
+        autocmd VimEnter * echoe "Outdated vim version: " . string(v:version)
+    endif
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM
