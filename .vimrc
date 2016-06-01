@@ -200,6 +200,7 @@ filetype off
     " don't make backup for certain directories, allows crontab -e on osx
     set backupskip=/tmp/*,/private/tmp/*
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " GVIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -248,6 +249,7 @@ filetype off
     " highlight current word under cursor
     " autocmd CursorMoved * silent! exe printf('match Search /\V\<%s\>/', escape(expand('<cword>'), '/\'))
     autocmd CursorMoved * silent! exe printf('match CursorLine  /\V\<%s\>/', escape(expand('<cword>'), '/\'))
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Files
