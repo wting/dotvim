@@ -505,8 +505,14 @@ filetype off
     ca cc80 sw=4 ts=4 sts=4 et nowrap linebreak nolist tw=76 cc=80
 
     " Move tabs left/right
-    nnoremap <silent> <s-left> :-tabmove<cr>
-    nnoremap <silent> <s-right> :+tabmove<cr>
+    if v:version >= 704
+        nnoremap <silent> <s-left> :-tabmove<cr>
+        nnoremap <silent> <s-right> :+tabmove<cr>
+    else
+        " NOTE(ting|2016-06-01): Only checked and working on Vim 7.03
+        nnoremap <silent> <s-left> :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+        nnoremap <silent> <s-right> :execute 'silent! tabmove ' . tabpagenr()<CR>
+    endif
 
     " duplicate current tab
     nnoremap <c-y> :tabnew %<cr>
