@@ -198,7 +198,7 @@ filetype off
     set backupskip=/tmp/*,/private/tmp/*
 
     if v:version < 704
-        autocmd VimEnter * echoe "Outdated vim version: " . string(v:version)
+        autocmd VimEnter * echom "Outdated vim version: " . string(v:version)
     endif
 
 
