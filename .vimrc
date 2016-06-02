@@ -104,8 +104,10 @@ filetype off
     syntax enable
 
     set ofu=syntaxcomplete#Complete
-    set history=1000
-    set undolevels=1000
+    set history=10000
+    set undolevels=10000
+    " multiple plugins are fucking with undolevels
+    auto BufNewFile,BufRead * setlocal undolevels=10000
     " change the terminal's title
     set title
     " allow backspace over everything
