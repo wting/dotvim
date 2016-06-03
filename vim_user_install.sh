@@ -2,7 +2,7 @@
 # Ubuntu requirements: ncurses-dev python-dev
 # Cygwin requirements: libncurses-devel python-dev
 
-# set -o errexit -o nounset -o pipefail
+set -o errexit -o nounset -o pipefail
 
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
@@ -21,14 +21,14 @@ else
     exit 1
 fi
 
-[[ -d "${tmp}" ]] || mkdir -vp ${tmp}
-[[ -d "${tmp}/vim_source" ]] && rm -fr "${tmp}/vim_source"
+mkdir -vp ${tmp}
+mkdir -vp ${dst}
 
 if [[ -d "${src}" ]]; then
     cd ${src}
-    git fetch origin --prune && git reset --hard origin/master || exit 1
+    git fetch origin --prune && git reset --hard origin/master
 else
-    git clone https://github.com/vim/vim.git ${src} || exit 1
+    git clone https://github.com/vim/vim.git ${src}
     cd ${src}
 fi
 
@@ -40,9 +40,9 @@ fi
     --enable-pythoninterp \
     --with-python-config-dir=${python_config} \
     --prefix="${dst}" \
-    --with-compiledby=$email || exit 1
+    --with-compiledby=${email}
 
-[[ -d "${dst}" ]] || mkdir -vp ${dst}
+make -j$(nproc) && make install
 
 make -j$(nproc) && make install || exit 1
 
