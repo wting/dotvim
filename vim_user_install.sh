@@ -44,11 +44,9 @@ fi
 
 make -j$(nproc) && make install
 
-make -j$(nproc) && make install || exit 1
-
-chmod +x ${dst}
-ln -sfv ${dst}/bin/vim     $HOME/bin
-ln -sfv ${dst}/bin/vimdiff $HOME/bin
+chmod +x ${dst}/bin/vim
+ln -sfv ${dst}/bin/vim     ${HOME}/bin
+ln -sfv ${dst}/bin/vimdiff ${HOME}/bin
 
 echo
 ${dst}/bin/vim --version | head | grep --color "7.."
