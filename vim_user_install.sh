@@ -48,10 +48,9 @@ ln -sfv $dst/bin/vim     $HOME/bin
 ln -sfv $dst/bin/vimdiff $HOME/bin
 
 echo
-$dst/bin/vim --version | head | grep --color "VIM - Vi IMproved 7.4"
-$dst/bin/vim --version | head | grep --color "Included patches"
-$dst/bin/vim --version | head | grep --color "Compiled by $email"
-$dst/bin/vim --version | grep -E --color "[-+]python"
+$dst/bin/vim --version | head | grep --color "7.."
+$dst/bin/vim --version | head | grep --color "1-.*"
+$dst/bin/vim --version | grep -E --color "[-+]python[0-9]?"
 echo -e "\ninstalled to: $dst\n"
 
 [[ -d ${old_dst} ]] && rm -fr ${old_dst}
