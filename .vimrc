@@ -472,7 +472,18 @@ filetype off
     vnoremap <leader>p "+p
     vnoremap <leader>P "+P
 
+    " ctrl-A to select all
     nnoremap <c-a> GVgg
+
+    " replace word under cursor in current buffer
+    " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor
+    nnoremap <leader>s :%s/\<<C-r><C-w>\>//<left>
+    nnoremap <leader>r :call g:ReplaceCurrentWord('')<left><left>
+
+    function! g:ReplaceCurrentWord(new_word)
+        execute '%s/'.expand('<cword>') . '/' . a:new_word . '/'
+        call feedkeys("\<c-o>")
+    endfunction
 
     " Use space instead of C-y for tab suggestion completion
     inoremap <expr> <space> pumvisible() ? "\<c-y>" : " "
