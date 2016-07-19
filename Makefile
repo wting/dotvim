@@ -27,7 +27,7 @@ plugins-upgrade: bundle/vundle
 	@echo "Installing plugins..."
 	vim +BundleUpdate +qall
 
-install: vundle fonts
+install: bundle/vundle fonts
 	@-[ -L ~/.vimrc ] && rm ~/.vimrc
 	@-[ -f ~/.vimrc ] && mv -v ~/.vimrc ~/.vimrc.bak.${RANDOM}
 	ln -sfv ~/.vim/.vimrc ~/.vimrc
