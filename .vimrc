@@ -84,7 +84,6 @@ filetype off
     " Syntax
     Plugin 'scrooloose/syntastic'
     Plugin 'rust-lang/rust.vim'
-    Plugin 'wting/cheetah.vim'
     Plugin 'tpope/vim-markdown'
     Plugin 'groenewege/vim-less'
     Plugin 'elzr/vim-json'
