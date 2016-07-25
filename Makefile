@@ -39,4 +39,5 @@ bundle/vundle:
 
 # required for powerline
 fonts:
-	fc-cache -vf ~/.fonts
+	# ignore for OSX
+	-fc-cache -vf ~/.fonts
