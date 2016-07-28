@@ -465,6 +465,7 @@ filetype off
 
     " yank and paste from system register / clipboard
     vnoremap <leader>y "+y
+    " FIXME(ting|2016-07-27): vnoremap <leader>YY :%yank "+y
     vnoremap <leader>d "+d
     nnoremap <leader>p "+p
     nnoremap <leader>P "+P
@@ -473,6 +474,10 @@ filetype off
 
     " ctrl-A to select all
     nnoremap <c-a> GVgg
+
+    " yank / delete entire buffer
+    nnoremap yY :%yank <c-r>=v:register<cr><cr>
+    nnoremap dD :%delete <c-r>=v:register<cr><cr>
 
     " replace word under cursor in current buffer
     " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor
