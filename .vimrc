@@ -397,7 +397,9 @@ filetype off
     nmap <c-p> <c-w>W
 
     " redraw screen and remove search highlights
-    nnoremap <silent> = :noh<cr>
+    nnoremap <silent> = :noh<cr>:syntax on<cr>
+    " overwrite normal c-l redraw to the do the same
+    nnoremap <c-l> = :noh<cr>:syntax on<cr>
 
     " navigate wrapped lines as if they're real lines
     nnoremap k gk
