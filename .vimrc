@@ -376,6 +376,8 @@ filetype off
     " misc
     ca ln lnext
     command! PrettyJSON set ft=json | :%!python -m json.tool
+    " requires libxml2-utils
+    command! PrettyXML set ft=xml | :%!XMLLINT_INDENT='    ' xmllint --format --recover -
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Moving Around
