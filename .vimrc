@@ -92,7 +92,7 @@ filetype off
     Plugin 'honza/dockerfile.vim'
     Plugin 'sophacles/vim-bundle-mako'
     Plugin 'dag/vim-fish'
-    " Plugin 'jnwhiteh/vim-golang'
+    Plugin 'smerrill/vcl-vim-plugin'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
