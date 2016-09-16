@@ -93,6 +93,7 @@ filetype off
     Plugin 'sophacles/vim-bundle-mako'
     Plugin 'dag/vim-fish'
     Plugin 'smerrill/vcl-vim-plugin'
+    Plugin 'cespare/vim-toml'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
