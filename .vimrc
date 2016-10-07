@@ -94,6 +94,7 @@ filetype off
     Plugin 'dag/vim-fish'
     Plugin 'smerrill/vcl-vim-plugin'
     Plugin 'cespare/vim-toml'
+    Plugin 'solarnz/thrift.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
