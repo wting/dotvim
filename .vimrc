@@ -62,7 +62,7 @@ filetype off
     Plugin 'sjl/gundo.vim'
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'majutsushi/tagbar'
-    Plugin 'ryanss/vim-hackernews'
+    Plugin 'wting/vim-hackernews'
     " currently broken
     " Plugin 'Konfekt/FastFold'
     " Plugin 'xolox/vim-easytags'
