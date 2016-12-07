@@ -720,6 +720,7 @@ filetype off
     let g:syntastic_haskell_ghc_mod_quiet_messages = {
         \ 'level': 'warnings',
         \ 'regex': 'Defined by not used', }
+    let g:syntastic_javascript_checkers = ['eslint']
     let g:syntastic_python_checkers = ['flake8']
     " let g:syntastic_python_flake8_args = '--config=$HOME/.config/flake8'
     let g:syntastic_python_flake8_args = '--max-line-length=131 --max-complexity=10'
