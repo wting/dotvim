@@ -63,6 +63,7 @@ filetype off
     Plugin 'Lokaltog/vim-easymotion'
     Plugin 'majutsushi/tagbar'
     Plugin 'wting/vim-hackernews'
+    Plugin 'roxma/vim-paste-easy'
     " currently broken
     " Plugin 'Konfekt/FastFold'
     " Plugin 'xolox/vim-easytags'
