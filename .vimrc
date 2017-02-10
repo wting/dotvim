@@ -96,6 +96,7 @@ filetype off
     Plugin 'smerrill/vcl-vim-plugin'
     Plugin 'cespare/vim-toml'
     Plugin 'solarnz/thrift.vim'
+    Plugin 'elubow/cql-vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
