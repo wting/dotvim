@@ -97,6 +97,7 @@ filetype off
     Plugin 'cespare/vim-toml'
     Plugin 'solarnz/thrift.vim'
     Plugin 'elubow/cql-vim'
+    Plugin 'leafgarland/typescript-vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
