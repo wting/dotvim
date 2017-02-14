@@ -98,6 +98,7 @@ filetype off
     Plugin 'solarnz/thrift.vim'
     Plugin 'elubow/cql-vim'
     Plugin 'leafgarland/typescript-vim'
+    Plugin 'lambdatoast/elm.vim'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
