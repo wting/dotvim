@@ -7,7 +7,7 @@ set -o errexit -o nounset -o pipefail
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
 src="${tmp}/src"
-dst=$HOME/bin/vim-7.4
+dst=$HOME/bin/vim-8.0
 python27_config=/usr/lib/python2.7/config-x86_64-linux-gnu
 python26_config=/usr/lib/python2.6/config
 python_config=
