@@ -490,11 +490,21 @@ filetype off
     " replace word under cursor in current buffer
     " http://vim.wikia.com/wiki/Search_and_replace_the_word_under_the_cursor
     nnoremap <leader>s :%s/\<<C-r><C-w>\>//<left>
-    nnoremap <leader>r :call g:ReplaceCurrentWord('')<left><left>
+    nnoremap <leader>B :call g:ReplaceCurrentWord('', 'buffers')<c-left><left><left><left>
+    nnoremap <leader>R :call g:ReplaceCurrentWord('', 'buffer')<c-left><left><left><left>
+    nnoremap <leader>r :call g:ReplaceCurrentWord('', 'line')<c-left><left><left><left>
 
-    function! g:ReplaceCurrentWord(new_word)
-        execute '%s/'.expand('<cword>') . '/' . a:new_word . '/'
-        call feedkeys("\<c-o>")
+    function! g:ReplaceCurrentWord(new_word, scope)
+        if a:scope ==# 'buffer'
+            execute '%s/'.expand('<cword>') . '/' . a:new_word . '/'
+            call feedkeys("\<c-o>")
+        elseif a:scope ==# 'line'
+            execute 's/'.expand('<cword>') . '/' . a:new_word . '/'
+            call feedkeys("\<c-o>")
+        elseif a:scope ==# 'buffers'
+            execute 'bufdo! %s/'.expand('<cword>') . '/' . a:new_word . '/'
+
+        endif
     endfunction
 
     " Use space instead of C-y for tab suggestion completion
