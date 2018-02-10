@@ -99,6 +99,8 @@ filetype off
     Plugin 'elubow/cql-vim'
     Plugin 'leafgarland/typescript-vim'
     Plugin 'lambdatoast/elm.vim'
+    Plugin 'pangloss/vim-javascript'
+    Plugin 'mxw/vim-jsx'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
