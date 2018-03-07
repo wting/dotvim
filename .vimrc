@@ -64,6 +64,7 @@ filetype off
     Plugin 'majutsushi/tagbar'
     Plugin 'wting/vim-hackernews'
     Plugin 'roxma/vim-paste-easy'
+    Plugin 'godlygeek/tabular'
     " currently broken
     " Plugin 'Konfekt/FastFold'
     " Plugin 'xolox/vim-easytags'
