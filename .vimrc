@@ -55,7 +55,9 @@ filetype off
     Plugin 'camelcasemotion'
     Plugin 'wting/nerdcommenter'
     Plugin 'wting/bufexplorer.vim'
-    Plugin 'wting/gitsessions.vim'
+    " Plugin 'wting/gitsessions.vim'
+    " NOTE(ting|2018-09-05): Test https://github.com/wting/gitsessions.vim/pull/18
+    Plugin 'Sevensidedmarble/gitsessions.vim'
     Plugin 'wting/pair_files.vim'
     Plugin 'kien/ctrlp.vim'
     Plugin 'FelikZ/ctrlp-py-matcher'
