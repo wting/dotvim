@@ -136,6 +136,7 @@ filetype off
     set scrolloff=4
     set nowrap
     set formatoptions=qrn1
+    set cmdwinheight=15
     if v:version >= 703 && has('patch541')
         set fo+=j
     endif
@@ -469,7 +470,9 @@ filetype off
     inoremap <c-u> <esc>gUiwi<esc>
 
     " insert lines above/below
-    nnoremap <cr> o<esc>
+    " or use vim-unimpaired and `[<space>` or `]<space>` to add new lines in
+    " normal mode
+    nnoremap <c-j> o<esc>
 
     " make Y behave like other capitals
     map Y y$
