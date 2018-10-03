@@ -67,8 +67,8 @@ filetype off
     Plugin 'godlygeek/tabular'
     " currently broken
     " Plugin 'Konfekt/FastFold'
-    " Plugin 'xolox/vim-easytags'
     " Plugin 'xolox/vim-misc'
+    Plugin 'soramugi/auto-ctags.vim'
 
     " Powerline
     Plugin 'tpope/vim-fugitive'
@@ -603,6 +603,29 @@ filetype off
     omap ie <Plug>CamelCaseMotion_ie
     xmap ie <Plug>CamelCaseMotion_ie
 
+    " auto-ctags.vim
+    let g:auto_ctags = 1
+    " let g:auto_ctags_directory_list = ['.git', '.hg', '.svn']
+    let g:auto_ctags_tags_name = 'tags'
+    let g:auto_ctags_tags_args = [
+        \ '--extra=+q',
+        \ '--fields=+iaS',
+        \ '--python-kinds=-i',
+        \ '--recurse=yes',
+        \ '--tag-relative=yes',
+        \ '--sort=yes',
+        \ '--exclude=.git',
+        \ '--exclude=.tox',
+        \ '--exclude=build',
+        \ '--exclude=css',
+        \ '--exclude=logs',
+        \ '--exclude=sandbox*',
+        \ '--exclude=tmp',
+        \ '--exclude=virtualenv*',
+        \ '--exclude=*.egg-info',
+        \ '--exclude=*_thrift',
+    \ ]
+
     " BufExplorer
     nnoremap <leader>be :tabnew \| BufExplorer<cr>
     ca be tabnew \| BufExplorer
@@ -713,7 +736,7 @@ filetype off
         \ ['10',        '#00ff00'],
         \ ['45',        '#00dfff'],
         \ ['9',         '#ff0000'],
-        \ ]
+    \ ]
 
     augroup RainbowParentheses
         au!
