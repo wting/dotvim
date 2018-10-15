@@ -605,6 +605,7 @@ filetype off
 
     " auto-ctags.vim
     let g:auto_ctags = 1
+    " FIXME: use a universal tag directory
     " let g:auto_ctags_directory_list = ['.git', '.hg', '.svn']
     let g:auto_ctags_tags_name = 'tags'
     let g:auto_ctags_tags_args = [
