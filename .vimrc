@@ -68,7 +68,8 @@ filetype off
     " currently broken
     " Plugin 'Konfekt/FastFold'
     " Plugin 'xolox/vim-misc'
-    Plugin 'soramugi/auto-ctags.vim'
+    " FIXME(wting|2018-11-26): disabled until tags.lock is fixed
+    " Plugin 'soramugi/auto-ctags.vim'
 
     " Powerline
     Plugin 'tpope/vim-fugitive'
