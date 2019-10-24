@@ -10,6 +10,7 @@ src="${tmp}/src"
 dst=$HOME/bin/vim-8.0
 python35_config=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu
 python27_config=/usr/lib/python2.7/config-x86_64-linux-gnu
+python27_osx_config=/usr/lib/python2.7/config
 python26_config=/usr/lib/python2.6/config
 python_config=
 
@@ -17,6 +18,8 @@ if [ -d "${python35_config}" ]; then
     python_config=${python35_config}
 elif [ -d "${python27_config}" ]; then
     python_config=${python27_config}
+elif [ -d "${python27_osx_config}" ]; then
+    python_config=${python27_osx_config}
 elif [ -d "${python26_config}" ]; then
     python_config=${python26_config}
 else
