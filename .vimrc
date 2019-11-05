@@ -657,7 +657,7 @@ filetype off
         \ }
     " use external tools for finding files, faster for large directories
     if executable('rg')
-        let g:ctrlp_user_command = 'cd %s && rg --files-with-matches --color never -e ""'
+        let g:ctrlp_user_command = 'cd %s && rg --files-with-matches --smart-case --color never -e ""'
     else
         let g:ctrlp_user_command = {
             \ 'types': {
