@@ -656,23 +656,27 @@ filetype off
         \ 'AcceptSelection("h")': ['<c-s>', '<c-x>'],
         \ }
     " use external tools for finding files, faster for large directories
-    let g:ctrlp_user_command = {
-        \ 'types': {
-            \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
-            \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
-        \ },
-        \ 'fallback': "find %s " .
-            \ "-type f " .
-            \ "-regextype posix-egrep " .
-            \ "! -path './.hg/*' " .
-            \ "! -path './.git/*' " .
-            \ "! -path './.svn/*' " .
-            \ "! -path './.tox/*' " .
-            \ "! -path '*.egg-info*/*' " .
-            \ "! -path '*.build.*' " .
-            \ "! -path './venv*/*' " .
-            \ "! -path './virtualenv*/*'"
-        \ }
+    if executable('rg')
+        let g:ctrlp_user_command = 'cd %s && rg --files-with-matches --color never -e ""'
+    else
+        let g:ctrlp_user_command = {
+            \ 'types': {
+                \ 1: ['.git', 'cd %s && git ls-files --cached --exclude-standard --others'],
+                \ 2: ['.hg', 'hg --cwd %s status -numac -I . $(hg root)'],
+            \ },
+            \ 'fallback': "find %s " .
+                \ "-type f " .
+                \ "-regextype posix-egrep " .
+                \ "! -path './.hg/*' " .
+                \ "! -path './.git/*' " .
+                \ "! -path './.svn/*' " .
+                \ "! -path './.tox/*' " .
+                \ "! -path '*.egg-info*/*' " .
+                \ "! -path '*.build.*' " .
+                \ "! -path './venv*/*' " .
+                \ "! -path './virtualenv*/*'"
+            \ }
+    endif
 
     " CSApprox
     let g:CSApprox_verbose_level = 0
