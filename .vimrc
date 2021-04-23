@@ -791,7 +791,7 @@ filetype off
     let g:UltiSnipsJumpBackwardTrigger = '<s-tab>'
 
     " vim-fugitive
-    ca gb Gblame -w
+    ca gb Git blame -w
     ca ge Gedit origin/master:%
     ca gt Gtabedit origin/master:%
     ca gs Gsplit origin/master:%
