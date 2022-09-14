@@ -8,13 +8,17 @@ email="io@williamting.com"
 tmp=$HOME/.vim/tmp
 src="${tmp}/src"
 dst=$HOME/bin/vim-8.0
+# find where python/config.c lives
+python310_osx_homebrew_config=/opt/homebrew//Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin
 python35_config=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu
 python27_config=/usr/lib/python2.7/config-x86_64-linux-gnu
 python27_osx_config=/usr/lib/python2.7/config
 python26_config=/usr/lib/python2.6/config
 python_config=
 
-if [ -d "${python35_config}" ]; then
+if [ -d "${python310_osx_homebrew_config}" ]; then
+    python_config=${python310_osx_homebrew_config}
+elif [ -d "${python35_config}" ]; then
     python_config=${python35_config}
 elif [ -d "${python27_config}" ]; then
     python_config=${python27_config}
