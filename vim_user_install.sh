@@ -1,32 +1,48 @@
 #!/bin/bash
-# Ubuntu requirements: ncurses-dev python-dev
-# Cygwin requirements: libncurses-devel python-dev
+# Ubuntu requirements: python-dev python3-dev
+# OSX requirements: python via homebrew
 
 set -o errexit -o nounset -o pipefail
 
 email="io@williamting.com"
 tmp=$HOME/.vim/tmp
 src="${tmp}/src"
-dst=$HOME/bin/vim-8.0
-# find where python/config.c lives
-python310_osx_homebrew_config=/opt/homebrew//Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin
-python35_config=/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu
-python27_config=/usr/lib/python2.7/config-x86_64-linux-gnu
-python27_osx_config=/usr/lib/python2.7/config
-python26_config=/usr/lib/python2.6/config
-python_config=
+dst=$HOME/bin/vim-compiled
+# Find where python/config.c lives.
+# Potential Linux paths followed by OSX paths.
+declare -a potential_python2_config_paths=(
+    "/usr/lib/python2.7/config-x86_64-linux-gnu"
+    "/usr/lib/python2.7/config"
+    "/usr/lib/python2.6/config"
+)
 
-if [ -d "${python310_osx_homebrew_config}" ]; then
-    python_config=${python310_osx_homebrew_config}
-elif [ -d "${python35_config}" ]; then
-    python_config=${python35_config}
-elif [ -d "${python27_config}" ]; then
-    python_config=${python27_config}
-elif [ -d "${python27_osx_config}" ]; then
-    python_config=${python27_osx_config}
-elif [ -d "${python26_config}" ]; then
-    python_config=${python26_config}
-else
+python2_config=
+for potential_config_path in "${potential_python2_config_paths[@]}"; do
+    if [ -d "${potential_config_path}" ]; then
+        echo "found python2 config_path=${potential_config_path}"
+        python2_config=${potential_config_path}
+        break
+    fi
+done
+
+declare -a potential_python3_config_paths=(
+    "/usr/lib/python3.10/config-3.10-x86_64-linux-gnu"
+    "/usr/lib/python3.9/config-3.9-x86_64-linux-gnu"
+    "/usr/lib/python3.8/config-3.8-x86_64-linux-gnu"
+    "/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
+    "/opt/homebrew//Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
+)
+
+python3_config=
+for potential_config_path in "${potential_python3_config_paths[@]}"; do
+    if [ -d "${potential_config_path}" ]; then
+        echo "found python3 config_path=${potential_config_path}"
+        python3_config=${potential_config_path}
+        break
+    fi
+done
+
+if [[ "${python2_config}" == "" && "${python3_config}" == "" ]]; then
     echo "Could not find Python config directory."
     exit 1
 fi
@@ -47,10 +63,13 @@ fi
     --enable-gui=no \
     --enable-multibyte \
     --enable-cscope \
-    --enable-pythoninterp \
-    --with-python-config-dir=${python_config} \
+    --enable-pythoninterp=yes \
+    --with-python-config-dir=${python2_config} \
+    --enable-python3interp=yes \
+    --with-python3-config-dir=${python3_config} \
     --prefix="${dst}" \
     --with-compiledby=${email}
+
 
 make -j$(nproc) && make install
 
