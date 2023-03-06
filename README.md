@@ -5,7 +5,7 @@ My personal .vimrc and collection of plugins and themes.
 
 1. Clone the repository.
 
-        git clone git://github.com/wting/dotvim.git ~/.vim
+        git clone https://github.com/wting/dotvim.git ~/.vim
 
 2. Symlink ~/.vimrc and install the Vundle plugin.
 
