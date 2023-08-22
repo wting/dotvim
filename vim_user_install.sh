@@ -32,6 +32,7 @@ declare -a potential_python3_config_paths=(
     "/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
     "/usr/local/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
     "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
+    "/opt/homebrew/Cellar/python@3.11/3.11.4_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/config-3.11-darwin"
 )
 
 python3_config=
