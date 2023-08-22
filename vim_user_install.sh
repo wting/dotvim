@@ -60,6 +60,8 @@ else
     cd ${src}
 fi
 
+make distclean
+
 ./configure \
     --with-features=huge \
     --enable-gui=no \
