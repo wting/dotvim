@@ -25,14 +25,17 @@ for potential_config_path in "${potential_python2_config_paths[@]}"; do
     fi
 done
 
+# Find where Python lib files are located:
+# python3 -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))"
 declare -a potential_python3_config_paths=(
     "/usr/lib/python3.10/config-3.10-x86_64-linux-gnu"
     "/usr/lib/python3.9/config-3.9-x86_64-linux-gnu"
     "/usr/lib/python3.8/config-3.8-x86_64-linux-gnu"
     "/usr/lib/python3.5/config-3.5m-x86_64-linux-gnu"
-    "/usr/local/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
-    "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
+    "/opt/homebrew/opt/python@3.13/Frameworks/Python.framework/Versions/3.13/lib"
     "/opt/homebrew/Cellar/python@3.11/3.11.4_1/Frameworks/Python.framework/Versions/3.11/lib/python3.11/config-3.11-darwin"
+    "/opt/homebrew/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
+    "/usr/local/Cellar/python@3.10/3.10.6_2/Frameworks/Python.framework/Versions/3.10/lib/python3.10/config-3.10-darwin"
 )
 
 python3_config=
