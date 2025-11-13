@@ -40,6 +40,11 @@ declare -a potential_python3_config_paths=(
 
 python3_config=
 for potential_config_path in "${potential_python3_config_paths[@]}"; do
+    if [ -d $(python3 -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))") ]; then
+        echo "found python3 config_path=${potential_config_path}"
+        python3_config=${potential_config_path}
+        break
+    fi
     if [ -d "${potential_config_path}" ]; then
         echo "found python3 config_path=${potential_config_path}"
         python3_config=${potential_config_path}
